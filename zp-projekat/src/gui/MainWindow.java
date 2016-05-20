@@ -53,8 +53,10 @@ public class MainWindow extends javax.swing.JFrame {
         keyNameTextField = new javax.swing.JTextField();
         privateKeyLabel = new javax.swing.JLabel();
         keySizeTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        keySizeLabel = new javax.swing.JLabel();
         keyGenerationLabel = new javax.swing.JLabel();
+        keyDisplayPanel = new javax.swing.JPanel();
+        keyDisplayLabel = new javax.swing.JLabel();
         statusBarTextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -66,6 +68,7 @@ public class MainWindow extends javax.swing.JFrame {
         setLocation(new java.awt.Point(0, 0));
         setName("Window"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setSize(new java.awt.Dimension(800, 600));
 
         tabsPanel.setName("tabsPanel"); // NOI18N
 
@@ -73,11 +76,11 @@ public class MainWindow extends javax.swing.JFrame {
         certificateTab.setLayout(certificateTabLayout);
         certificateTabLayout.setHorizontalGroup(
             certificateTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         certificateTabLayout.setVerticalGroup(
             certificateTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         tabsPanel.addTab("Certificate", certificateTab);
@@ -122,8 +125,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         saveKeyButton.setText("Save Key Pair");
 
+        publicKeyTextField.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         publicKeyTextField.setEnabled(false);
-        publicKeyTextField.setSelectionColor(new java.awt.Color(0, 0, 0));
         publicKeyTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 publicKeyTextFieldActionPerformed(evt);
@@ -137,6 +140,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        privateKeyTextField.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         privateKeyTextField.setEnabled(false);
 
         publicKeyLabel.setText("Public key:");
@@ -151,7 +155,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         privateKeyLabel.setText("Private key:");
 
-        jLabel1.setText("Key size:");
+        keySizeLabel.setText("Key size:");
 
         javax.swing.GroupLayout keyGenerationPanelLayout = new javax.swing.GroupLayout(keyGenerationPanel);
         keyGenerationPanel.setLayout(keyGenerationPanelLayout);
@@ -160,13 +164,11 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyGenerationPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(saveKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                         .addComponent(privateKeyLabel)
-                        .addGap(10, 10, 10)
-                        .addComponent(privateKeyTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(privateKeyTextField)
+                        .addContainerGap())
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(keyNameLabel)
@@ -174,18 +176,22 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                                 .addGap(17, 17, 17)
-                                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(publicKeyTextField)
-                                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
-                                        .addComponent(generateKeysButton)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(generateKeysButton)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(keyNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(keySizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                                        .addComponent(keyNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(80, 80, 80)
+                                        .addComponent(keySizeLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(keySizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(publicKeyTextField))
+                                .addContainerGap())))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyGenerationPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(saveKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         keyGenerationPanelLayout.setVerticalGroup(
@@ -196,7 +202,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(keyNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(keyNameLabel)
                     .addComponent(keySizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(keySizeLabel))
                 .addGap(18, 18, 18)
                 .addComponent(generateKeysButton)
                 .addGap(18, 18, 18)
@@ -207,12 +213,27 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(privateKeyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(privateKeyLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(saveKeyButton)
                 .addContainerGap())
         );
 
         keyGenerationLabel.setText("Key Generation");
+
+        keyDisplayPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout keyDisplayPanelLayout = new javax.swing.GroupLayout(keyDisplayPanel);
+        keyDisplayPanel.setLayout(keyDisplayPanelLayout);
+        keyDisplayPanelLayout.setHorizontalGroup(
+            keyDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        keyDisplayPanelLayout.setVerticalGroup(
+            keyDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 273, Short.MAX_VALUE)
+        );
+
+        keyDisplayLabel.setText("Key Display");
 
         javax.swing.GroupLayout keysTabLayout = new javax.swing.GroupLayout(keysTab);
         keysTab.setLayout(keysTabLayout);
@@ -221,35 +242,53 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keysTabLayout.createSequentialGroup()
                 .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(keysTabLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(keyGenerationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(keysTabLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(keyGenerationLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(keysTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(keyDisplayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(keysTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(keyGenerationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18))
                     .addGroup(keysTabLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(keyGenerationLabel)
+                        .addGap(31, 31, 31)
+                        .addComponent(keyDisplayLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(importExportPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(generatedKeysListScrollPanel)
-                    .addComponent(generatedKeysLabel))
-                .addContainerGap())
+                .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keysTabLayout.createSequentialGroup()
+                        .addComponent(generatedKeysLabel)
+                        .addGap(113, 113, 113))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keysTabLayout.createSequentialGroup()
+                        .addComponent(generatedKeysListScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(keysTabLayout.createSequentialGroup()
+                        .addComponent(importExportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         keysTabLayout.setVerticalGroup(
             keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(keysTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(generatedKeysLabel)
-                    .addComponent(keyGenerationLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(keyGenerationLabel)
+                    .addComponent(generatedKeysLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(generatedKeysListScrollPanel)
                     .addGroup(keysTabLayout.createSequentialGroup()
                         .addComponent(keyGenerationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 82, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(importExportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                        .addGap(7, 7, 7)
+                        .addComponent(keyDisplayLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(keyDisplayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(keysTabLayout.createSequentialGroup()
+                        .addComponent(generatedKeysListScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(importExportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26))
         );
 
         tabsPanel.addTab("Keys", keysTab);
@@ -309,12 +348,13 @@ public class MainWindow extends javax.swing.JFrame {
                     .encodeToString(keys.getPublic().getEncoded()));
             privateKeyTextField.setText(Base64.getEncoder()
                     .encodeToString(keys.getPrivate().getEncoded()));
+            
+            statusBarTextField.setText("");
         } catch (NumberFormatException e) {
             statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT);
         } catch (InvalidParameterException e) {
             statusBarTextField.setText(Errors.KEY_SIZE_TOO_SMALL);
         }
-          
     }//GEN-LAST:event_generateKeysButtonActionPerformed
 
     private void publicKeyTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publicKeyTextFieldActionPerformed
@@ -344,15 +384,17 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane generatedKeysListScrollPanel;
     private javax.swing.JButton importButton;
     private javax.swing.JPanel importExportPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel keyDisplayLabel;
+    private javax.swing.JPanel keyDisplayPanel;
     private javax.swing.JLabel keyGenerationLabel;
     private javax.swing.JPanel keyGenerationPanel;
     private javax.swing.JLabel keyNameLabel;
     private javax.swing.JTextField keyNameTextField;
+    private javax.swing.JLabel keySizeLabel;
     private javax.swing.JTextField keySizeTextField;
     private javax.swing.JPanel keysTab;
     private javax.swing.JLabel privateKeyLabel;
