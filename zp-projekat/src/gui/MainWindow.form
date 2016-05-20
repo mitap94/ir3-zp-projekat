@@ -125,7 +125,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="keyGenerationLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="495" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -306,7 +306,10 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="keyNameTextField" min="-2" pref="172" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="305" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="keySizeTextField" min="-2" pref="172" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -322,6 +325,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="keyNameTextField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="keyNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="keySizeTextField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="generateKeysButton" min="-2" max="-2" attributes="0"/>
@@ -351,6 +356,9 @@
                 <Component class="javax.swing.JTextField" name="publicKeyTextField">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="publicKeyTextFieldActionPerformed"/>
@@ -387,6 +395,13 @@
                 <Component class="javax.swing.JLabel" name="privateKeyLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Private key:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="keySizeTextField">
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Key size:"/>
                   </Properties>
                 </Component>
               </SubComponents>

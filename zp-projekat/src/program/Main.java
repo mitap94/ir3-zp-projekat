@@ -5,6 +5,8 @@
  */
 package program;
 
+import crypto.CertManager;
+import crypto.CertManagerImpl;
 import gui.MainWindow;
 
 /**
@@ -13,11 +15,10 @@ import gui.MainWindow;
  */
 public class Main {
      public static void main(String argv[]) {
-        new MainWindow().setVisible(true);
-        System.out.println("Test");
-        // Test2.
-        // Test3.
-        // Test4.
+        CertManager manager = new CertManagerImpl();
+        MainWindow mainWindow = new MainWindow(manager);
+        mainWindow.setVisible(true);
+       
         
     }
 }

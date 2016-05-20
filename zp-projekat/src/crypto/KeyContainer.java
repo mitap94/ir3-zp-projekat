@@ -11,17 +11,20 @@ public class KeyContainer {
     
     private String keyName;
     private KeyPair keys;
+    private int keySize;
     private boolean signed;
 
-    public KeyContainer(String keyName, KeyPair keys, boolean signed) {
+    public KeyContainer(String keyName, KeyPair keys, int keySize, boolean signed) {
         this.keyName = keyName;
         this.keys = keys;
+        this.keySize = keySize;
         this.signed = signed;
     }
     
-    public KeyContainer(String keyName, KeyPair keys) {
+    public KeyContainer(String keyName, KeyPair keys, int keySize) {
         this.keyName = keyName;
         this.keys = keys;
+        this.keySize = keySize;
         this.signed = false;
     }
 
@@ -39,6 +42,14 @@ public class KeyContainer {
 
     public void setKeys(KeyPair keys) {
         this.keys = keys;
+    }
+
+    public int getKeySize() {
+        return keySize;
+    }
+
+    public void setKeySize(int keySize) {
+        this.keySize = keySize;
     }
 
     public boolean isSigned() {
