@@ -112,7 +112,6 @@ public class MainWindow extends javax.swing.JFrame {
         saveKeyButton.setText("Save Key Pair");
 
         publicKeyTextField.setEnabled(false);
-        publicKeyTextField.setPreferredSize(new java.awt.Dimension(6, 20));
         publicKeyTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 publicKeyTextFieldActionPerformed(evt);
@@ -162,7 +161,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(publicKeyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(publicKeyTextField)
                                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                                         .addComponent(generateKeysButton)
                                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -237,7 +236,6 @@ public class MainWindow extends javax.swing.JFrame {
         tabsPanel.addTab("Keys", keysTab);
 
         statusBarTextField.setEditable(false);
-        statusBarTextField.setBackground(new java.awt.Color(240, 240, 240));
         statusBarTextField.setBorder(null);
 
         jMenu1.setMnemonic('f');
