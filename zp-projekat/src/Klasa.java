@@ -12,6 +12,7 @@ public class Klasa {
     public static void main(String argv[]) {
         
         System.out.println("Test");
+        // Test2.
         
     }
 }
