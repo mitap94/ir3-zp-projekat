@@ -10,12 +10,12 @@ import java.security.KeyPair;
 public class CertManagerDummy implements CertManager {
 
     @Override
-    public KeyPair generateKeyPair() {
+    public KeyPair generateKeyPair(int keySize) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void importKeyPair(String path) {
+    public void importKeyPair(String path, String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
