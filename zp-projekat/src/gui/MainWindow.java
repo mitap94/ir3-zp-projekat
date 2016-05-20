@@ -165,7 +165,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(saveKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                         .addComponent(privateKeyLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(10, 10, 10)
                         .addComponent(privateKeyTextField))
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +182,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(keyNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(72, 72, 72)
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(keySizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -227,7 +227,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(keysTabLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(keyGenerationLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(keysTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(importExportPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generatedKeysListScrollPanel)
@@ -255,6 +255,8 @@ public class MainWindow extends javax.swing.JFrame {
         tabsPanel.addTab("Keys", keysTab);
 
         statusBarTextField.setEditable(false);
+        statusBarTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        statusBarTextField.setForeground(new java.awt.Color(255, 0, 0));
         statusBarTextField.setBorder(null);
 
         jMenu1.setMnemonic('f');
@@ -283,8 +285,8 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabsPanel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(statusBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
