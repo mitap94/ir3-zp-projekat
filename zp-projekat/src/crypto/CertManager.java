@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package crypto;
 
 /**
@@ -10,5 +5,9 @@ package crypto;
  * @author Mita
  */
 public interface CertManager {
+    
+    void generateKeyPair();  // Generates private-public key pair.
+    void importKeyPair(String path);  // Imports key pair from file specified by path.
+    void exportKeyPair(String path);  // Exports key pair to file specified by path.
     
 }
