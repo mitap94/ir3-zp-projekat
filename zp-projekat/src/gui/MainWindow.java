@@ -310,9 +310,9 @@ public class MainWindow extends javax.swing.JFrame {
             privateKeyTextField.setText(Base64.getEncoder()
                     .encodeToString(keys.getPrivate().getEncoded()));
         } catch (NumberFormatException e) {
-            statusBarTextField.setText("PISTA!");
+            statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT);
         } catch (InvalidParameterException e) {
-            statusBarTextField.setText("Kljuc mora biti barem 512 bita!");
+            statusBarTextField.setText(Errors.KEY_SIZE_TOO_SMALL);
         }
           
     }//GEN-LAST:event_generateKeysButtonActionPerformed
