@@ -41,9 +41,6 @@
       <Dimension value="[860, 640]"/>
     </Property>
     <Property name="name" type="java.lang.String" value="Window" noResource="true"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[860, 640]"/>
-    </Property>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[860, 640]"/>
     </Property>
@@ -251,11 +248,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Import"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="exportButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Export"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

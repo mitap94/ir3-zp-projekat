@@ -7,6 +7,8 @@ import crypto.CertManager;
 import crypto.KeyContainer;
 import java.security.InvalidParameterException;
 import java.util.Base64;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -68,7 +70,6 @@ public class MainWindow extends javax.swing.JFrame {
         setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(860, 640));
         setName("Window"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(860, 640));
         setSize(new java.awt.Dimension(860, 640));
 
         tabsPanel.setMinimumSize(new java.awt.Dimension(795, 560));
@@ -96,8 +97,18 @@ public class MainWindow extends javax.swing.JFrame {
         generatedKeysLabel.setText("Generated keys");
 
         importButton.setText("Import");
+        importButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importButtonActionPerformed(evt);
+            }
+        });
 
         exportButton.setText("Export");
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout importExportPanelLayout = new javax.swing.GroupLayout(importExportPanel);
         importExportPanel.setLayout(importExportPanelLayout);
@@ -361,10 +372,10 @@ public class MainWindow extends javax.swing.JFrame {
             statusBarTextField.setText(Messages.SUCCESSFUL_KEY_GENERATION);
         
         } catch (NumberFormatException e) {
-            statusBarTextField.setForeground(Color.red);
+            statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT);
         } catch (InvalidParameterException e) {
-            statusBarTextField.setForeground(Color.red);
+            statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.KEY_SIZE_TOO_SMALL);
         }
     }//GEN-LAST:event_generateKeysButtonActionPerformed
@@ -376,6 +387,34 @@ public class MainWindow extends javax.swing.JFrame {
     private void statusBarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBarTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statusBarTextFieldActionPerformed
+
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "PCKS#12", "jpg");
+        fileChooser.setFileFilter(filter);
+        int returnVal = fileChooser.showSaveDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            statusBarTextField.setForeground(Messages.COLOR);
+            statusBarTextField.setText(Messages.SUCCESSFUL_EXPORT + fileChooser.getSelectedFile().getName());
+        }
+        // IZVOZ...
+        
+    }//GEN-LAST:event_exportButtonActionPerformed
+
+    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "PCKS#12", "jpg");
+        fileChooser.setFileFilter(filter);
+        int returnVal = fileChooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            statusBarTextField.setForeground(Messages.COLOR);
+            statusBarTextField.setText(Messages.SUCCESSFUL_IMPORT + fileChooser.getSelectedFile().getName());
+        }
+        // UVOZ...
+        
+    }//GEN-LAST:event_importButtonActionPerformed
     
     public void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
