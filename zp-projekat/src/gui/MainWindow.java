@@ -134,6 +134,11 @@ public class MainWindow extends javax.swing.JFrame {
         keyGenerationPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         saveKeyButton.setText("Save Key Pair");
+        saveKeyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveKeyButtonActionPerformed(evt);
+            }
+        });
 
         publicKeyTextField.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         publicKeyTextField.setEnabled(false);
@@ -373,7 +378,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         } catch (NumberFormatException e) {
             statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT);
+            statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT + " " + Errors.KEY_SIZE_FORMAT);
         } catch (InvalidParameterException e) {
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.KEY_SIZE_TOO_SMALL);
@@ -396,7 +401,8 @@ public class MainWindow extends javax.swing.JFrame {
         int returnVal = fileChooser.showSaveDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             statusBarTextField.setForeground(Messages.COLOR);
-            statusBarTextField.setText(Messages.SUCCESSFUL_EXPORT + fileChooser.getSelectedFile().getName());
+            statusBarTextField.setText(Messages.SUCCESSFUL_EXPORT + fileChooser
+                    .getSelectedFile().getName());
         }
         // IZVOZ...
         
@@ -410,16 +416,29 @@ public class MainWindow extends javax.swing.JFrame {
         int returnVal = fileChooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             statusBarTextField.setForeground(Messages.COLOR);
-            statusBarTextField.setText(Messages.SUCCESSFUL_IMPORT + fileChooser.getSelectedFile().getName());
+            statusBarTextField.setText(Messages.SUCCESSFUL_IMPORT + fileChooser
+                    .getSelectedFile().getName());
         }
         // UVOZ...
         
     }//GEN-LAST:event_importButtonActionPerformed
+
+    private void saveKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveKeyButtonActionPerformed
+        String keyName = keyNameTextField.getText().trim();
+        if (!keyName.isEmpty()) {
+            
+        }
+        else {
+            statusBarTextField.setForeground(Errors.COLOR);
+            statusBarTextField.setText(Errors.NO_KEY_NAME_SPECIFIED);
+        }
+    }//GEN-LAST:event_saveKeyButtonActionPerformed
     
     public void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
-        leftCornerAnchor = new Point((int)(screenSize.width/2 - frameSize.width/2), (int)(screenSize.height/2 - frameSize.height/2));
+        leftCornerAnchor = new Point((int)(screenSize.width/2 - frameSize.width/2),
+                (int)(screenSize.height/2 - frameSize.height/2));
         setLocation(leftCornerAnchor);
     }
     
