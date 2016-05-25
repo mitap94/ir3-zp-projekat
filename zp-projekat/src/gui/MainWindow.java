@@ -598,7 +598,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "PCKS#12", "jpg");
+        "PCKS#12", "p12");
         fileChooser.setFileFilter(filter);
         int returnVal = fileChooser.showSaveDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -666,7 +666,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Dimension frameSize;
     private Point leftCornerAnchor;
     
-    private CertManager manager;
+    private final CertManager manager;
     private KeyContainer keyContainer;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

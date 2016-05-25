@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package program;
 
 import crypto.CertManager;
 import crypto.CertManagerImpl;
 import gui.MainWindow;
+import gui.PopupWindow;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +12,14 @@ import gui.MainWindow;
  */
 public class Main {
      public static void main(String argv[]) {
+        
         CertManager manager = new CertManagerImpl("store.p12", "PISTA");
         manager.init();
-        MainWindow mainWindow = new MainWindow(manager);
-        mainWindow.setVisible(true);
+        PopupWindow popupWindow = new PopupWindow();
+        popupWindow.setVisible(true);
+        
+        // CertManager manager = popupWindow.getCertManager();
+        // MainWindow mainWindow = new MainWindow(manager);
+        // mainWindow.setVisible(true);
      }
 }
