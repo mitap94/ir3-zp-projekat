@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -12,6 +13,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
+
+import crypto.utils.KeyStoreFileTool;
 
 /**
  * CertManager interface implementation.
@@ -114,7 +117,21 @@ public class CertManagerImpl implements CertManager {
     @Override
     public void exportCertificate(String filePath, String filePassword, KeyStore keyPair,
             boolean aesEncrypted, String aesPassword) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
+            KeyStoreFileTool.IO_OUTPUT);
+        boolean fileToolInitialized = fileTool.init();
+        
+        if (fileToolInitialized) {
+            OutputStream outputStream = fileTool.getOutputStream();
+            try {
+                keyPair.store(outputStream, filePassword.toCharArray());
+            } catch (Exception e) {  // TODO(popovicu): don't crash the program.
+                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
+                System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
+            }
+        }
+        
+        fileTool.close();
     }
     
 }
