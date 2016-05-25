@@ -21,9 +21,7 @@ import java.security.cert.CertificateException;
 public class CertManagerImpl implements CertManager {
     
     private static String ENCRYPTION_ALGORITHM = "RSA";
-    private static String KEYSTORE_FILE = "my_keystore";
     private static String KEYSTORE_TYPE = "pkcs12";
-    private static String KEYSTORE_PASSWORD = "pista";
     
     private String keyStoreFilePath, keyStorePassword;
     private KeyStore keyStore;
@@ -33,6 +31,7 @@ public class CertManagerImpl implements CertManager {
         this.keyStorePassword = keyStorePassword; 
     }
     
+    @Override
     public void init() {
         // Initiastaticlizes the key store.
         try {
@@ -64,9 +63,9 @@ public class CertManagerImpl implements CertManager {
     }
     
     private void loadKeyStoreFromFile() throws FileNotFoundException, IOException {
-        FileInputStream inputStream = new FileInputStream(KEYSTORE_FILE);
+        FileInputStream inputStream = new FileInputStream(keyStoreFilePath);
         try {
-            keyStore.load(inputStream, KEYSTORE_PASSWORD.toCharArray());
+            keyStore.load(inputStream, keyStorePassword.toCharArray());
         } catch (CertificateException | NoSuchAlgorithmException e) {
             System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
             System.exit(Errors.KEY_STORE_ERROR_CODE);
@@ -78,10 +77,10 @@ public class CertManagerImpl implements CertManager {
     }
     
     private void createNewKeyStore() throws FileNotFoundException, IOException {
-        FileOutputStream outputStream = new FileOutputStream(KEYSTORE_FILE);
+        FileOutputStream outputStream = new FileOutputStream(keyStoreFilePath);
         try {
-            keyStore.load(null, KEYSTORE_PASSWORD.toCharArray());
-            keyStore.store(outputStream, KEYSTORE_PASSWORD.toCharArray());
+            keyStore.load(null, keyStorePassword.toCharArray());
+            keyStore.store(outputStream, keyStorePassword.toCharArray());
         }
         catch (CertificateException | NoSuchAlgorithmException | KeyStoreException e) {
             System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
@@ -108,12 +107,13 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
-    public void importKeyPair(String path, String name) {
+    public void importSertificate(String path, String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void exportKeyPair(String path) {
+    public void exportCertificate(String filePath, String filePassword, KeyStore keyPair,
+            boolean aesEncrypted, String aesPassword) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
