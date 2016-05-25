@@ -9,6 +9,10 @@ import java.security.KeyPair;
  */
 public class CertManagerDummy implements CertManager {
 
+    public void init() {
+        
+    }
+    
     @Override
     public KeyPair generateKeyPair(int keySize) {
         throw new UnsupportedOperationException("Not supported yet.");
