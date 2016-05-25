@@ -31,5 +31,10 @@ public class CertManagerDummy implements CertManager {
             boolean aesEncrypted, String aesPassword) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public void saveStore() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

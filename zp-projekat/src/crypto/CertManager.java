@@ -35,5 +35,8 @@ public interface CertManager {
     // aesEncrypted: indicates whether the PKCS #12 archive should be AES encrypted
     // aesPassword: AES password used for encryption (ignored if aesEncrypted is false)
     void exportCertificate(String filePath, String filePassword, KeyStore certificate,
-            boolean aesEncrypted, String aesPassword);    
+            boolean aesEncrypted, String aesPassword);
+    
+    // Saves key/certificate store to permanent storage.
+    void saveStore();
 }

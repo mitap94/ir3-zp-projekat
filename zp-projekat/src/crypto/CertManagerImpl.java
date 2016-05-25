@@ -162,5 +162,22 @@ public class CertManagerImpl implements CertManager {
         
         fileTool.close();
     }
+
+    @Override
+    public void saveStore() {
+        FileOutputStream outputStream = null;
+        
+        try {
+            outputStream = new FileOutputStream(keyStoreFilePath);
+            keyStore.store(outputStream, keyStorePassword.toCharArray());
+            outputStream.close();
+        } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException e) {
+            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
+            System.exit(Errors.KEY_STORE_ERROR_CODE);
+        } catch (IOException e) {  // TODO(popovicu): Better error reports.
+            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
+            System.exit(Errors.KEY_STORE_ERROR_CODE);
+        }
+    }
     
 }
