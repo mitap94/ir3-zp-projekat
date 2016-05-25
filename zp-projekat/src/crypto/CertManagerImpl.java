@@ -1,5 +1,6 @@
 package crypto;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,10 +25,16 @@ public class CertManagerImpl implements CertManager {
     private static String KEYSTORE_TYPE = "pkcs12";
     private static String KEYSTORE_PASSWORD = "pista";
     
+    private String keyStoreFilePath, keyStorePassword;
     private KeyStore keyStore;
     
-    public CertManagerImpl() {
-        // Initializes the key store.
+    public CertManagerImpl(String keyStoreFilePath, String keyStorePassword) {
+        this.keyStoreFilePath = keyStoreFilePath;
+        this.keyStorePassword = keyStorePassword; 
+    }
+    
+    public void init() {
+        // Initiastaticlizes the key store.
         try {
             keyStore = KeyStore.getInstance(KEYSTORE_TYPE);
         } catch (KeyStoreException e) {
@@ -35,23 +42,24 @@ public class CertManagerImpl implements CertManager {
             System.exit(Errors.KEY_STORE_ERROR_CODE);
         }
         
-        // Loads the key store from file, or creates a new key store file, if file doesn't exist.
-        try {
-            loadKeyStoreFromFile();
-        } catch (FileNotFoundException e) {  // Key store file not found.
-            try { // Attempts to create the key store file.
-                createNewKeyStore();
+        // Loads the key store object (creates a key store file if it doesn't exist).
+        File file = new File(keyStoreFilePath);
+        boolean fileExists = file.exists() && file.isFile();
+        
+        if (fileExists) {
+            try {
                 loadKeyStoreFromFile();
-            } catch (FileNotFoundException eNested) {  // Key store file still not found, error.
-                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + eNested.toString());
-                System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
-            } catch (IOException eNested) {  // Key Store file cannot be opened, error.
-                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + eNested.toString());
+            } catch (IOException e) {
+                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
                 System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
             }
-        } catch (IOException e) {  // Key store file cannot be opened, error.
-            System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
-            System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
+        } else {
+            try {
+                createNewKeyStore();
+            } catch (IOException e) {
+                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
+                System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
+            }
         }
     }
     
