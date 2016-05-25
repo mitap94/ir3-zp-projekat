@@ -7,6 +7,12 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
+import static java.lang.System.exit;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -207,9 +213,31 @@ public class PopupWindow extends javax.swing.JFrame {
             statusBarTextField.setText(Errors.NO_PASSWORD_SPECIFIED);
             return;
         }
-        //CertManager manager = new CertManagerImpl(filePath, password);
-        //manager.init();
-        
+        CertManager manager = new CertManagerImpl(filePath, password);
+        try {
+            manager.init();
+            MainWindow mainWindow = new MainWindow(manager);
+            this.setVisible(false);
+            mainWindow.setVisible(true);
+            
+        } catch (KeyStoreException ex) {
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
+            exit(Errors.KEY_STORE_EXCEPTION);
+        } catch (IOException ex) {
+            // TODO(mitap94): proveri koji exception se baca za pogresnu sifru
+            statusBarTextField.setCaretColor(Errors.COLOR);
+            statusBarTextField.setText(ex.getCause().getLocalizedMessage() + " + " + ex.getCause().getClass());
+            if (ex.getCause() instanceof UnrecoverableKeyException) {
+                statusBarTextField.setForeground(Errors.COLOR);
+                statusBarTextField.setText(Errors.INVALID_PASSWORD);
+            }
+        } catch (CertificateException ex) {
+            statusBarTextField.setForeground(Errors.COLOR);
+            statusBarTextField.setText(Errors.CERTIFICATE_CORRUPTION);
+        } catch (NoSuchAlgorithmException ex) {
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
+            exit(Errors.NO_SUCH_ALGORITHM);
+        }
     }//GEN-LAST:event_openKeystoreButtonActionPerformed
 
      public void myInitComponents() {

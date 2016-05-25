@@ -5,7 +5,9 @@ import java.security.KeyPair;
 import java.awt.*;
 import crypto.CertManager;
 import crypto.KeyContainer;
+import static java.lang.System.exit;
 import java.security.InvalidParameterException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -584,6 +586,8 @@ public class MainWindow extends javax.swing.JFrame {
         } catch (InvalidParameterException e) {
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.KEY_SIZE_TOO_SMALL);
+        } catch (NoSuchAlgorithmException ex) {
+            exit(Errors.NO_SUCH_ALGORITHM);
         }
     }//GEN-LAST:event_generateKeysButtonActionPerformed
 

@@ -17,5 +17,12 @@ public class Errors {
     public static final String NO_FILE_PATH_SPECIFIED = "Morate uneti putanju do fajla!";
     public static final String INVALID_FILE_PATH = "Netacna putanja do fajla!";
     public static final String NO_PASSWORD_SPECIFIED = "Morate uneti sifru!";
-    public static final String INVALID_PASSWORD = "Netacna sifra";
+    public static final String INVALID_PASSWORD = "Uneli ste pogresnu sifru!";
+    public static final String CERTIFICATE_CORRUPTION = "Korupcija sertifikata unutar keystore-a!";
+    
+    public static final String CRITICAL_ERROR = "Critical error! The application will" +
+            "close!";
+    
+    public static final int NO_SUCH_ALGORITHM = 1;
+    public static final int KEY_STORE_EXCEPTION = 2;
 }
