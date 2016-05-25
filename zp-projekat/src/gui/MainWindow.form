@@ -298,14 +298,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="keyGenerationSeparator1" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="keyGenerationSeparator2" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="datePanel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
@@ -350,6 +342,13 @@
                                   </Group>
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="keyGenerationSeparator1" max="32767" attributes="0"/>
+                                      <Component id="keyGenerationSeparator2" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -367,7 +366,7 @@
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="keySizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="keySizeTextField" linkSize="5" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="keySizeTextField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="privateKeyTextField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="privateKeyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -385,7 +384,7 @@
                               <Component id="datePanel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="serialNumberTextField" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="serialNumberTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="serialNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
@@ -409,12 +408,12 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="organizationNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="organizationNameTextField" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationNameTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="emailTextField" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -428,12 +427,12 @@
                               </Group>
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="stateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="stateTextField" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="stateTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="localityTextField" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="localityTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="localityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>

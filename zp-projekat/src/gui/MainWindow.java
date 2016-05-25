@@ -8,6 +8,7 @@ import crypto.KeyContainer;
 import java.security.InvalidParameterException;
 import java.util.Base64;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -332,12 +333,6 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
-                        .addComponent(keyGenerationSeparator1)
-                        .addContainerGap())
-                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
-                        .addComponent(keyGenerationSeparator2)
-                        .addContainerGap())
-                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
@@ -372,7 +367,12 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(organizationNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                             .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(stateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10))))
+                        .addGap(10, 10, 10))
+                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(keyGenerationSeparator1)
+                            .addComponent(keyGenerationSeparator2))
+                        .addContainerGap())))
         );
 
         keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {commonNameTextField, countryTextField, organizationalUnitNameTextField});
@@ -453,9 +453,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {emailTextField, keySizeTextField, localityTextField, organizationNameTextField, serialNumberTextField, stateTextField});
-
-        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {commonNameTextField, countryTextField, organizationalUnitNameTextField});
+        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {commonNameTextField, countryTextField, emailTextField, localityTextField, organizationNameTextField, organizationalUnitNameTextField, serialNumberTextField, stateTextField});
 
         keyGenerationLabel.setText("Certificate information");
 
@@ -571,10 +569,10 @@ public class MainWindow extends javax.swing.JFrame {
             keyContainer = new KeyContainer(keyName, keys, keySize);
             
             publicKeyTextField.setText(Base64.getEncoder()
-                    .encodeToString(keys.getPublic().getEncoded()));
+                    .encodeToString(keys.getPublic().getEncoded()).substring(0, 19).concat("..."));
             System.out.println(keys.getPublic().getFormat());
             privateKeyTextField.setText(Base64.getEncoder()
-                    .encodeToString(keys.getPrivate().getEncoded()));
+                    .encodeToString(keys.getPrivate().getEncoded()).substring(0, 19).concat("..."));
             System.out.println(keys.getPrivate().getFormat());
             
             statusBarTextField.setForeground(Messages.COLOR);
@@ -644,6 +642,7 @@ public class MainWindow extends javax.swing.JFrame {
         leftCornerAnchor = new Point((int)(screenSize.width/2 - frameSize.width/2),
                 (int)(screenSize.height/2 - frameSize.height/2));
         setLocation(leftCornerAnchor);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     private Dimension screenSize;
