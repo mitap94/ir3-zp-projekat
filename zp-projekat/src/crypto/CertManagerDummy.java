@@ -21,12 +21,13 @@ public class CertManagerDummy implements CertManager {
     }
 
     @Override
-    public void importSertificate(String path, String name) {
+    public void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
+            String aesPassword, String alias, String password) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void exportCertificate(String filePath, String filePassword, KeyStore keyPair,
+    public void exportCertificate(String filePath, String filePassword, KeyStore certificate,
             boolean aesEncrypted, String aesPassword) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
