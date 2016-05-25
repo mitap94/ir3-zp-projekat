@@ -123,13 +123,15 @@ public class KeyStoreFileTool {
             if (io == IO_INPUT) {
                 if (aesEncrypted) {
                     inputCipherStream.close();
+                } else {
+                    fileInputStream.close();
                 }
-                fileInputStream.close();
             } else if (io == IO_OUTPUT) {
                 if (aesEncrypted) {
                     outputCipherStream.close();
+                } else {
+                    fileOutputStream.close();
                 }
-                fileOutputStream.close();
             }
         } catch (Exception e) {
             return false;
