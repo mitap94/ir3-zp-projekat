@@ -72,5 +72,13 @@ public interface CertManager {
                 NoSuchAlgorithmException, CertificateException;
     
     // Saves key/certificate store to permanent storage.
-    void saveStore();
+    //
+    // Exceptions:
+    // FileNotFoundException: the directory where the store should be saved doesn't exist (anymore).
+    // KeyStoreException: problems with KeyStore operations.
+    // IOException: problems with saving to file.
+    // NoSuchAlgorithmException: same as KeyStoreException.
+    // CertificateException: problems with certificate operations.
+    void saveStore() throws FileNotFoundException, KeyStoreException, IOException,
+            NoSuchAlgorithmException, CertificateException;
 }

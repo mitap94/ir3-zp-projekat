@@ -95,18 +95,18 @@ public class CertManagerImpl implements CertManager {
         if (fileToolInitialized) {
             InputStream inputStream = fileTool.getInputStream();
 
-                // Opens the given file and extracts private key and certificate.
-                KeyStore certificateStore = KeyStore.getInstance(KEYSTORE_TYPE);
-                certificateStore.load(inputStream, filePassword.toCharArray());
-                Enumeration<String> aliases = certificateStore.aliases();
-                String aliasInFile = (String) aliases.nextElement();  // Gets the entry's alias.
-                aliasInFile = (aliasInFile.isEmpty()) ? "" : aliasInFile;
-                Key keyFromFile = certificateStore.getKey(aliasInFile,
-                        passwordInFile.toCharArray());  // Extracts the private key from file.
-                Certificate[] certFromFile = certificateStore.getCertificateChain(aliasInFile);
-                
-                // Stores the imported private key and assigned certificate to permanent store.
-                keyStore.setKeyEntry(alias, keyFromFile, password.toCharArray(), certFromFile);
+            // Opens the given file and extracts private key and certificate.
+            KeyStore certificateStore = KeyStore.getInstance(KEYSTORE_TYPE);
+            certificateStore.load(inputStream, filePassword.toCharArray());
+            Enumeration<String> aliases = certificateStore.aliases();
+            String aliasInFile = (String) aliases.nextElement();  // Gets the entry's alias.
+            aliasInFile = (aliasInFile.isEmpty()) ? "" : aliasInFile;
+            Key keyFromFile = certificateStore.getKey(aliasInFile,
+                    passwordInFile.toCharArray());  // Extracts the private key from file.
+            Certificate[] certFromFile = certificateStore.getCertificateChain(aliasInFile);
+
+            // Stores the imported private key and assigned certificate to permanent store.
+            keyStore.setKeyEntry(alias, keyFromFile, password.toCharArray(), certFromFile);
         }
 
         fileTool.close();
@@ -129,20 +129,13 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
-    public void saveStore() {
+    public void saveStore() throws FileNotFoundException, KeyStoreException, IOException,
+            NoSuchAlgorithmException, CertificateException {
         FileOutputStream outputStream = null;
         
-        try {
-            outputStream = new FileOutputStream(keyStoreFilePath);
-            keyStore.store(outputStream, keyStorePassword.toCharArray());
-            outputStream.close();
-        } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException e) {
-            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
-            System.exit(Errors.KEY_STORE_ERROR_CODE);
-        } catch (IOException e) {  // TODO(popovicu): Better error reports.
-            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
-            System.exit(Errors.KEY_STORE_ERROR_CODE);
-        }
+        outputStream = new FileOutputStream(keyStoreFilePath);
+        keyStore.store(outputStream, keyStorePassword.toCharArray());
+        outputStream.close();
     }
     
 }
