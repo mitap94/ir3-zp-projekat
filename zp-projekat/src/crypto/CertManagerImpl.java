@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.security.KeyPair;
@@ -110,12 +111,13 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
-    public void importSertificate(String path, String name) {
+    public void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
+            String aesPassword, String alias, String password) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void exportCertificate(String filePath, String filePassword, KeyStore keyPair,
+    public void exportCertificate(String filePath, String filePassword, KeyStore certificate,
             boolean aesEncrypted, String aesPassword) {
         KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
             KeyStoreFileTool.IO_OUTPUT);
@@ -124,7 +126,7 @@ public class CertManagerImpl implements CertManager {
         if (fileToolInitialized) {
             OutputStream outputStream = fileTool.getOutputStream();
             try {
-                keyPair.store(outputStream, filePassword.toCharArray());
+                certificate.store(outputStream, filePassword.toCharArray());
             } catch (Exception e) {  // TODO(popovicu): don't crash the program.
                 System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
                 System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
