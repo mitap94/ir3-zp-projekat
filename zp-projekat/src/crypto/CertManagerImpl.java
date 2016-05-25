@@ -4,14 +4,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.IOException;
+import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
+import java.util.Enumeration;
+
+import crypto.utils.KeyStoreFileTool;
 
 /**
  * CertManager interface implementation.
@@ -32,89 +40,102 @@ public class CertManagerImpl implements CertManager {
     }
     
     @Override
-    public void init() {
+    public void init() throws KeyStoreException, FileNotFoundException, IOException,
+            CertificateException, NoSuchAlgorithmException {
         // Initiastaticlizes the key store.
-        try {
-            keyStore = KeyStore.getInstance(KEYSTORE_TYPE);
-        } catch (KeyStoreException e) {
-            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
-            System.exit(Errors.KEY_STORE_ERROR_CODE);
-        }
+        keyStore = KeyStore.getInstance(KEYSTORE_TYPE);
         
         // Loads the key store object (creates a key store file if it doesn't exist).
         File file = new File(keyStoreFilePath);
         boolean fileExists = file.exists() && file.isFile();
         
         if (fileExists) {
-            try {
-                loadKeyStoreFromFile();
-            } catch (IOException e) {
-                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
-                System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
-            }
+            loadKeyStoreFromFile();
         } else {
-            try {
-                createNewKeyStore();
-            } catch (IOException e) {
-                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
-                System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
-            }
+            createNewKeyStore();
         }
     }
     
-    private void loadKeyStoreFromFile() throws FileNotFoundException, IOException {
+    private void loadKeyStoreFromFile() throws FileNotFoundException, IOException,
+            CertificateException, NoSuchAlgorithmException {
         FileInputStream inputStream = new FileInputStream(keyStoreFilePath);
-        try {
-            keyStore.load(inputStream, keyStorePassword.toCharArray());
-        } catch (CertificateException | NoSuchAlgorithmException e) {
-            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
-            System.exit(Errors.KEY_STORE_ERROR_CODE);
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }
+        keyStore.load(inputStream, keyStorePassword.toCharArray());
+        inputStream.close();
     }
     
-    private void createNewKeyStore() throws FileNotFoundException, IOException {
+    private void createNewKeyStore() throws FileNotFoundException, IOException,
+            CertificateException, NoSuchAlgorithmException, KeyStoreException {
         FileOutputStream outputStream = new FileOutputStream(keyStoreFilePath);
-        try {
-            keyStore.load(null, keyStorePassword.toCharArray());
-            keyStore.store(outputStream, keyStorePassword.toCharArray());
-        }
-        catch (CertificateException | NoSuchAlgorithmException | KeyStoreException e) {
-            System.err.println(Errors.KEY_STORE_ERROR + " " + e.toString());
-            System.exit(Errors.KEY_STORE_ERROR_CODE);
-        } finally {
-            if (outputStream != null) {
-                outputStream.close();
-            }
-        }
+        keyStore.load(null, keyStorePassword.toCharArray());
+        keyStore.store(outputStream, keyStorePassword.toCharArray());
+        outputStream.close();
     }
     
     @Override
-    public KeyPair generateKeyPair(int keySize) {
+    public KeyPair generateKeyPair(int keySize) throws NoSuchAlgorithmException {
         KeyPair generatedKeyPair = null;
         
-        try {
-            SecureRandom randomGenerator = new SecureRandom();
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ENCRYPTION_ALGORITHM);
-            keyGen.initialize(keySize, randomGenerator);
-            generatedKeyPair = keyGen.generateKeyPair();
-        } catch (NoSuchAlgorithmException e) { }
+        SecureRandom randomGenerator = new SecureRandom();
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ENCRYPTION_ALGORITHM);
+        keyGen.initialize(keySize, randomGenerator);
+        generatedKeyPair = keyGen.generateKeyPair();
         
         return generatedKeyPair;
     }
 
     @Override
-    public void importSertificate(String path, String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
+            String aesPassword, String alias, String passwordInFile, String password) throws
+                KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
+                UnrecoverableKeyException {
+        KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
+                KeyStoreFileTool.IO_INPUT);
+        boolean fileToolInitialized = fileTool.init();
+
+        if (fileToolInitialized) {
+            InputStream inputStream = fileTool.getInputStream();
+
+            // Opens the given file and extracts private key and certificate.
+            KeyStore certificateStore = KeyStore.getInstance(KEYSTORE_TYPE);
+            certificateStore.load(inputStream, filePassword.toCharArray());
+            Enumeration<String> aliases = certificateStore.aliases();
+            String aliasInFile = (String) aliases.nextElement();  // Gets the entry's alias.
+            aliasInFile = (aliasInFile.isEmpty()) ? "" : aliasInFile;
+            Key keyFromFile = certificateStore.getKey(aliasInFile,
+                    passwordInFile.toCharArray());  // Extracts the private key from file.
+            Certificate[] certFromFile = certificateStore.getCertificateChain(aliasInFile);
+
+            // Stores the imported private key and assigned certificate to permanent store.
+            keyStore.setKeyEntry(alias, keyFromFile, password.toCharArray(), certFromFile);
+        }
+
+        fileTool.close();
     }
 
     @Override
-    public void exportCertificate(String filePath, String filePassword, KeyStore keyPair,
-            boolean aesEncrypted, String aesPassword) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void exportCertificate(String filePath, String filePassword, KeyStore certificate,
+            boolean aesEncrypted, String aesPassword) throws KeyStoreException, IOException,
+                NoSuchAlgorithmException, CertificateException {
+        KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
+            KeyStoreFileTool.IO_OUTPUT);
+        boolean fileToolInitialized = fileTool.init();
+        
+        if (fileToolInitialized) {
+            OutputStream outputStream = fileTool.getOutputStream();
+            certificate.store(outputStream, filePassword.toCharArray());
+        }
+        
+        fileTool.close();
+    }
+
+    @Override
+    public void saveStore() throws FileNotFoundException, KeyStoreException, IOException,
+            NoSuchAlgorithmException, CertificateException {
+        FileOutputStream outputStream = null;
+        
+        outputStream = new FileOutputStream(keyStoreFilePath);
+        keyStore.store(outputStream, keyStorePassword.toCharArray());
+        outputStream.close();
     }
     
 }
