@@ -26,7 +26,7 @@ public class KeyStoreFileTool {
     public static final int IO_OUTPUT = 2;
     
     public static final String AES_KEY_DERIVATION_ALGORITHM = "PBKDF2WithHmacSHA1";
-    public static final String AES_KEY_DERIVATION_SALT = "abcdef";  // Placeholder
+    public static final String AES_KEY_DERIVATION_SALT = "abcdef";  // TODO(popovicu): better salt.
     public static final int AES_KEY_DERIVATION_ITERATIONS = 65536;
     public static final int AES_KEY_LENGTH = 128;
     public static final String AES_KEY_ALGORITHM = "AES";
