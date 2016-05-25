@@ -22,7 +22,7 @@ public class CertManagerDummy implements CertManager {
 
     @Override
     public void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
-            String aesPassword, String alias, String password) {
+            String aesPassword, String alias, String passwordInFile, String password) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

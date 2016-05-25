@@ -16,6 +16,9 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 
 import crypto.utils.KeyStoreFileTool;
+import java.security.Key;
+import java.security.cert.Certificate;
+import java.util.Enumeration;
 
 /**
  * CertManager interface implementation.
@@ -112,8 +115,32 @@ public class CertManagerImpl implements CertManager {
 
     @Override
     public void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
-            String aesPassword, String alias, String password) {
-        throw new UnsupportedOperationException("Not supported yet.");
+            String aesPassword, String alias, String passwordInFile, String password) {
+        KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
+                KeyStoreFileTool.IO_INPUT);
+        boolean fileToolInitialized = fileTool.init();
+
+        if (fileToolInitialized) {
+            InputStream inputStream = fileTool.getInputStream();
+            try {
+                // Opens the given file and extracts private key and certificate.
+                KeyStore certificateStore = KeyStore.getInstance(KEYSTORE_TYPE);
+                certificateStore.load(inputStream, filePassword.toCharArray());
+                Enumeration<String> aliases = certificateStore.aliases();
+                String aliasInFile = (String) aliases.nextElement();  // Gets the entry's alias.
+                Key keyFromFile = certificateStore.getKey(aliasInFile,
+                        passwordInFile.toCharArray());  // Extracts the private key from file.
+                Certificate[] certFromFile = certificateStore.getCertificateChain(aliasInFile);
+                
+                // Stores the imported private key and assigned certificate to permanent store.
+                keyStore.setKeyEntry(alias, keyFromFile, password.toCharArray(), certFromFile);
+            } catch (Exception e) {  // TODO(popovicu): don't crash the program.
+                System.err.println(Errors.KEY_STORE_FILE_ERROR + " " + e.toString());
+                System.exit(Errors.KEY_STORE_FILE_ERROR_CODE);
+            }
+        }
+
+        fileTool.close();
     }
 
     @Override
