@@ -31,6 +31,7 @@ public class CertManagerImpl implements CertManager {
         this.keyStorePassword = keyStorePassword; 
     }
     
+    @Override
     public void init() {
         // Initiastaticlizes the key store.
         try {
@@ -111,7 +112,8 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
-    public void exportKeyPair(String path) {
+    public void exportKeyPair(String filePath, String filePassword, String alias,
+            String aliasPassword, KeyStore keyPair, boolean aesEncrypted, String aesPassword) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
