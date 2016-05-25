@@ -566,14 +566,14 @@ public class MainWindow extends javax.swing.JFrame {
             KeyPair keys = manager.generateKeyPair(keySize);
             String keyName = keyNameTextField.getText();
 
-            keyContainer = new KeyContainer(keyName, keys, keySize);
+            keyContainer.setKeyName(keyName);
+            keyContainer.setKeySize(keySize);
+            keyContainer.setKeys(keys);
             
             publicKeyTextField.setText(Base64.getEncoder()
                     .encodeToString(keys.getPublic().getEncoded()).substring(0, 19).concat("..."));
-            System.out.println(keys.getPublic().getFormat());
             privateKeyTextField.setText(Base64.getEncoder()
                     .encodeToString(keys.getPrivate().getEncoded()).substring(0, 19).concat("..."));
-            System.out.println(keys.getPrivate().getFormat());
             
             statusBarTextField.setForeground(Messages.COLOR);
             statusBarTextField.setText(Messages.SUCCESSFUL_KEY_GENERATION);
@@ -643,6 +643,23 @@ public class MainWindow extends javax.swing.JFrame {
                 (int)(screenSize.height/2 - frameSize.height/2));
         setLocation(leftCornerAnchor);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        keyContainer = new KeyContainer();
+        
+        GuiUtil.attachPopupMenuSpecial(publicKeyTextField, keyContainer, 0);
+        GuiUtil.attachPopupMenuSpecial(privateKeyTextField, keyContainer, 1);
+        GuiUtil.attachPopupMenu(keyNameTextField);
+        GuiUtil.attachPopupMenu(keySizeTextField);
+        GuiUtil.attachPopupMenu(dateNotAfterTextField);
+        GuiUtil.attachPopupMenu(dateNotBeforeTextField);
+        GuiUtil.attachPopupMenu(serialNumberTextField);
+        GuiUtil.attachPopupMenu(commonNameTextField);
+        GuiUtil.attachPopupMenu(organizationNameTextField);
+        GuiUtil.attachPopupMenu(organizationalUnitNameTextField);
+        GuiUtil.attachPopupMenu(emailTextField);
+        GuiUtil.attachPopupMenu(countryTextField);
+        GuiUtil.attachPopupMenu(stateTextField);
+        GuiUtil.attachPopupMenu(localityTextField);
     }
     
     private Dimension screenSize;

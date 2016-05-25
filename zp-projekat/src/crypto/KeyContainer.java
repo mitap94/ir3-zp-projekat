@@ -14,6 +14,8 @@ public class KeyContainer {
     private int keySize;
     private boolean signed;
 
+    public KeyContainer() { }
+    
     public KeyContainer(String keyName, KeyPair keys, int keySize, boolean signed) {
         this.keyName = keyName;
         this.keys = keys;

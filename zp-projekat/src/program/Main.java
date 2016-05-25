@@ -15,7 +15,7 @@ import gui.MainWindow;
  */
 public class Main {
      public static void main(String argv[]) {
-        CertManager manager = new CertManagerImpl("fajl.123", "PISTA");
+        CertManager manager = new CertManagerImpl("store.p12", "PISTA");
         manager.init();
         MainWindow mainWindow = new MainWindow(manager);
         mainWindow.setVisible(true);
