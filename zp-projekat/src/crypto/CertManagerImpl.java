@@ -107,13 +107,13 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
-    public void importKeyPair(String path, String name) {
+    public void importSertificate(String path, String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void exportKeyPair(String filePath, String filePassword, String alias,
-            String aliasPassword, KeyStore keyPair, boolean aesEncrypted, String aesPassword) {
+    public void exportCertificate(String filePath, String filePassword, KeyStore keyPair,
+            boolean aesEncrypted, String aesPassword) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
