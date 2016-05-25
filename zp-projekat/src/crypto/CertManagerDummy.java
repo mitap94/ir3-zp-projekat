@@ -1,6 +1,7 @@
 package crypto;
 
 import java.security.KeyPair;
+import java.security.KeyStore;
 
 /**
  * Dummy CertManager implementation for GUI testing.
@@ -9,10 +10,11 @@ import java.security.KeyPair;
  */
 public class CertManagerDummy implements CertManager {
 
+    @Override
     public void init() {
         
     }
-    
+
     @Override
     public KeyPair generateKeyPair(int keySize) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -24,8 +26,9 @@ public class CertManagerDummy implements CertManager {
     }
 
     @Override
-    public void exportKeyPair(String path) {
+    public void exportKeyPair(String filePath, String filePassword, String alias,
+            String aliasPassword, KeyStore keyPair, boolean aesEncrypted, String aesPassword) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }
