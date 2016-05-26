@@ -310,6 +310,8 @@ public class ImportPopup extends javax.swing.JFrame {
         try {
             parentFrame.manager.importCertificate(filePath, filePassword, aesEncrypted,
                     aesPassword, sameEntryName,entryName, oldEntryPassword, newEntryPassword);
+            parentFrame.setEnabled(true);
+            this.dispose();
             
         } catch (KeyStoreException ex) {
             
