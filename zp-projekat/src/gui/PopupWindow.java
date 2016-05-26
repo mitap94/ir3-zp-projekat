@@ -74,17 +74,15 @@ public class PopupWindow extends javax.swing.JFrame {
 
         chooseFileLabel.setText("Choose an existing keystore (or create a new one):");
 
-        fileNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileNameTextFieldActionPerformed(evt);
-            }
-        });
+        fileNameTextField.setText("D:\\ir3-zp-projekat\\zp-projekat\\store.p12");
 
         fileNameLabel.setLabelFor(fileNameTextField);
         fileNameLabel.setText("File path:");
 
         passwordLabel.setLabelFor(passwordField);
         passwordLabel.setText("Password:");
+
+        passwordField.setText("PISTA");
 
         chooseFileButton.setText("Choose File...");
         chooseFileButton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,10 +194,6 @@ public class PopupWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chooseFileButtonActionPerformed
     
-    private void fileNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNameTextFieldActionPerformed
-
-    }//GEN-LAST:event_fileNameTextFieldActionPerformed
-
     private void openKeystoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openKeystoreButtonActionPerformed
         String filePath = fileNameTextField.getText().trim();
         if (filePath.isEmpty()) {
@@ -243,7 +237,7 @@ public class PopupWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_openKeystoreButtonActionPerformed
 
-     public void myInitComponents() {
+     private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
         leftCornerAnchor = new Point((int)(screenSize.width/2 - frameSize.width/2),

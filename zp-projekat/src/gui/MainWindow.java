@@ -613,7 +613,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        /*JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "PCKS#12", "p12");
         fileChooser.setFileFilter(filter);
@@ -627,7 +627,11 @@ public class MainWindow extends javax.swing.JFrame {
             statusBarTextField.setText(Messages.SUCCESSFUL_IMPORT + fileChooser
                     .getSelectedFile().getName());
         }
-        // UVOZ...
+        */
+        ImportPopup importPopup = new ImportPopup(this);
+        importPopup.setVisible(true);
+        this.setEnabled(false);
+        
         
     }//GEN-LAST:event_importButtonActionPerformed
 
@@ -761,7 +765,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     }//GEN-LAST:event_saveKeyButtonActionPerformed
 
-    public void myInitComponents() {
+    private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
         leftCornerAnchor = new Point((int) (screenSize.width / 2 - frameSize.width / 2),
