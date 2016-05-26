@@ -40,7 +40,9 @@ public interface CertManager {
     // filePassword: password used for opening the PKCS #12 archive
     // aesEncrypted: indicates whether the file is AES encrypted.
     // aesPassword: AES password used for decryption (ignored if aesEnrypted is false)
-    // alias: alias to be used for storing into the application permanent store
+    // preserveAlias: use the same alias as in the KeyStore that is imported.
+    // alias: alias to be used for storing into the application permanent store (ignored if
+    // preserveAlias is true).
     // passwordInFile: password used to access the entry in the PKCS #12 file
     // password: password used to store the entry into the application permanent store.
     //
@@ -51,10 +53,10 @@ public interface CertManager {
     // CertificateException: problems with importing certificates.
     // Unrecoverable key exception: cannot extract the key from file (e.g. empty file)
     // FileToolNotInitializedException: problems with opening the (encrypted) KeyStore file
-    void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
-            String aesPassword, String alias, String passwordInFile, String password) throws
-                KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
-                UnrecoverableKeyException, FileToolNotInitializedException; 
+    void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+            String aesPassword, boolean preserveAlias, String alias, String passwordInFile, String password) throws
+            KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
+            UnrecoverableKeyException, FileToolNotInitializedException;
 
     // Exports certificate to file at path.
     //
@@ -72,7 +74,7 @@ public interface CertManager {
     // FileToolNotInitializedException: problems with opening the (encrypted) KeyStore file
     void exportCertificate(String filePath, String filePassword, KeyStore certificate,
             boolean aesEncrypted, String aesPassword) throws KeyStoreException, IOException,
-                NoSuchAlgorithmException, CertificateException, FileToolNotInitializedException;
+            NoSuchAlgorithmException, CertificateException, FileToolNotInitializedException;
     
     // Saves key/certificate store to permanent storage.
     //
