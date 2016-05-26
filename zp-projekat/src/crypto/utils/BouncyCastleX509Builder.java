@@ -5,11 +5,15 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
@@ -41,8 +45,10 @@ public class BouncyCastleX509Builder implements X509Builder {
     private BigInteger serial;
     private Date start, end;
     
+    List<Extension> extensions;
+    
     public BouncyCastleX509Builder() {
-        
+        extensions = new LinkedList<>();
     }
     
     @Override
@@ -104,6 +110,11 @@ public class BouncyCastleX509Builder implements X509Builder {
     public void setSerialNumber(BigInteger serial) {
         this.serial = serial;
     }
+    
+    @Override
+    public void addExtension(Extension extension) {
+        extensions.add(extension);
+    }
 
     @Override
     public X509Certificate build(PrivateKey privateKey, PublicKey publicKey) throws Exception {
@@ -137,6 +148,11 @@ public class BouncyCastleX509Builder implements X509Builder {
                 PrivateKeyFactory.createKey(privateKey.getEncoded());
         ContentSigner sigGen =
                 new BcRSAContentSignerBuilder(sigAlgId, digAlgId).build(privateKeyAsymKeyParam);
+        
+        // Adds extensions to the certificate.
+        for (Extension ext : extensions) {
+            certBuilder.addExtension(ext);
+        }
         
         // Builds the certificate.
         X509CertificateHolder certHolder = certBuilder.build(sigGen);

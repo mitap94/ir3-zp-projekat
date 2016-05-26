@@ -7,6 +7,7 @@ import java.security.PublicKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import org.bouncycastle.asn1.x509.Extension;
 
 /**
  * Interface for generating x.509 certificates step by step.
@@ -51,9 +52,10 @@ public interface X509Builder {
     // Sets the serial number
     public void setSerialNumber(BigInteger serial);
     
+    // Adds certificate extension.
+    public void addExtension(Extension extension);
+    
     // Builds the X.509 certificate object.
     public X509Certificate build(PrivateKey privateKey, PublicKey publicKey) throws Exception;
-    
-    // TODO(popovicu): extensions
     
 }
