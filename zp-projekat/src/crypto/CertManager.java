@@ -9,6 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
+import crypto.exceptions.FileToolNotInitializedException;
+
 /**
  *
  * @author Mita
@@ -23,9 +25,8 @@ public interface CertManager {
     // IOException: problems with reading the existing, or creating a new key/cert store file.
     // CertificateException: problems with reading/writing certificates from the store.
     // NoSuchAlgorithmException: same as CertificateException problems.
-    // KeyStoreException: problems with KeyStore operations.
     void init() throws KeyStoreException, FileNotFoundException, IOException, CertificateException,
-            NoSuchAlgorithmException, KeyStoreException;
+            NoSuchAlgorithmException;
     
     // Generates private-public key pair. Key size in bits.
     //
@@ -49,10 +50,11 @@ public interface CertManager {
     // NoSuchAlgorithmException: KeyStore problems.
     // CertificateException: problems with importing certificates.
     // Unrecoverable key exception: cannot extract the key from file (e.g. empty file)
+    // FileToolNotInitializedException: problems with opening the (encrypted) KeyStore file
     void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, String alias, String passwordInFile, String password) throws
                 KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
-                UnrecoverableKeyException; 
+                UnrecoverableKeyException, FileToolNotInitializedException; 
 
     // Exports certificate to file at path.
     //
@@ -67,9 +69,10 @@ public interface CertManager {
     // IOException: problems with file.
     // NoSuchAlgorithmException: same as KeyStoreException.
     // CertificateException: problems with certificates.
+    // FileToolNotInitializedException: problems with opening the (encrypted) KeyStore file
     void exportCertificate(String filePath, String filePassword, KeyStore certificate,
             boolean aesEncrypted, String aesPassword) throws KeyStoreException, IOException,
-                NoSuchAlgorithmException, CertificateException;
+                NoSuchAlgorithmException, CertificateException, FileToolNotInitializedException;
     
     // Saves key/certificate store to permanent storage.
     //

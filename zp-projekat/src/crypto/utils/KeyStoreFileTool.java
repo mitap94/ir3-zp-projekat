@@ -15,6 +15,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import crypto.exceptions.FileToolNotInitializedException;
+
 /**
  * Provides input/output streams for storing keys/certificates, optionally AES encrypted.
  * 
@@ -51,7 +53,7 @@ public class KeyStoreFileTool {
         this.io = io;
     }
     
-    public boolean init() {
+    public boolean init() throws FileToolNotInitializedException {
         try {
             SecretKey derivedKey = null;
             
@@ -104,7 +106,7 @@ public class KeyStoreFileTool {
                 }
             }
         } catch (Exception e) {
-            return false;
+            throw new FileToolNotInitializedException();
         }
 
         return true;

@@ -19,6 +19,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.util.Enumeration;
 
+import crypto.exceptions.FileToolNotInitializedException;
 import crypto.utils.KeyStoreFileTool;
 
 /**
@@ -87,7 +88,7 @@ public class CertManagerImpl implements CertManager {
     public void importSertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, String alias, String passwordInFile, String password) throws
                 KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
-                UnrecoverableKeyException {
+                UnrecoverableKeyException, FileToolNotInitializedException {
         KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
                 KeyStoreFileTool.IO_INPUT);
         boolean fileToolInitialized = fileTool.init();
@@ -115,7 +116,7 @@ public class CertManagerImpl implements CertManager {
     @Override
     public void exportCertificate(String filePath, String filePassword, KeyStore certificate,
             boolean aesEncrypted, String aesPassword) throws KeyStoreException, IOException,
-                NoSuchAlgorithmException, CertificateException {
+                NoSuchAlgorithmException, CertificateException, FileToolNotInitializedException {
         KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
             KeyStoreFileTool.IO_OUTPUT);
         boolean fileToolInitialized = fileTool.init();
