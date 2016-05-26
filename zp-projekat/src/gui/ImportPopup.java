@@ -35,7 +35,7 @@ public class ImportPopup extends javax.swing.JFrame {
     /**
      * Creates new form ImportPopup
      */
-    public ImportPopup(JFrame parent) {
+    public ImportPopup(MainWindow parent) {
         this.parentFrame = parent;
         initComponents();
         myInitComponents();
@@ -308,8 +308,8 @@ public class ImportPopup extends javax.swing.JFrame {
         }
         
         try {
-            parentFrame.manager.importSertificate(filePath, filePassword, aesEncrypted,
-                    aesPassword, entryName, oldEntryPassword, newEntryPassword);
+            parentFrame.manager.importCertificate(filePath, filePassword, aesEncrypted,
+                    aesPassword, sameEntryName,entryName, oldEntryPassword, newEntryPassword);
             
         } catch (KeyStoreException ex) {
             
