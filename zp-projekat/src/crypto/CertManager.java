@@ -8,10 +8,11 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-
+// TODO(popovicu): sort imports)
 import crypto.exceptions.FileToolNotInitializedException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 /**
@@ -49,6 +50,10 @@ public interface CertManager {
     
     // Gets certificate chain from alias.
     Certificate[] getCertificateChain(String alias) throws KeyStoreException;
+    
+    // Stores private key / certificate pair to keystore.
+    void storeKeyCertificate(PrivateKey key, X509Certificate cert, String alias, String password)
+            throws KeyStoreException;
     
     // Imports certificate from file at path.
     // Returns the alias under which the certificate is stored.

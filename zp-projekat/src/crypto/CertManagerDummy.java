@@ -5,6 +5,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 /**
@@ -44,6 +45,14 @@ public class CertManagerDummy implements CertManager {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void storeKeyCertificate(PrivateKey key, X509Certificate cert, String alias,
+            String password) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
+    
     @Override
     public String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, boolean preserveAlias, String alias, String passwordInFile,
