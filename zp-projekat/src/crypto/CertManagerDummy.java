@@ -25,6 +25,11 @@ public class CertManagerDummy implements CertManager {
     public Enumeration<String> getCerts() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public boolean isCaSigned(String certAlias) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     @Override
     public void importCertificate(String filePath, String filePassword, boolean aesEncrypted,

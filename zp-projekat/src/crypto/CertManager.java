@@ -38,6 +38,9 @@ public interface CertManager {
     // Gets certificates stored in the main keystore.
     Enumeration<String> getCerts() throws KeyStoreException;
     
+    // Returns whether a certificate is CA signed.
+    boolean isCaSigned(String certAlias) throws KeyStoreException;
+    
     // Imports certificate from file at path.
     //
     // filePath: path to file

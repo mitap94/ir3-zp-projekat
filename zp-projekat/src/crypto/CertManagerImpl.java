@@ -21,6 +21,7 @@ import java.util.Enumeration;
 
 import crypto.exceptions.FileToolNotInitializedException;
 import crypto.utils.KeyStoreFileTool;
+import java.security.cert.X509Certificate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +34,8 @@ public class CertManagerImpl implements CertManager {
     
     private static String ENCRYPTION_ALGORITHM = "RSA";
     private static String KEYSTORE_TYPE = "pkcs12";
+    
+    private static int CA_SIGNED_BIT = 5;
     
     private String keyStoreFilePath, keyStorePassword;
     private KeyStore keyStore;
@@ -89,6 +92,12 @@ public class CertManagerImpl implements CertManager {
     @Override
     public Enumeration<String> getCerts() throws KeyStoreException {
         return keyStore.aliases();
+    }
+    
+    @Override
+    public boolean isCaSigned(String certAlias) throws KeyStoreException {
+        X509Certificate cert = (X509Certificate) keyStore.getCertificateChain(certAlias)[0];
+        return cert.getKeyUsage()[CA_SIGNED_BIT];
     }
 
     @Override
