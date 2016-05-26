@@ -10,6 +10,8 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import crypto.exceptions.FileToolNotInitializedException;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
 import java.util.Enumeration;
 
 /**
@@ -38,7 +40,18 @@ public interface CertManager {
     // Gets certificates stored in the main keystore.
     Enumeration<String> getCerts() throws KeyStoreException;
     
+    // Returns whether a certificate is CA signed.
+    boolean isCaSigned(String certAlias) throws KeyStoreException;
+    
+    // Gets private key from alias.
+    PrivateKey getPrivateKey(String alias, String entryPassword) throws KeyStoreException,
+            NoSuchAlgorithmException, UnrecoverableKeyException;
+    
+    // Gets certificate chain from alias.
+    Certificate[] getCertificateChain(String alias) throws KeyStoreException;
+    
     // Imports certificate from file at path.
+    // Returns the alias under which the certificate is stored.
     //
     // filePath: path to file
     // filePassword: password used for opening the PKCS #12 archive
@@ -57,7 +70,7 @@ public interface CertManager {
     // CertificateException: problems with importing certificates.
     // Unrecoverable key exception: cannot extract the key from file (e.g. empty file)
     // FileToolNotInitializedException: problems with opening the (encrypted) KeyStore file
-    void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+    String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, boolean preserveAlias, String alias, String passwordInFile, String password) throws
             KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
             UnrecoverableKeyException, FileToolNotInitializedException;

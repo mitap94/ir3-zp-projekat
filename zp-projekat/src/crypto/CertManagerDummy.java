@@ -2,6 +2,9 @@ package crypto;
 
 import java.security.KeyPair;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
 import java.util.Enumeration;
 
 /**
@@ -25,9 +28,24 @@ public class CertManagerDummy implements CertManager {
     public Enumeration<String> getCerts() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public boolean isCaSigned(String certAlias) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     @Override
-    public void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+    public PrivateKey getPrivateKey(String alias, String entryPassword) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Certificate[] getCertificateChain(String alias) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, boolean preserveAlias, String alias, String passwordInFile,
             String password) {
         throw new UnsupportedOperationException("Not supported yet.");

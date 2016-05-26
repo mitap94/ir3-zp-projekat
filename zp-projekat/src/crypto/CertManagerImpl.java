@@ -21,6 +21,8 @@ import java.util.Enumeration;
 
 import crypto.exceptions.FileToolNotInitializedException;
 import crypto.utils.KeyStoreFileTool;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,8 +33,11 @@ import java.util.logging.Logger;
  */
 public class CertManagerImpl implements CertManager {
     
+    public static String KEYSTORE_TYPE = "pkcs12";
+    
     private static String ENCRYPTION_ALGORITHM = "RSA";
-    private static String KEYSTORE_TYPE = "pkcs12";
+    
+    private static int CA_SIGNED_BIT = 5;
     
     private String keyStoreFilePath, keyStorePassword;
     private KeyStore keyStore;
@@ -90,14 +95,33 @@ public class CertManagerImpl implements CertManager {
     public Enumeration<String> getCerts() throws KeyStoreException {
         return keyStore.aliases();
     }
+    
+    @Override
+    public boolean isCaSigned(String certAlias) throws KeyStoreException {
+        X509Certificate cert = (X509Certificate) keyStore.getCertificateChain(certAlias)[0];
+        return cert.getKeyUsage()[CA_SIGNED_BIT];
+    }
 
     @Override
-    public void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
-            String aesPassword, boolean preserveAlias, String alias, String passwordInFile, String password) throws
-            KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
-            UnrecoverableKeyException, FileToolNotInitializedException {
+    public PrivateKey getPrivateKey(String alias, String entryPassword) throws KeyStoreException,
+            NoSuchAlgorithmException, UnrecoverableKeyException {
+        return (PrivateKey) keyStore.getKey(alias, entryPassword.toCharArray());
+    }
+
+    @Override
+    public Certificate[] getCertificateChain(String alias) throws KeyStoreException {
+        return keyStore.getCertificateChain(alias);
+    }
+
+    @Override
+    public String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+            String aesPassword, boolean preserveAlias, String alias, String passwordInFile,
+            String password) throws KeyStoreException, IOException, NoSuchAlgorithmException,
+            CertificateException, UnrecoverableKeyException, FileToolNotInitializedException {
         KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
                 KeyStoreFileTool.IO_INPUT);
+        String storingAlias = null;
+        
         boolean fileToolInitialized = fileTool.init();
 
         if (fileToolInitialized) {
@@ -114,13 +138,15 @@ public class CertManagerImpl implements CertManager {
             Certificate[] certFromFile = certificateStore.getCertificateChain(aliasInFile);
             
             // Preserves alias if needed.
-            String storingAlias = (preserveAlias) ? aliasInFile : alias;
+            storingAlias = (preserveAlias) ? aliasInFile : alias;
 
             // Stores the imported private key and assigned certificate to permanent store.
             keyStore.setKeyEntry(storingAlias, keyFromFile, password.toCharArray(), certFromFile);
         }
 
         fileTool.close();
+        
+        return storingAlias;
     }
 
     @Override
