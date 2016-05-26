@@ -112,6 +112,14 @@ public class CertManagerImpl implements CertManager {
     public Certificate[] getCertificateChain(String alias) throws KeyStoreException {
         return keyStore.getCertificateChain(alias);
     }
+    
+    @Override
+    public void storeKeyCertificate(PrivateKey key, X509Certificate cert, String alias,
+            String password) throws KeyStoreException {
+        Certificate[] tempChain = new Certificate[1];
+        tempChain[0] = cert;
+        keyStore.setKeyEntry(alias, key, password.toCharArray(), tempChain);
+    }
 
     @Override
     public String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
