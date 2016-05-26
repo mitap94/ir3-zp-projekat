@@ -94,6 +94,7 @@ public class MainWindow extends javax.swing.JFrame {
         stateLabel = new javax.swing.JLabel();
         stateTextField = new javax.swing.JTextField();
         emailTextField = new javax.swing.JTextField();
+        extensionsLabel = new javax.swing.JLabel();
         keyGenerationLabel = new javax.swing.JLabel();
         generatedKeysScrollPanel = new javax.swing.JScrollPane();
         generatedKeysList = new javax.swing.JList<>();
@@ -283,6 +284,8 @@ public class MainWindow extends javax.swing.JFrame {
         stateLabel.setLabelFor(stateTextField);
         stateLabel.setText("State:");
 
+        extensionsLabel.setText("Extensions:");
+
         javax.swing.GroupLayout keyGenerationPanelLayout = new javax.swing.GroupLayout(keyGenerationPanel);
         keyGenerationPanel.setLayout(keyGenerationPanelLayout);
         keyGenerationPanelLayout.setHorizontalGroup(
@@ -349,11 +352,12 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGap(90, 90, 90)
                                 .addComponent(generateKeysButton)))
                         .addGap(35, 35, 35)
-                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(stateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(organizationNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(serialNumberLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(stateLabel)
+                            .addComponent(emailLabel)
+                            .addComponent(organizationNameLabel)
+                            .addComponent(serialNumberLabel)
+                            .addComponent(extensionsLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(organizationNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
@@ -431,7 +435,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(localityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(localityLabel))
+                    .addComponent(localityLabel)
+                    .addComponent(extensionsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -837,6 +842,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JButton exportButton;
+    private javax.swing.JLabel extensionsLabel;
     private javax.swing.JButton generateKeysButton;
     private javax.swing.JLabel generatedKeysLabel;
     private javax.swing.JList<String> generatedKeysList;
