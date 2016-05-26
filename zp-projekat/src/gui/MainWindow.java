@@ -1,10 +1,10 @@
 package gui;
 
 import java.security.KeyPair;
-
-import java.awt.*;
 import crypto.CertManager;
 import crypto.KeyContainer;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import static java.lang.System.exit;
@@ -17,11 +17,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -37,8 +38,9 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow(CertManager manager) {
         initComponents();
         myInitComponents();
-
+        
         this.manager = manager;
+        initializeList();
     }
 
     /**
@@ -477,11 +479,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         keyGenerationLabel.setText("Certificate information");
 
-        generatedKeysList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         generatedKeysList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         generatedKeysScrollPanel.setViewportView(generatedKeysList);
 
@@ -850,10 +847,30 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
     }
+    
+    void initializeList() {
+        try {
+            certificates = manager.getCerts();
+        } catch (KeyStoreException ex) {
+            JOptionPane.showMessageDialog(this, Errors.CANT_LOAD_CERTIFICATES);
+            statusBarTextField.setCaretColor(Errors.COLOR);
+            statusBarTextField.setText(Errors.CANT_LOAD_CERTIFICATES);
+            return;
+        }
+        listModel = new DefaultListModel();
+        for (;certificates.hasMoreElements();) {
+            listModel.addElement(certificates.nextElement());
+        }
+        generatedKeysList.setModel(listModel);
+    } 
+            
 
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     private final String DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
 
+    Enumeration<String> certificates;
+    DefaultListModel<String> listModel;
+    
     private Dimension screenSize;
     private Dimension frameSize;
     private Point leftCornerAnchor;
