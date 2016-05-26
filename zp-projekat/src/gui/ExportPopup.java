@@ -31,13 +31,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Mita
  */
-public class ImportPopup extends javax.swing.JFrame {
-
+public class ExportPopup extends javax.swing.JFrame {
     /**
-     * Creates new form ImportPopup
+     * Creates new form ExportPopup
      */
-    public ImportPopup(MainWindow parent) {
+    public ExportPopup(MainWindow parent, String alias) {
         this.parentFrame = parent;
+        this.alias = alias;
+        
         initComponents();
         myInitComponents();
     }
@@ -52,7 +53,7 @@ public class ImportPopup extends javax.swing.JFrame {
 
         statusBarTextField = new javax.swing.JTextField();
         chooseFilePanel = new javax.swing.JPanel();
-        importButton = new javax.swing.JButton();
+        exportButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         chooseFileButton = new javax.swing.JButton();
         fileNameTextField = new javax.swing.JTextField();
@@ -73,8 +74,9 @@ public class ImportPopup extends javax.swing.JFrame {
         newEntryPasswordField = new javax.swing.JPasswordField();
         sameEntryPasswordCheckBox = new javax.swing.JCheckBox();
         chooseFileSeparator1 = new javax.swing.JSeparator();
-        changeFileSeparator2 = new javax.swing.JSeparator();
-        changeFileSeparator3 = new javax.swing.JSeparator();
+        chooseFileSeparator2 = new javax.swing.JSeparator();
+        chooseFileSeparator3 = new javax.swing.JSeparator();
+        aliasLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Import");
@@ -91,10 +93,10 @@ public class ImportPopup extends javax.swing.JFrame {
 
         chooseFilePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        importButton.setText("Import");
-        importButton.addActionListener(new java.awt.event.ActionListener() {
+        exportButton.setText("Export");
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importButtonActionPerformed(evt);
+                exportButtonActionPerformed(evt);
             }
         });
 
@@ -132,7 +134,8 @@ public class ImportPopup extends javax.swing.JFrame {
 
         aesPasswordField.setEnabled(false);
 
-        chooseFileLabel.setText("Choose an existing file for importing:");
+        chooseFileLabel.setLabelFor(aliasLabel);
+        chooseFileLabel.setText("Choose how to export the key pair:");
 
         entryNameLabel.setLabelFor(entryNameTextField);
         entryNameLabel.setText("Entry name:");
@@ -158,49 +161,56 @@ public class ImportPopup extends javax.swing.JFrame {
             }
         });
 
+        aliasLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        aliasLabel.setToolTipText("Chosen key pair alias");
+
         javax.swing.GroupLayout chooseFilePanelLayout = new javax.swing.GroupLayout(chooseFilePanel);
         chooseFilePanel.setLayout(chooseFilePanelLayout);
         chooseFilePanelLayout.setHorizontalGroup(
             chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chooseFilePanelLayout.createSequentialGroup()
                 .addGap(99, 99, 99)
-                .addComponent(importButton)
+                .addComponent(exportButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cancelButton)
                 .addGap(99, 99, 99))
             .addGroup(chooseFilePanelLayout.createSequentialGroup()
                 .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chooseFileSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(changeFileSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(changeFileSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(chooseFilePanelLayout.createSequentialGroup()
-                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newEntryPasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(oldEntryPasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(entryNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(aesPasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(aesEncryptedLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(fileNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newEntryPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(oldEntryPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(entryNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aesPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aesEncryptedCheckBox)
-                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
-                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(sameEntryPasswordCheckBox)
-                            .addComponent(sameEntryNameCheckBox)))
+                    .addComponent(chooseFileSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chooseFileSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(chooseFilePanelLayout.createSequentialGroup()
                         .addGap(313, 313, 313)
                         .addComponent(chooseFileButton))
                     .addGroup(chooseFilePanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(chooseFileLabel)))
+                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, chooseFilePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(chooseFileLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(aliasLabel))
+                            .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(newEntryPasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(oldEntryPasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(entryNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(aesPasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(aesEncryptedLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fileNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(newEntryPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(oldEntryPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(entryNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aesPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aesEncryptedCheckBox)
+                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(38, 38, 38)
+                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(sameEntryPasswordCheckBox)
+                            .addComponent(sameEntryNameCheckBox))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,7 +220,9 @@ public class ImportPopup extends javax.swing.JFrame {
             chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chooseFilePanelLayout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(chooseFileLabel)
+                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chooseFileLabel)
+                    .addComponent(aliasLabel))
                 .addGap(18, 18, 18)
                 .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,7 +234,7 @@ public class ImportPopup extends javax.swing.JFrame {
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(chooseFileSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(aesEncryptedLabel)
                     .addComponent(aesEncryptedCheckBox))
@@ -231,14 +243,14 @@ public class ImportPopup extends javax.swing.JFrame {
                     .addComponent(aesPasswordLabel)
                     .addComponent(aesPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
-                .addComponent(changeFileSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chooseFileSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(entryNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(entryNameLabel)
                     .addComponent(sameEntryNameCheckBox))
                 .addGap(10, 10, 10)
-                .addComponent(changeFileSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chooseFileSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(oldEntryPasswordLabel)
@@ -248,9 +260,9 @@ public class ImportPopup extends javax.swing.JFrame {
                     .addComponent(newEntryPasswordLabel)
                     .addComponent(newEntryPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sameEntryPasswordCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(importButton)
+                    .addComponent(exportButton)
                     .addComponent(cancelButton))
                 .addContainerGap())
         );
@@ -280,7 +292,7 @@ public class ImportPopup extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         // 
         // TODO(mitap94): pokri sve use cese-ove kako u popup window i main window
         String filePath = fileNameTextField.getText();
@@ -314,7 +326,7 @@ public class ImportPopup extends javax.swing.JFrame {
                     newEntryPassword);
             parentFrame.updateList(alias);
             
-            parentFrame.setStatus(Messages.SUCCESSFUL_IMPORT + filePath, Messages.COLOR);
+            parentFrame.setStatus(Messages.SUCCESSFUL_EXPORT + filePath, Messages.COLOR);
             
             parentFrame.setEnabled(true);
             this.dispose();
@@ -332,7 +344,7 @@ public class ImportPopup extends javax.swing.JFrame {
         } catch (FileToolNotInitializedException ex) {
             
         }
-    }//GEN-LAST:event_importButtonActionPerformed
+    }//GEN-LAST:event_exportButtonActionPerformed
 
     private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -385,6 +397,8 @@ public class ImportPopup extends javax.swing.JFrame {
         leftCornerAnchor = new Point((int) (screenSize.width / 2 - frameSize.width / 2),
                 (int) (screenSize.height / 2 - frameSize.height / 2));
         setLocation(leftCornerAnchor);
+        
+        aliasLabel.setText(alias);
 
         WindowListener exitListener;
         exitListener = new WindowAdapter() {
@@ -423,19 +437,19 @@ public class ImportPopup extends javax.swing.JFrame {
             if (!fileNameTextField.getText().trim().isEmpty()) {
                 File file = new File(fileNameTextField.getText());
                 boolean fileExists = file.exists() && file.isFile();
-                if (!fileExists) {
+                if (fileExists) {
                     statusBarTextField.setForeground(Errors.COLOR);
-                    statusBarTextField.setText(Errors.INVALID_FILE_NAME);
-                    importButton.setEnabled(false);
+                    statusBarTextField.setText(Errors.CANNOT_OVER_WRITE);
+                    exportButton.setEnabled(false);
                 }
                 else {
                     statusBarTextField.setText("");
-                    importButton.setEnabled(true);
+                    exportButton.setEnabled(true);
                 }
             }
             else {
                 statusBarTextField.setText("");
-                importButton.setEnabled(true);
+                exportButton.setEnabled(true);
             }
         }});
      }
@@ -445,24 +459,26 @@ public class ImportPopup extends javax.swing.JFrame {
     private Point leftCornerAnchor;
 
     private final MainWindow parentFrame;
+    private final String alias;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aesEncryptedCheckBox;
     private javax.swing.JLabel aesEncryptedLabel;
     private javax.swing.JPasswordField aesPasswordField;
     private javax.swing.JLabel aesPasswordLabel;
+    private javax.swing.JLabel aliasLabel;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JSeparator changeFileSeparator2;
-    private javax.swing.JSeparator changeFileSeparator3;
     private javax.swing.JButton chooseFileButton;
     private javax.swing.JLabel chooseFileLabel;
     private javax.swing.JPanel chooseFilePanel;
     private javax.swing.JSeparator chooseFileSeparator1;
+    private javax.swing.JSeparator chooseFileSeparator2;
+    private javax.swing.JSeparator chooseFileSeparator3;
     private javax.swing.JLabel entryNameLabel;
     private javax.swing.JTextField entryNameTextField;
+    private javax.swing.JButton exportButton;
     private javax.swing.JLabel fileNameLabel;
     private javax.swing.JTextField fileNameTextField;
-    private javax.swing.JButton importButton;
     private javax.swing.JPasswordField newEntryPasswordField;
     private javax.swing.JLabel newEntryPasswordLabel;
     private javax.swing.JPasswordField oldEntryPasswordField;

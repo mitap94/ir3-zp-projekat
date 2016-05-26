@@ -31,6 +31,11 @@ public class Errors {
     public static final String INVALID_DATE_ORDER = "Datum isteka ne moze biti pre datuma " 
             + "pocetka validnosti!";
     public static final String INVALID_FILE_NAME = "Nepostojeci fajl!";
+    public static final String NO_KEYS_GENERATED = "Morate generisati kljuceve!";
+    public static final String NOTHING_SELECTED = "Morate selektovati par kljuceva za " 
+            + "eksportovanje!";
+    public static final String CANNOT_OVER_WRITE = "Nije dozvoljeno eksporotovanje u " +
+            "postojeci fajl!";
     
     public static final String NO_FILE_PATH_SPECIFIED = "Morate uneti putanju do fajla!";
     public static final String INVALID_FILE_PATH = "Netacna putanja do fajla!";

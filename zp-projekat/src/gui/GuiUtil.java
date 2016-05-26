@@ -90,4 +90,8 @@ public class GuiUtil {
         private KeyContainer keyContainer;
         int type;
     }
+
+
+
+    public static final String SELECT = "Select";
 }

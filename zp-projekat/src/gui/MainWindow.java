@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import java.security.InvalidParameterException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
@@ -47,6 +48,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         this.manager = manager;
         initializeList();
+    }
+    
+    public void setStatus(String string, Color color) {
+        statusBarTextField.setCaretColor(color);
+        statusBarTextField.setText(string);
     }
 
     /**
@@ -105,6 +111,9 @@ public class MainWindow extends javax.swing.JFrame {
         extensionsLabel = new javax.swing.JLabel();
         extensionsCheckBox = new javax.swing.JCheckBox();
         extensionsPanel = new javax.swing.JPanel();
+        passwordField = new javax.swing.JPasswordField();
+        passwordLabel = new javax.swing.JLabel();
+        clearFormButton = new javax.swing.JButton();
         keyGenerationLabel = new javax.swing.JLabel();
         generatedKeysScrollPanel = new javax.swing.JScrollPane();
         generatedKeysList = new javax.swing.JList<>();
@@ -316,6 +325,15 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 92, Short.MAX_VALUE)
         );
 
+        passwordLabel.setText("Password:");
+
+        clearFormButton.setText("Clear Form");
+        clearFormButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearFormButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout keyGenerationPanelLayout = new javax.swing.GroupLayout(keyGenerationPanel);
         keyGenerationPanel.setLayout(keyGenerationPanelLayout);
         keyGenerationPanelLayout.setHorizontalGroup(
@@ -329,14 +347,6 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.CENTER, keyGenerationPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(keyGenerationSeparator)
-                .addGap(10, 10, 10))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyGenerationPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(saveKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(certificateVersionLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(certificateVersionLabel1)
                 .addGap(10, 10, 10))
             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
@@ -358,49 +368,67 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(keyGenerationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                        .addComponent(saveKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(clearFormButton))
+                    .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(datePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                            .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(commonNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(organizationalUnitNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(countryLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(localityLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(localityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(countryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(organizationalUnitNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(commonNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(dateLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(dateFormatLabel))
+                        .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                            .addGap(90, 90, 90)
+                            .addComponent(generateKeysButton))))
+                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(commonNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(organizationalUnitNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(countryLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(localityLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(extensionsLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(stateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(organizationNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(serialNumberLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(localityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(countryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(organizationalUnitNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(commonNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(extensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(extensionsCheckBox)
+                            .addComponent(stateTextField)
+                            .addComponent(emailTextField)
+                            .addComponent(organizationNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                            .addComponent(serialNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(keyGenerationPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(dateLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(certificateVersionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateFormatLabel))
-                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(generateKeysButton)))
-                .addGap(35, 35, 35)
-                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(extensionsLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(stateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(organizationNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(serialNumberLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(extensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(extensionsCheckBox)
-                    .addComponent(stateTextField)
-                    .addComponent(emailTextField)
-                    .addComponent(organizationNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                    .addComponent(serialNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(certificateVersionLabel1)
+                        .addGap(10, 10, 10))))
         );
 
         keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {commonNameTextField, countryTextField, organizationalUnitNameTextField});
 
         keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {emailTextField, organizationNameTextField, serialNumberTextField, stateTextField});
+
+        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {localityTextField, passwordField});
 
         keyGenerationPanelLayout.setVerticalGroup(
             keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,19 +497,29 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(localityLabel)
                     .addComponent(extensionsLabel)
                     .addComponent(extensionsCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyGenerationPanelLayout.createSequentialGroup()
+                .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(extensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(certificateVersionLabel)
                             .addComponent(certificateVersionLabel1)))
-                    .addComponent(saveKeyButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(keyGenerationPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(passwordLabel)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(clearFormButton)
+                            .addComponent(saveKeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
-        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {commonNameTextField, countryTextField, emailTextField, localityTextField, organizationNameTextField, organizationalUnitNameTextField, serialNumberTextField, stateTextField});
+        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {commonNameTextField, countryTextField, emailTextField, localityTextField, organizationNameTextField, organizationalUnitNameTextField, passwordField, serialNumberTextField, stateTextField});
+
+        keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clearFormButton, saveKeyButton});
 
         keyGenerationLabel.setText("Certificate information");
 
@@ -497,7 +535,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(certificateGenerationTabLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(keyGenerationLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 893, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(certificateGenerationTabLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(keyGenerationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -509,7 +547,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateGenerationTabLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(generatedKeysLabel)
-                .addGap(103, 103, 103))
+                .addGap(85, 85, 85))
         );
         certificateGenerationTabLayout.setVerticalGroup(
             certificateGenerationTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -629,7 +667,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_generateKeysButtonActionPerformed
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        /*JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "PCKS#12", "p12");
         fileChooser.setFileFilter(filter);
@@ -642,9 +680,20 @@ public class MainWindow extends javax.swing.JFrame {
             statusBarTextField.setForeground(Messages.COLOR);
             statusBarTextField.setText(Messages.SUCCESSFUL_EXPORT + fileChooser
                     .getSelectedFile().getName());
+        }*/
+        String alias = generatedKeysList.getSelectedValue();
+        if (alias == null) {
+            JOptionPane.showMessageDialog(this, Errors.NOTHING_SELECTED);
+            setStatus(Errors.NOTHING_SELECTED, Errors.COLOR);
+            return;
         }
-        // IZVOZ...
-
+        
+        setStatus("", null);
+        
+        ExportPopup exportPopup = new ExportPopup(this, alias);
+        exportPopup.setVisible(true);
+        
+        this.setEnabled(false);
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
@@ -663,28 +712,24 @@ public class MainWindow extends javax.swing.JFrame {
                     .getSelectedFile().getName());
         }
          */
+        setStatus("", null);
+        
         ImportPopup importPopup = new ImportPopup(this);
         importPopup.setVisible(true);
+        
         this.setEnabled(false);
-
-
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void saveKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveKeyButtonActionPerformed
-        /*String keyName = keyNameTextField.getText().trim();
-        if (keyName.isEmpty()) {
+        // TODO(mitap94): Dodaj requestFocus() kada bude greska
+        // Dodaj JOptionPane na vise mesta
+        if (keyContainer.getKeys() == null) {
+            JOptionPane.showMessageDialog(this, Errors.NO_KEYS_GENERATED);
             statusBarTextField.setCaretColor(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_KEY_NAME_SPECIFIED);
+            statusBarTextField.setText(Errors.NO_KEYS_GENERATED);
             return;
         }
-        String keySize = keySizeTextField.getText().trim();
-         if (keySize.isEmpty()) {
-             statusBarTextField.setCaretColor(Errors.COLOR);
-             statusBarTextField.setText(Errors.NO_KEY_SIZE_SPECIFIED);
-             return;
-         }*/
-
-        // TODO(mitap94): Dodaj requestFocus() kada bude greska
+        
         String serialNumber = serialNumberTextField.getText();
         if (serialNumber.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
@@ -794,8 +839,13 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        // keysize i keyname se dohvataju iz keycontainer
-        // TODO(mitap94): Ubacivanje u sertifikat i save
+        String password = new String(passwordField.getPassword());
+        if (password.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED);
+            setStatus(Errors.NO_PASSWORD_SPECIFIED, Errors.COLOR);
+            return;
+        }
+
         X509Builder builder = new BouncyCastleX509Builder();
         builder.setValidTimeframeStart(dateNotBefore);
         builder.setValidTimeframeEnd(dateNotAfter);
@@ -807,27 +857,39 @@ public class MainWindow extends javax.swing.JFrame {
         builder.setCountryName(country);
         builder.setEmail(email);
         builder.setSerialNumber(serialNumberInt);
-        
+
         /* TODO(mitap94): Ekstenzije
             X509KeyUsage keyuse = new X509KeyUsage(
             X509KeyUsage.digitalSignature
             | X509KeyUsage.nonRepudiation
             );
             Extension keyUsageExt = new Extension(Extension.keyUsage, true, keyuse.getEncoded());*/
-        
+        X509Certificate certificate = null;
         try {
-            X509Certificate cert = builder.build(keyContainer.getKeys().getPrivate(),
+            certificate = builder.build(keyContainer.getKeys().getPrivate(),
                     keyContainer.getKeys().getPublic());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, Errors.BUILD_ERROR);
-            statusBarTextField.setCaretColor(Errors.COLOR);
-            statusBarTextField.setText(Errors.BUILD_ERROR);
+            setStatus(Errors.BUILD_ERROR, Errors.COLOR);
             return;
         }
+
+        try {
+            manager.storeKeyCertificate(keyContainer.getKeys().getPrivate(), certificate,
+                    keyContainer.getKeyName(), password);
+        } catch (KeyStoreException ex) {
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
+            exit(Errors.KEY_STORE_EXCEPTION);
+        }
         
+        updateList(keyContainer.getKeyName());
         
+        JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_KEY_SAVE + keyContainer.getKeyName());
         
-        
+        // clear fields and objects
+        String alias = keyContainer.getKeyName();
+        clearForm();
+        setStatus(Messages.SUCCESSFUL_KEY_SAVE + alias, Messages.COLOR);
     }//GEN-LAST:event_saveKeyButtonActionPerformed
 
     private void extensionsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsCheckBoxActionPerformed
@@ -837,6 +899,11 @@ public class MainWindow extends javax.swing.JFrame {
             extensionsPanel.setVisible(false);
         }
     }//GEN-LAST:event_extensionsCheckBoxActionPerformed
+
+    private void clearFormButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFormButtonActionPerformed
+        clearForm();
+        setStatus(Messages.FORM_CLEARED, Messages.COLOR);
+    }//GEN-LAST:event_clearFormButtonActionPerformed
 
     private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -904,6 +971,38 @@ public class MainWindow extends javax.swing.JFrame {
         listModel.addElement(alias);
         generatedKeysList.setSelectedValue(alias, true);
     }
+    
+    // Clear the main form
+    private void clearForm() {
+        // reset key container
+        keyContainer.setKeyName("");
+        keyContainer.setKeySize(0);
+        keyContainer.setKeys(null);
+        
+        // clear main text field
+        keyNameTextField.setText("");
+        keySizeTextField.setText("");
+        publicKeyTextField.setText("");
+        privateKeyTextField.setText("");
+        dateNotBeforeTextField.setText("");
+        dateNotAfterTextField.setText("");
+        serialNumberTextField.setText("");
+        commonNameTextField.setText("");
+        organizationNameTextField.setText("");
+        organizationalUnitNameTextField.setText("");
+        emailTextField.setText("");
+        countryTextField.setText("");
+        stateTextField.setText("");
+        localityTextField.setText("");
+        passwordField.setText("");
+        
+        // reset checkbox
+        extensionsCheckBox.setSelected(false);
+        extensionsPanel.setVisible(false);
+        
+        // TODO(mitap94): clear extensions
+        
+    }
 
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     private final String DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
@@ -923,6 +1022,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel certificateSigningTab;
     private javax.swing.JLabel certificateVersionLabel;
     private javax.swing.JLabel certificateVersionLabel1;
+    private javax.swing.JButton clearFormButton;
     private javax.swing.JLabel commonNameLabel;
     private javax.swing.JTextField commonNameTextField;
     private javax.swing.JLabel countryLabel;
@@ -965,6 +1065,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextField organizationNameTextField;
     private javax.swing.JLabel organizationalUnitNameLabel;
     private javax.swing.JTextField organizationalUnitNameTextField;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel privateKeyLabel;
     private javax.swing.JTextField privateKeyTextField;
     private javax.swing.JLabel publicKeyLabel;
