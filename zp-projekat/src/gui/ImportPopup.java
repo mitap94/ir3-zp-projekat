@@ -308,9 +308,10 @@ public class ImportPopup extends javax.swing.JFrame {
         }
         
         try {
-            parentFrame.manager.importCertificate(filePath, filePassword, aesEncrypted,
-                    aesPassword, sameEntryName, entryName, oldEntryPassword, newEntryPassword);
-            // parentFrame.manager.
+            String alias = parentFrame.manager.importCertificate(filePath, filePassword,
+                    aesEncrypted, aesPassword, sameEntryName, entryName, oldEntryPassword, 
+                    newEntryPassword);
+            parentFrame.updateList(alias);
                     
             parentFrame.setEnabled(true);
             this.dispose();

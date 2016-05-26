@@ -848,7 +848,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
     
-    void initializeList() {
+    private void initializeList() {
         try {
             certificates = manager.getCerts();
         } catch (KeyStoreException ex) {
@@ -863,7 +863,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
         generatedKeysList.setModel(listModel);
     } 
-            
+        
+    public void updateList(String alias) {
+        listModel.addElement(alias);
+    } 
 
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     private final String DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
