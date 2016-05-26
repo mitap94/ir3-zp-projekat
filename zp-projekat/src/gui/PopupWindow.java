@@ -186,6 +186,7 @@ public class PopupWindow extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "PCKS#12", "p12");
         fileChooser.setFileFilter(filter);
+        
         File workingDirectory = new File(System.getProperty("user.dir"));
         fileChooser.setCurrentDirectory(workingDirectory);
 
@@ -208,7 +209,7 @@ public class PopupWindow extends javax.swing.JFrame {
         }
         String password = new String(passwordField.getPassword());
         if (password.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Morate uneti sifru!");
+            JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_PASSWORD_SPECIFIED);
             return;
@@ -225,6 +226,7 @@ public class PopupWindow extends javax.swing.JFrame {
             exit(Errors.KEY_STORE_EXCEPTION);
         } catch (IOException ex) {
             // TODO(mitap94): proveri koji exception se baca za pogresnu sifru
+            JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(ex.getCause().getLocalizedMessage() + " + " + ex.getCause().getClass());
             if (ex.getCause() instanceof UnrecoverableKeyException) {
@@ -232,6 +234,7 @@ public class PopupWindow extends javax.swing.JFrame {
                 statusBarTextField.setText(Errors.INVALID_PASSWORD);
             }
         } catch (CertificateException ex) {
+            JOptionPane.showMessageDialog(this, Errors.CERTIFICATE_CORRUPTION);
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.CERTIFICATE_CORRUPTION);
         } catch (NoSuchAlgorithmException ex) {

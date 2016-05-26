@@ -14,4 +14,5 @@ public class Messages {
     public static final String SUCCESSFUL_EXPORT = "Uspesan izvoz kljuceva u fajl: ";
     public static final String SUCCESSFUL_IMPORT = "Uspesan uvoz kljuceva iz fajla: ";
     public static final String NEW_KEYSTORE_CREATION = "Novi keystore ce biti kreiran!";
+    public static final String SUCCESSFULL_KEY_SAVE = "Uspesno sacuvani kljucevi!";
 }
