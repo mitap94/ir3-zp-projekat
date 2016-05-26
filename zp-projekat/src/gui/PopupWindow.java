@@ -220,6 +220,9 @@ public class PopupWindow extends javax.swing.JFrame {
             exit(Errors.KEY_STORE_EXCEPTION);
         } catch (IOException ex) {
             // TODO(mitap94): proveri koji exception se baca za pogresnu sifru
+            // Line 226: NullPointerException za nemogucu putanju?
+            // SecurityException za pogresnu sifru
+            // FileNotFoundException za nemogucu putanju
             JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(ex.getCause().getLocalizedMessage() + " + " + ex.getCause().getClass());

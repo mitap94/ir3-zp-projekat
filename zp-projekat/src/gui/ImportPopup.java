@@ -8,7 +8,13 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -20,7 +26,7 @@ public class ImportPopup extends javax.swing.JFrame {
      * Creates new form ImportPopup
      */
     public ImportPopup(JFrame parent) {
-        this.parent = parent;
+        this.parentFrame = parent;
         initComponents();
         myInitComponents();
     }
@@ -33,67 +39,221 @@ public class ImportPopup extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        statusBarTextField = new javax.swing.JTextField();
+        chooseFilePanel = new javax.swing.JPanel();
+        importButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+        chooseFileButton = new javax.swing.JButton();
+        fileNameTextField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        passwordLabel = new javax.swing.JLabel();
+        fileNameLabel = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Import");
-        setUndecorated(true);
         setResizable(false);
 
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        statusBarTextField.setEditable(false);
+        statusBarTextField.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        statusBarTextField.setForeground(new java.awt.Color(255, 0, 0));
+        statusBarTextField.setBorder(null);
+        statusBarTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        statusBarTextField.setMinimumSize(new java.awt.Dimension(800, 17));
+        statusBarTextField.setName(""); // NOI18N
+        statusBarTextField.setPreferredSize(new java.awt.Dimension(800, 17));
+        statusBarTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                statusBarTextFieldActionPerformed(evt);
             }
         });
+
+        chooseFilePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        importButton.setText("Import");
+        importButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importButtonActionPerformed(evt);
+            }
+        });
+
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
+        chooseFileButton.setText("Choose File...");
+        chooseFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileButtonActionPerformed(evt);
+            }
+        });
+
+        fileNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        passwordLabel.setLabelFor(passwordField);
+        passwordLabel.setText("Password:");
+
+        fileNameLabel.setLabelFor(fileNameTextField);
+        fileNameLabel.setText("File path:");
+
+        jToggleButton1.setText("jToggleButton1");
+
+        jCheckBox1.setText("jCheckBox1");
+
+        javax.swing.GroupLayout chooseFilePanelLayout = new javax.swing.GroupLayout(chooseFilePanel);
+        chooseFilePanel.setLayout(chooseFilePanelLayout);
+        chooseFilePanelLayout.setHorizontalGroup(
+            chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chooseFilePanelLayout.createSequentialGroup()
+                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(importButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelButton))
+                    .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                                .addComponent(passwordLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                                .addComponent(fileNameLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addComponent(chooseFileButton)))
+                .addGap(30, 30, 30))
+            .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jToggleButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        chooseFilePanelLayout.setVerticalGroup(
+            chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chooseFilePanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chooseFileButton)
+                    .addGroup(chooseFilePanelLayout.createSequentialGroup()
+                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fileNameLabel)
+                            .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(passwordLabel)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(32, 32, 32)
+                .addComponent(jToggleButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(chooseFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(importButton)
+                    .addComponent(cancelButton))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(280, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(55, 55, 55))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(statusBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(chooseFilePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(239, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(38, 38, 38))
+                .addComponent(chooseFilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(statusBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        parent.setEnabled(true);
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        parentFrame.setEnabled(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_importButtonActionPerformed
+
+    private void statusBarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBarTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusBarTextFieldActionPerformed
+
+    private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "PCKS#12", "p12");
+        fileChooser.setFileFilter(filter);
+
+        File workingDirectory = new File(System.getProperty("user.dir"));
+        fileChooser.setCurrentDirectory(workingDirectory);
+
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            fileNameTextField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_chooseFileButtonActionPerformed
+
+    private void fileNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileNameTextFieldActionPerformed
 
     public void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
-        leftCornerAnchor = new Point((int)(screenSize.width/2 - frameSize.width/2),
-                (int)(screenSize.height/2 - frameSize.height/2));
+        leftCornerAnchor = new Point((int) (screenSize.width / 2 - frameSize.width / 2),
+                (int) (screenSize.height / 2 - frameSize.height / 2));
         setLocation(leftCornerAnchor);
-        
-        Runtime.getRuntime().addShutdownHook(new Thread() {
+
+        WindowListener exitListener;
+        exitListener = new WindowAdapter() {
+            
             @Override
-            public void run() {
-                parent.setEnabled(true);
+            public void windowClosing(WindowEvent e) {
+                parentFrame.setEnabled(true);
+                dispose();
             }
-        });
+        };
+        
+        this.addWindowListener(exitListener);
     }
 
     private Dimension screenSize;
     private Dimension frameSize;
     private Point leftCornerAnchor;
-    
-    private JFrame parent;
-    
+
+    private JFrame parentFrame;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton chooseFileButton;
+    private javax.swing.JPanel chooseFilePanel;
+    private javax.swing.JLabel fileNameLabel;
+    private javax.swing.JTextField fileNameTextField;
+    private javax.swing.JButton importButton;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JTextField statusBarTextField;
     // End of variables declaration//GEN-END:variables
 }

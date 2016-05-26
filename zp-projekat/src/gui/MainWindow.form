@@ -365,7 +365,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="keyGenerationSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -383,7 +383,7 @@
                                       <Component id="organizationNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="organizationNameTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="emailTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
