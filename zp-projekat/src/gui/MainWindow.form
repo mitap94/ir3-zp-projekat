@@ -307,11 +307,12 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="stateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="emailLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="organizationNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="serialNumberLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="extensionsLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
@@ -407,6 +408,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="localityTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="localityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="extensionsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="204" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -709,6 +711,11 @@
                 <Component class="javax.swing.JTextField" name="stateTextField">
                 </Component>
                 <Component class="javax.swing.JTextField" name="emailTextField">
+                </Component>
+                <Component class="javax.swing.JLabel" name="extensionsLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Extensions:"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
