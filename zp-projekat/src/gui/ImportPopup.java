@@ -318,19 +318,18 @@ public class ImportPopup extends javax.swing.JFrame {
             
             parentFrame.setEnabled(true);
             this.dispose();
-            
         } catch (KeyStoreException ex) {
-            
+            return;
         } catch (IOException ex) {
-            
+            return;
         } catch (NoSuchAlgorithmException ex) {
-            
+            return;
         } catch (CertificateException ex) {
-            
+            return;
         } catch (UnrecoverableKeyException ex) {
-            
+            return;
         } catch (FileToolNotInitializedException ex) {
-            
+            return;
         }
     }//GEN-LAST:event_importButtonActionPerformed
 

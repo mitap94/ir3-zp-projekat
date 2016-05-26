@@ -51,7 +51,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     public void setStatus(String string, Color color) {
-        statusBarTextField.setCaretColor(color);
+        statusBarTextField.setForeground(color);
         statusBarTextField.setText(string);
     }
 
@@ -688,7 +688,7 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
         
-        setStatus("", null);
+        setStatus("", Messages.COLOR);
         
         ExportPopup exportPopup = new ExportPopup(this, alias);
         exportPopup.setVisible(true);
@@ -712,7 +712,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .getSelectedFile().getName());
         }
          */
-        setStatus("", null);
+        setStatus("", Messages.COLOR);
         
         ImportPopup importPopup = new ImportPopup(this);
         importPopup.setVisible(true);

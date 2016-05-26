@@ -6,6 +6,7 @@
 package gui;
 
 import crypto.exceptions.FileToolNotInitializedException;
+import crypto.utils.KeyAndCertToKeyStore;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -15,10 +16,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
+import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -309,6 +313,9 @@ public class ExportPopup extends javax.swing.JFrame {
         if (!sameEntryName) {
             entryName = entryNameTextField.getText();
         }
+        else {
+            entryName = alias;
+        }
         
         String oldEntryPassword = new String(oldEntryPasswordField.getPassword());
         String newEntryPassword = null;
@@ -320,30 +327,55 @@ public class ExportPopup extends javax.swing.JFrame {
             newEntryPassword = new String(newEntryPasswordField.getPassword());
         }
         
+        X509Certificate certificate = null;
         try {
-            String alias = parentFrame.manager.importCertificate(filePath, filePassword,
-                    aesEncrypted, aesPassword, sameEntryName, entryName, oldEntryPassword, 
-                    newEntryPassword);
-            parentFrame.updateList(alias);
-            
-            parentFrame.setStatus(Messages.SUCCESSFUL_EXPORT + filePath, Messages.COLOR);
-            
-            parentFrame.setEnabled(true);
-            this.dispose();
-            
+            certificate = (X509Certificate)parentFrame.manager.getCertificateChain(alias)[0];
         } catch (KeyStoreException ex) {
-            
-        } catch (IOException ex) {
-            
-        } catch (NoSuchAlgorithmException ex) {
-            
-        } catch (CertificateException ex) {
-            
-        } catch (UnrecoverableKeyException ex) {
-            
-        } catch (FileToolNotInitializedException ex) {
-            
+            return;
         }
+        
+        PrivateKey privateKey = null;
+        try {
+            privateKey = parentFrame.manager.getPrivateKey(alias, newEntryPassword);
+        } catch (KeyStoreException ex) {
+            return;
+        } catch (NoSuchAlgorithmException ex) {
+            return;
+        } catch (UnrecoverableKeyException ex) {
+            return;
+        }
+        
+        KeyStore keystore = null;
+        try {
+            keystore = KeyAndCertToKeyStore.wrap(privateKey, certificate, alias, newEntryPassword);
+        } catch (KeyStoreException ex) {
+            return;
+        } catch (IOException ex) {
+            return;
+        } catch (NoSuchAlgorithmException ex) {
+            return;
+        } catch (CertificateException ex) {
+            return;
+        }
+        
+        try {
+            parentFrame.manager.exportCertificate(filePath, filePassword, keystore, aesEncrypted, aesPassword);
+        } catch (KeyStoreException ex) {
+            return;
+        } catch (IOException ex) {
+            return;
+        } catch (NoSuchAlgorithmException ex) {
+            return;
+        } catch (CertificateException ex) {
+            return;
+        } catch (FileToolNotInitializedException ex) {
+            return;
+        }
+        
+        parentFrame.setStatus(Messages.SUCCESSFUL_EXPORT + filePath, Messages.COLOR);
+            
+        parentFrame.setEnabled(true);
+        this.dispose();
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
