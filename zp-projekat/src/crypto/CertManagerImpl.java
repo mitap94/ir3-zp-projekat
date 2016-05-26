@@ -21,6 +21,7 @@ import java.util.Enumeration;
 
 import crypto.exceptions.FileToolNotInitializedException;
 import crypto.utils.KeyStoreFileTool;
+import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,10 +102,21 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
+    public PrivateKey getPrivateKey(String alias, String entryPassword) throws KeyStoreException,
+            NoSuchAlgorithmException, UnrecoverableKeyException {
+        return (PrivateKey) keyStore.getKey(alias, entryPassword.toCharArray());
+    }
+
+    @Override
+    public Certificate[] getCertificateChain(String alias) throws KeyStoreException {
+        return keyStore.getCertificateChain(alias);
+    }
+
+    @Override
     public void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
-            String aesPassword, boolean preserveAlias, String alias, String passwordInFile, String password) throws
-            KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
-            UnrecoverableKeyException, FileToolNotInitializedException {
+            String aesPassword, boolean preserveAlias, String alias, String passwordInFile,
+            String password) throws KeyStoreException, IOException, NoSuchAlgorithmException,
+            CertificateException, UnrecoverableKeyException, FileToolNotInitializedException {
         KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
                 KeyStoreFileTool.IO_INPUT);
         boolean fileToolInitialized = fileTool.init();

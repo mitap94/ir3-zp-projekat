@@ -10,6 +10,8 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import crypto.exceptions.FileToolNotInitializedException;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
 import java.util.Enumeration;
 
 /**
@@ -40,6 +42,13 @@ public interface CertManager {
     
     // Returns whether a certificate is CA signed.
     boolean isCaSigned(String certAlias) throws KeyStoreException;
+    
+    // Gets private key from alias.
+    PrivateKey getPrivateKey(String alias, String entryPassword) throws KeyStoreException,
+            NoSuchAlgorithmException, UnrecoverableKeyException;
+    
+    // Gets certificate chain from alias.
+    Certificate[] getCertificateChain(String alias) throws KeyStoreException;
     
     // Imports certificate from file at path.
     //
