@@ -3,21 +3,27 @@ package gui;
 import java.security.KeyPair;
 import crypto.CertManager;
 import crypto.KeyContainer;
+import crypto.utils.BouncyCastleX509Builder;
+import crypto.utils.X509Builder;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import static java.lang.System.exit;
+import java.math.BigInteger;
 import java.security.InvalidParameterException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
@@ -38,7 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow(CertManager manager) {
         initComponents();
         myInitComponents();
-        
+
         this.manager = manager;
         initializeList();
     }
@@ -591,9 +597,9 @@ public class MainWindow extends javax.swing.JFrame {
                 keyNameTextField.requestFocus();
                 return;
             }
-            
+
             int keySize = Integer.parseInt(keySizeTextField.getText());
-            
+
             KeyPair keys = manager.generateKeyPair(keySize);
 
             keyContainer.setKeyName(keyName);
@@ -627,10 +633,10 @@ public class MainWindow extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "PCKS#12", "p12");
         fileChooser.setFileFilter(filter);
-        
+
         File workingDirectory = new File(System.getProperty("user.dir"));
         fileChooser.setCurrentDirectory(workingDirectory);
-        
+
         int returnVal = fileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             statusBarTextField.setForeground(Messages.COLOR);
@@ -656,12 +662,12 @@ public class MainWindow extends javax.swing.JFrame {
             statusBarTextField.setText(Messages.SUCCESSFUL_IMPORT + fileChooser
                     .getSelectedFile().getName());
         }
-        */
+         */
         ImportPopup importPopup = new ImportPopup(this);
         importPopup.setVisible(true);
         this.setEnabled(false);
-        
-        
+
+
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void saveKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveKeyButtonActionPerformed
@@ -686,9 +692,9 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        int serialNumberInt;
+        BigInteger serialNumberInt;
         try {
-            serialNumberInt = Integer.parseInt(serialNumber);
+            serialNumberInt = new BigInteger(serialNumber);
         } catch (NumberFormatException e) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT + " "
@@ -790,14 +796,44 @@ public class MainWindow extends javax.swing.JFrame {
 
         // keysize i keyname se dohvataju iz keycontainer
         // TODO(mitap94): Ubacivanje u sertifikat i save
-
+        X509Builder builder = new BouncyCastleX509Builder();
+        builder.setValidTimeframeStart(dateNotBefore);
+        builder.setValidTimeframeEnd(dateNotAfter);
+        builder.setCommonName(commonName);
+        builder.setOrganizationalUnit(organizationalUnitName);
+        builder.setOrganization(organizationName);
+        builder.setLocality(locality);
+        builder.setState(state);
+        builder.setCountryName(country);
+        builder.setEmail(email);
+        builder.setSerialNumber(serialNumberInt);
+        
+        /* TODO(mitap94): Ekstenzije
+            X509KeyUsage keyuse = new X509KeyUsage(
+            X509KeyUsage.digitalSignature
+            | X509KeyUsage.nonRepudiation
+            );
+            Extension keyUsageExt = new Extension(Extension.keyUsage, true, keyuse.getEncoded());*/
+        
+        try {
+            X509Certificate cert = builder.build(keyContainer.getKeys().getPrivate(),
+                    keyContainer.getKeys().getPublic());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, Errors.BUILD_ERROR);
+            statusBarTextField.setCaretColor(Errors.COLOR);
+            statusBarTextField.setText(Errors.BUILD_ERROR);
+            return;
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_saveKeyButtonActionPerformed
 
     private void extensionsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsCheckBoxActionPerformed
         if (extensionsCheckBox.isSelected()) {
             extensionsPanel.setVisible(true);
-        }
-        else {
+        } else {
             extensionsPanel.setVisible(false);
         }
     }//GEN-LAST:event_extensionsCheckBoxActionPerformed
@@ -809,7 +845,7 @@ public class MainWindow extends javax.swing.JFrame {
                 (int) (screenSize.height / 2 - frameSize.height / 2));
         setLocation(leftCornerAnchor);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         extensionsPanel.setVisible(false);
 
         keyContainer = new KeyContainer();
@@ -847,7 +883,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void initializeList() {
         try {
             certificates = manager.getCerts();
@@ -858,22 +894,23 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
         listModel = new DefaultListModel();
-        for (;certificates.hasMoreElements();) {
+        for (; certificates.hasMoreElements();) {
             listModel.addElement(certificates.nextElement());
         }
         generatedKeysList.setModel(listModel);
-    } 
-        
+    }
+
     public void updateList(String alias) {
         listModel.addElement(alias);
-    } 
+        generatedKeysList.setSelectedValue(alias, true);
+    }
 
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     private final String DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
 
     Enumeration<String> certificates;
     DefaultListModel<String> listModel;
-    
+
     private Dimension screenSize;
     private Dimension frameSize;
     private Point leftCornerAnchor;

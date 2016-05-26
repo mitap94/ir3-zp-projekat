@@ -40,6 +40,7 @@ public class Errors {
     public static final String CANNOT_SAVE = "Nemoguce sacuvati podatke na disk!";
     public static final String KEY_STORE_NOT_LOADED = "Keystore nije ucitan!";
     public static final String CANT_LOAD_CERTIFICATES = "Nije moguce ucitati sertifikate!";
+    public static final String BUILD_ERROR = "Greska pri pravljenju sertifikata! Pokusajte opet.";
     
     public static final String CRITICAL_ERROR = "Critical error! The application will" +
             "close!";
