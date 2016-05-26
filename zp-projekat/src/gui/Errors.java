@@ -30,6 +30,7 @@ public class Errors {
     public static final String INVALID_DATE_FORMAT = "Unesite datum u ispravnom formatu!";
     public static final String INVALID_DATE_ORDER = "Datum isteka ne moze biti pre datuma " 
             + "pocetka validnosti!";
+    public static final String INVALID_FILE_NAME = "Nepostojeci fajl!";
     
     public static final String NO_FILE_PATH_SPECIFIED = "Morate uneti putanju do fajla!";
     public static final String INVALID_FILE_PATH = "Netacna putanja do fajla!";
@@ -44,4 +45,5 @@ public class Errors {
     
     public static final int NO_SUCH_ALGORITHM = 1;
     public static final int KEY_STORE_EXCEPTION = 2;
+    public static final int BOUNCY_CASTLE_NOT_AVAILABLE = 3;
 }

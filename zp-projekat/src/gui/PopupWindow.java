@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.System.exit;
 import java.security.KeyStoreException;
@@ -193,13 +194,14 @@ public class PopupWindow extends javax.swing.JFrame {
     private void openKeystoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openKeystoreButtonActionPerformed
         String filePath = fileNameTextField.getText().trim();
         if (filePath.isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_FILE_PATH_SPECIFIED);
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_FILE_PATH_SPECIFIED);
             return;
         }
         String password = new String(passwordField.getPassword());
         if (password.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED);
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_PASSWORD_SPECIFIED);
             return;
@@ -216,9 +218,13 @@ public class PopupWindow extends javax.swing.JFrame {
             exit(Errors.KEY_STORE_EXCEPTION);
         } catch (IOException ex) {
             // TODO(mitap94): proveri koji exception se baca za pogresnu sifru
-            // Line 226: NullPointerException za nemogucu putanju?
             // SecurityException za pogresnu sifru
-            // FileNotFoundException za nemogucu putanju
+            if (ex instanceof FileNotFoundException) {
+                JOptionPane.showMessageDialog(this, Errors.INVALID_FILE_PATH);
+                statusBarTextField.setForeground(Errors.COLOR);
+                statusBarTextField.setText(Errors.INVALID_FILE_PATH);
+                return;
+            }
             JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(ex.getCause().getLocalizedMessage() + " + " + ex.getCause().getClass());

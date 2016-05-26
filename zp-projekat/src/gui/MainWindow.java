@@ -432,7 +432,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(localityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(localityLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(certificateVersionLabel)
@@ -486,7 +486,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(certificateGenerationTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(certificateGenerationTabLayout.createSequentialGroup()
-                        .addComponent(generatedKeysScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                        .addComponent(generatedKeysScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(importExportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(keyGenerationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -500,11 +500,11 @@ public class MainWindow extends javax.swing.JFrame {
         certificateSigningTab.setLayout(certificateSigningTabLayout);
         certificateSigningTabLayout.setHorizontalGroup(
             certificateSigningTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGap(0, 1195, Short.MAX_VALUE)
         );
         certificateSigningTabLayout.setVerticalGroup(
             certificateSigningTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGap(0, 734, Short.MAX_VALUE)
         );
 
         tabsPanel.addTab("Sign Certificates", certificateSigningTab);
@@ -543,7 +543,7 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                .addComponent(tabsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(statusBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -650,8 +650,8 @@ public class MainWindow extends javax.swing.JFrame {
          }*/
 
         // TODO(mitap94): Dodaj requestFocus() kada bude greska
-        String serialNumber = serialNumberTextField.getText().trim();
-        if (serialNumber.isEmpty()) {
+        String serialNumber = serialNumberTextField.getText();
+        if (serialNumber.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_SERIAL_NUMBER_SPECIFIED);
             return;
@@ -667,72 +667,71 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        String dateNotBeforeString = dateNotBeforeTextField.getText().trim();
-        if (dateNotBeforeString.isEmpty()) {
+        String dateNotBeforeString = dateNotBeforeTextField.getText();
+        if (dateNotBeforeString.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_DATE_SPECIFIED);
             return;
         }
 
-        String dateNotAfterString = dateNotAfterTextField.getText().trim();
-        if (dateNotAfterString.isEmpty()) {
+        String dateNotAfterString = dateNotAfterTextField.getText();
+        if (dateNotAfterString.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_DATE_SPECIFIED);
             return;
         }
 
-        String commonName = commonNameTextField.getText().trim();
-        if (commonName.isEmpty()) {
+        String commonName = commonNameTextField.getText();
+        if (commonName.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_COMMON_NAME_SPECIFIED);
             return;
         }
 
-        String organizationName = organizationNameTextField.getText().trim();
-        if (organizationName.isEmpty()) {
+        String organizationName = organizationNameTextField.getText();
+        if (organizationName.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_ORGANIZATION_NAME_SPECIFIED);
             return;
         }
 
-        String organizationalUnitName = organizationalUnitNameTextField.getText().trim();
-        if (organizationalUnitName.isEmpty()) {
+        String organizationalUnitName = organizationalUnitNameTextField.getText();
+        if (organizationalUnitName.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_ORGANIZATIONAL_UNIT_NAME_SPECIFIED);
             return;
         }
 
-        String country = countryTextField.getText().trim();
-        if (country.isEmpty()) {
+        String country = countryTextField.getText();
+        if (country.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_COUNTRY_SPECIFIED);
             return;
         }
 
-        String state = stateTextField.getText().trim();
-        if (state.isEmpty()) {
+        String state = stateTextField.getText();
+        if (state.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_STATE_SPECIFIED);
             return;
         }
 
-        String locality = localityTextField.getText().trim();
-        if (locality.isEmpty()) {
+        String locality = localityTextField.getText();
+        if (locality.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_LOCALITY_SPECIFIED);
             return;
         }
 
-        String email = emailTextField.getText().trim();
-        if (email.isEmpty()) {
+        String email = emailTextField.getText();
+        if (email.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_EMAIL_SPECIFIED);
             return;
         }
 
         // TODO(mitap94): Premesti sve sto moze u konstruktor kako bi se ubrzala aplikacija
-        Pattern validEmailRegex = Pattern.compile(EMAIL_REGEXP,
-                Pattern.CASE_INSENSITIVE);
+        Pattern validEmailRegex = Pattern.compile(EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
         Matcher matcher = validEmailRegex.matcher(email);
         if (!matcher.find()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
@@ -816,7 +815,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Dimension frameSize;
     private Point leftCornerAnchor;
 
-    private final CertManager manager;
+    final CertManager manager;
     private KeyContainer keyContainer;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -25,8 +25,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="chooseFilePanel" alignment="1" max="32767" attributes="0"/>
           <Component id="statusBarTextField" alignment="1" pref="0" max="32767" attributes="0"/>
+          <Component id="chooseFilePanel" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -77,41 +77,52 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                  <Component id="importButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="chooseFileSeparator1" alignment="0" min="-2" pref="317" max="-2" attributes="0"/>
+                      <Component id="changeFileSeparator2" alignment="0" min="-2" pref="317" max="-2" attributes="0"/>
+                      <Component id="changeFileSeparator3" alignment="0" min="-2" pref="317" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="importButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="newEntryPasswordLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="oldEntryPasswordLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="entryNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="aesPasswordLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="aesEncryptedLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="passwordLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="fileNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="passwordField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="newEntryPasswordField" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="oldEntryPasswordField" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="entryNameTextField" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="aesPasswordField" linkSize="1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                               <Component id="aesEncryptedCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="passwordField1" linkSize="1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="fileNameTextField" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="chooseFileButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jTextField1" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="passwordField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="fileNameTextField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="sameEntryPasswordCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="sameEntryNameCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="313" pref="313" max="-2" attributes="0"/>
+                          <Component id="chooseFileButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chooseFileLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -120,7 +131,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="chooseFileLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="fileNameTextField" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
@@ -132,22 +143,40 @@
                       <Component id="passwordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="passwordField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="chooseFileSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace pref="6" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="aesEncryptedLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="aesEncryptedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="passwordField1" linkSize="2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="aesPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="aesPasswordField" linkSize="2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="changeFileSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="entryNameTextField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="entryNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sameEntryNameCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="changeFileSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="oldEntryPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="oldEntryPasswordField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField1" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="newEntryPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="newEntryPasswordField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sameEntryPasswordCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="127" max="32767" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="importButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -183,9 +212,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="fileNameTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileNameTextFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="passwordField">
         </Component>
@@ -194,7 +220,7 @@
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="passwordField"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Password:"/>
+            <Property name="text" type="java.lang.String" value="File password:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="fileNameLabel">
@@ -206,6 +232,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="aesEncryptedCheckBox">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aesEncryptedCheckBoxActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="aesEncryptedLabel">
           <Properties>
@@ -215,27 +244,76 @@
             <Property name="text" type="java.lang.String" value="AES encrypted:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="aesPasswordLabel">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="aesPasswordField"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="AES password:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="passwordField1">
+        <Component class="javax.swing.JPasswordField" name="aesPasswordField">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="chooseFileLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose an existing file for importing:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="entryNameLabel">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="entryNameTextField"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Entry name:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="entryNameTextField">
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="sameEntryNameCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Use same"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sameEntryNameCheckBoxActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="oldEntryPasswordLabel">
+          <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="oldEntryPasswordField"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Entry password:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="oldEntryPasswordField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="newEntryPasswordLabel">
+          <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="newEntryPasswordField"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="New password:"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="newEntryPasswordField">
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="sameEntryPasswordCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Use same"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sameEntryPasswordCheckBoxActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="chooseFileSeparator1">
+        </Component>
+        <Component class="javax.swing.JSeparator" name="changeFileSeparator2">
+        </Component>
+        <Component class="javax.swing.JSeparator" name="changeFileSeparator3">
         </Component>
       </SubComponents>
     </Container>
