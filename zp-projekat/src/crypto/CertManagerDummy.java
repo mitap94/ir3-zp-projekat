@@ -45,7 +45,7 @@ public class CertManagerDummy implements CertManager {
     }
 
     @Override
-    public void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+    public String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, boolean preserveAlias, String alias, String passwordInFile,
             String password) {
         throw new UnsupportedOperationException("Not supported yet.");

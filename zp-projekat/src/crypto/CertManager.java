@@ -51,6 +51,7 @@ public interface CertManager {
     Certificate[] getCertificateChain(String alias) throws KeyStoreException;
     
     // Imports certificate from file at path.
+    // Returns the alias under which the certificate is stored.
     //
     // filePath: path to file
     // filePassword: password used for opening the PKCS #12 archive
@@ -69,7 +70,7 @@ public interface CertManager {
     // CertificateException: problems with importing certificates.
     // Unrecoverable key exception: cannot extract the key from file (e.g. empty file)
     // FileToolNotInitializedException: problems with opening the (encrypted) KeyStore file
-    void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+    String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, boolean preserveAlias, String alias, String passwordInFile, String password) throws
             KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
             UnrecoverableKeyException, FileToolNotInitializedException;

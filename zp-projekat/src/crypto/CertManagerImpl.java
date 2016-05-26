@@ -114,12 +114,14 @@ public class CertManagerImpl implements CertManager {
     }
 
     @Override
-    public void importCertificate(String filePath, String filePassword, boolean aesEncrypted,
+    public String importCertificate(String filePath, String filePassword, boolean aesEncrypted,
             String aesPassword, boolean preserveAlias, String alias, String passwordInFile,
             String password) throws KeyStoreException, IOException, NoSuchAlgorithmException,
             CertificateException, UnrecoverableKeyException, FileToolNotInitializedException {
         KeyStoreFileTool fileTool = new KeyStoreFileTool(filePath, aesEncrypted, aesPassword,
                 KeyStoreFileTool.IO_INPUT);
+        String storingAlias = null;
+        
         boolean fileToolInitialized = fileTool.init();
 
         if (fileToolInitialized) {
@@ -136,13 +138,15 @@ public class CertManagerImpl implements CertManager {
             Certificate[] certFromFile = certificateStore.getCertificateChain(aliasInFile);
             
             // Preserves alias if needed.
-            String storingAlias = (preserveAlias) ? aliasInFile : alias;
+            storingAlias = (preserveAlias) ? aliasInFile : alias;
 
             // Stores the imported private key and assigned certificate to permanent store.
             keyStore.setKeyEntry(storingAlias, keyFromFile, password.toCharArray(), certFromFile);
         }
 
         fileTool.close();
+        
+        return storingAlias;
     }
 
     @Override
