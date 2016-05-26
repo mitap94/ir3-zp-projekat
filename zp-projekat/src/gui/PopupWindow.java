@@ -214,11 +214,17 @@ public class PopupWindow extends javax.swing.JFrame {
         } catch (KeyStoreException ex) {
             JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
             exit(Errors.KEY_STORE_EXCEPTION);
+        } catch (FileNotFoundException e) {
+            
         } catch (IOException ex) {
             // TODO(mitap94): proveri koji exception se baca za pogresnu sifru
             // Line 226: NullPointerException za nemogucu putanju?
             // SecurityException za pogresnu sifru
             // FileNotFoundException za nemogucu putanju
+            if (ex.getCause() instanceof UnrecoverableKeyException) {
+                statusBarTextField.setForeground(Errors.COLOR);
+                statusBarTextField.setText(Errors.INVALID_PASSWORD);
+            }
             JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(ex.getCause().getLocalizedMessage() + " + " + ex.getCause().getClass());

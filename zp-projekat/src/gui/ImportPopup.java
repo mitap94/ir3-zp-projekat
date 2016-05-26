@@ -14,6 +14,8 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -346,7 +348,45 @@ public class ImportPopup extends javax.swing.JFrame {
         };
         
         this.addWindowListener(exitListener);
+        
+        initFileNameListener();
     }
+    
+    public void initFileNameListener() {
+         fileNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+        
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            warn();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            warn();
+        }
+        
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            warn();
+        }
+
+        public void warn() {
+            if (!fileNameTextField.getText().trim().isEmpty()) {
+                File file = new File(fileNameTextField.getText());
+                boolean fileExists = file.exists() && file.isFile();
+                if (!fileExists) {
+                    statusBarTextField.setForeground(Errors.COLOR);
+                    statusBarTextField.setText(Errors.INVALID_FILE_NAME);
+                }
+                else {
+                    statusBarTextField.setText("");
+                }
+            }
+            else {
+                statusBarTextField.setText("");
+            }
+        }});
+     }
 
     private Dimension screenSize;
     private Dimension frameSize;
