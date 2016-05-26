@@ -10,6 +10,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import crypto.exceptions.FileToolNotInitializedException;
+import java.util.Enumeration;
 
 /**
  *
@@ -33,6 +34,9 @@ public interface CertManager {
     // Exceptions:
     // NoSuchAlgorithmException: RSA algorithm not available for key generation.
     KeyPair generateKeyPair(int keySize) throws NoSuchAlgorithmException;
+    
+    // Gets certificates stored in the main keystore.
+    Enumeration<String> getCerts() throws KeyStoreException;
     
     // Imports certificate from file at path.
     //

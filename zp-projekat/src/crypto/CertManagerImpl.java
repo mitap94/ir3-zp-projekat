@@ -21,6 +21,8 @@ import java.util.Enumeration;
 
 import crypto.exceptions.FileToolNotInitializedException;
 import crypto.utils.KeyStoreFileTool;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * CertManager interface implementation.
@@ -82,6 +84,11 @@ public class CertManagerImpl implements CertManager {
         generatedKeyPair = keyGen.generateKeyPair();
         
         return generatedKeyPair;
+    }
+    
+    @Override
+    public Enumeration<String> getCerts() throws KeyStoreException {
+        return keyStore.aliases();
     }
 
     @Override
