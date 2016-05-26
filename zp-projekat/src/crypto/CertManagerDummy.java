@@ -2,6 +2,7 @@ package crypto;
 
 import java.security.KeyPair;
 import java.security.KeyStore;
+import java.util.Enumeration;
 
 /**
  * Dummy CertManager implementation for GUI testing.
@@ -17,6 +18,11 @@ public class CertManagerDummy implements CertManager {
 
     @Override
     public KeyPair generateKeyPair(int keySize) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Enumeration<String> getCerts() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
