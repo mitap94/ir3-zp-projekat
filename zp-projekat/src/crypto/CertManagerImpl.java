@@ -33,8 +33,9 @@ import java.util.logging.Logger;
  */
 public class CertManagerImpl implements CertManager {
     
+    public static String KEYSTORE_TYPE = "pkcs12";
+    
     private static String ENCRYPTION_ALGORITHM = "RSA";
-    private static String KEYSTORE_TYPE = "pkcs12";
     
     private static int CA_SIGNED_BIT = 5;
     
