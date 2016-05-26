@@ -5,6 +5,7 @@
  */
 package gui;
 
+import crypto.exceptions.FileToolNotInitializedException;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -12,6 +13,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
+import java.io.IOException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
@@ -100,12 +108,6 @@ public class ImportPopup extends javax.swing.JFrame {
         chooseFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseFileButtonActionPerformed(evt);
-            }
-        });
-
-        fileNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileNameTextFieldActionPerformed(evt);
             }
         });
 
@@ -278,7 +280,50 @@ public class ImportPopup extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO(mitap94): pokri sve use cese-ove kako u popup window i main window
+        // 
+        String filePath = fileNameTextField.getText();
+        String filePassword = new String(passwordField.getPassword());
+        
+        String aesPassword = null;
+        boolean aesEncrypted = aesEncryptedCheckBox.isSelected();
+        if (aesEncrypted) {
+            aesPassword = new String(aesPasswordField.getPassword());
+        }
+        
+        String entryName = null;
+        boolean sameEntryName = sameEntryNameCheckBox.isSelected();
+        if (!sameEntryName) {
+            entryName = entryNameTextField.getText();
+        }
+        
+        String oldEntryPassword = new String(oldEntryPasswordField.getPassword());
+        String newEntryPassword = null;
+        boolean sameEntryPassword = sameEntryPasswordCheckBox.isSelected();
+        if (sameEntryPassword) {
+            newEntryPassword = oldEntryPassword;
+        }
+        else {
+            newEntryPassword = new String(newEntryPasswordField.getPassword());
+        }
+        
+        try {
+            parentFrame.manager.importSertificate(filePath, filePassword, aesEncrypted,
+                    aesPassword, entryName, oldEntryPassword, newEntryPassword);
+            
+        } catch (KeyStoreException ex) {
+            
+        } catch (IOException ex) {
+            
+        } catch (NoSuchAlgorithmException ex) {
+            
+        } catch (CertificateException ex) {
+            
+        } catch (UnrecoverableKeyException ex) {
+            
+        } catch (FileToolNotInitializedException ex) {
+            
+        }
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
@@ -295,10 +340,6 @@ public class ImportPopup extends javax.swing.JFrame {
             fileNameTextField.setText(fileChooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_chooseFileButtonActionPerformed
-
-    private void fileNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNameTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fileNameTextFieldActionPerformed
 
     private void sameEntryNameCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sameEntryNameCheckBoxActionPerformed
        if (sameEntryNameCheckBox.isSelected()) {
@@ -392,7 +433,7 @@ public class ImportPopup extends javax.swing.JFrame {
     private Dimension frameSize;
     private Point leftCornerAnchor;
 
-    private JFrame parentFrame;
+    private final MainWindow parentFrame;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aesEncryptedCheckBox;

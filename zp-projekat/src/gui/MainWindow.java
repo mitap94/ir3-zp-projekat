@@ -650,8 +650,8 @@ public class MainWindow extends javax.swing.JFrame {
          }*/
 
         // TODO(mitap94): Dodaj requestFocus() kada bude greska
-        String serialNumber = serialNumberTextField.getText().trim();
-        if (serialNumber.isEmpty()) {
+        String serialNumber = serialNumberTextField.getText();
+        if (serialNumber.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_SERIAL_NUMBER_SPECIFIED);
             return;
@@ -667,72 +667,71 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        String dateNotBeforeString = dateNotBeforeTextField.getText().trim();
-        if (dateNotBeforeString.isEmpty()) {
+        String dateNotBeforeString = dateNotBeforeTextField.getText();
+        if (dateNotBeforeString.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_DATE_SPECIFIED);
             return;
         }
 
-        String dateNotAfterString = dateNotAfterTextField.getText().trim();
-        if (dateNotAfterString.isEmpty()) {
+        String dateNotAfterString = dateNotAfterTextField.getText();
+        if (dateNotAfterString.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_DATE_SPECIFIED);
             return;
         }
 
-        String commonName = commonNameTextField.getText().trim();
-        if (commonName.isEmpty()) {
+        String commonName = commonNameTextField.getText();
+        if (commonName.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_COMMON_NAME_SPECIFIED);
             return;
         }
 
-        String organizationName = organizationNameTextField.getText().trim();
-        if (organizationName.isEmpty()) {
+        String organizationName = organizationNameTextField.getText();
+        if (organizationName.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_ORGANIZATION_NAME_SPECIFIED);
             return;
         }
 
-        String organizationalUnitName = organizationalUnitNameTextField.getText().trim();
-        if (organizationalUnitName.isEmpty()) {
+        String organizationalUnitName = organizationalUnitNameTextField.getText();
+        if (organizationalUnitName.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_ORGANIZATIONAL_UNIT_NAME_SPECIFIED);
             return;
         }
 
-        String country = countryTextField.getText().trim();
-        if (country.isEmpty()) {
+        String country = countryTextField.getText();
+        if (country.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_COUNTRY_SPECIFIED);
             return;
         }
 
-        String state = stateTextField.getText().trim();
-        if (state.isEmpty()) {
+        String state = stateTextField.getText();
+        if (state.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_STATE_SPECIFIED);
             return;
         }
 
-        String locality = localityTextField.getText().trim();
-        if (locality.isEmpty()) {
+        String locality = localityTextField.getText();
+        if (locality.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_LOCALITY_SPECIFIED);
             return;
         }
 
-        String email = emailTextField.getText().trim();
-        if (email.isEmpty()) {
+        String email = emailTextField.getText();
+        if (email.trim().isEmpty()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_EMAIL_SPECIFIED);
             return;
         }
 
         // TODO(mitap94): Premesti sve sto moze u konstruktor kako bi se ubrzala aplikacija
-        Pattern validEmailRegex = Pattern.compile(EMAIL_REGEXP,
-                Pattern.CASE_INSENSITIVE);
+        Pattern validEmailRegex = Pattern.compile(EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
         Matcher matcher = validEmailRegex.matcher(email);
         if (!matcher.find()) {
             statusBarTextField.setCaretColor(Errors.COLOR);
@@ -816,7 +815,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Dimension frameSize;
     private Point leftCornerAnchor;
 
-    private final CertManager manager;
+    final CertManager manager;
     private KeyContainer keyContainer;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

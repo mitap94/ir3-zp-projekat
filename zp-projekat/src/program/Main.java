@@ -2,8 +2,10 @@ package program;
 
 import gui.Errors;
 import gui.PopupWindow;
+
 import static java.lang.System.exit;
 import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  *
