@@ -60,7 +60,8 @@ public class X509SelfSignedToCsr {
         builder.addAttribute(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest, extensions);
         JcaContentSignerBuilder csBuilder = new JcaContentSignerBuilder(ALGO);
         ContentSigner signer = csBuilder.build(key);
-        return builder.build(signer);
+        PKCS10CertificationRequest csr =  builder.build(signer);
+        return csr;
     }
     
 }
