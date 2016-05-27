@@ -2,10 +2,12 @@ package crypto.utils;
 
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Set;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.ExtensionsGenerator;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -30,23 +32,32 @@ public class X509SelfSignedToCsr {
         
         // Critical extensions first.
         Set<String> criticalExtensions = cert.getCriticalExtensionOIDs();
-        for (String critExt : criticalExtensions) {
-            extGen.addExtension(new Extension(
-                    new ASN1ObjectIdentifier(critExt), true, cert.getExtensionValue(critExt)));
+        if ((criticalExtensions != null) && !criticalExtensions.isEmpty()) {
+            for (String critExt : criticalExtensions) {
+                byte[] extensionData = cert.getExtensionValue(critExt);
+                // TODO(popovicu): investigate
+                extensionData = Arrays.copyOfRange(extensionData, 2, extensionData.length);
+                extGen.addExtension(new Extension(
+                        new ASN1ObjectIdentifier(critExt), true, extensionData));
+            }
         }
         
         // Non-critical extensions.
         Set<String> nonCriticalExtensions = cert.getNonCriticalExtensionOIDs();
-        for (String nonCritExt : nonCriticalExtensions) {
-            extGen.addExtension(new Extension(
-                    new ASN1ObjectIdentifier(nonCritExt), false, cert
-                            .getExtensionValue(nonCritExt)));
+        if ((nonCriticalExtensions != null) && !nonCriticalExtensions.isEmpty()) {
+            for (String nonCritExt : nonCriticalExtensions) {
+                byte[] extensionData = cert.getExtensionValue(nonCritExt);
+                extensionData = Arrays.copyOfRange(extensionData, 2, extensionData.length);
+                extGen.addExtension(new Extension(
+                        new ASN1ObjectIdentifier(nonCritExt), false, extensionData));
+            }
         }
         
         // Builds the request.
         PKCS10CertificationRequestBuilder builder = new JcaPKCS10CertificationRequestBuilder(
                 cert.getSubjectX500Principal(), cert.getPublicKey());
-        builder.addAttribute(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest, extGen.generate());
+        Extensions extensions = extGen.generate();
+        builder.addAttribute(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest, extensions);
         JcaContentSignerBuilder csBuilder = new JcaContentSignerBuilder(ALGO);
         ContentSigner signer = csBuilder.build(key);
         return builder.build(signer);
