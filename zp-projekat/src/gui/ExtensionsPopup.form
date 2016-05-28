@@ -51,11 +51,11 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jSeparator3" alignment="1" max="32767" attributes="0"/>
+                      <Component id="extensionsSeparator3" alignment="1" max="32767" attributes="0"/>
                       <Component id="keyUsagePanel" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="extensionsSeparator2" alignment="1" max="32767" attributes="0"/>
                       <Component id="basicConstraintsPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
+                      <Component id="extensionsSeparator1" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
@@ -91,15 +91,15 @@
                       <Component id="issuerAltNameCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                  <Component id="extensionsSeparator1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="basicConstraintsPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
+                  <Component id="extensionsSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="keyUsagePanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
+                  <Component id="extensionsSeparator3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="issuerAltNamePanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
@@ -147,7 +147,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="keyUsageCheckBoxActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JSeparator" name="jSeparator1">
+        <Component class="javax.swing.JSeparator" name="extensionsSeparator1">
         </Component>
         <Container class="javax.swing.JPanel" name="basicConstraintsPanel">
 
@@ -226,7 +226,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JSeparator" name="jSeparator2">
+        <Component class="javax.swing.JSeparator" name="extensionsSeparator2">
         </Component>
         <Container class="javax.swing.JPanel" name="keyUsagePanel">
 
@@ -358,7 +358,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JSeparator" name="jSeparator3">
+        <Component class="javax.swing.JSeparator" name="extensionsSeparator3">
         </Component>
         <Container class="javax.swing.JPanel" name="issuerAltNamePanel">
 

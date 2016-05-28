@@ -42,14 +42,14 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         basicConstraintsCheckBox = new javax.swing.JCheckBox();
         issuerAltNameCheckBox = new javax.swing.JCheckBox();
         keyUsageCheckBox = new javax.swing.JCheckBox();
-        jSeparator1 = new javax.swing.JSeparator();
+        extensionsSeparator1 = new javax.swing.JSeparator();
         basicConstraintsPanel = new javax.swing.JPanel();
         basicConstraintsLabel = new javax.swing.JLabel();
         basicConstraintsCriticalCheckBox = new javax.swing.JCheckBox();
         basicConstraintsCACheckBox = new javax.swing.JCheckBox();
         depthOfCertificateChainTextField = new javax.swing.JTextField();
         depthOfCertChainLabel = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
+        extensionsSeparator2 = new javax.swing.JSeparator();
         keyUsagePanel = new javax.swing.JPanel();
         keyUsageLabel = new javax.swing.JLabel();
         keyUsageCriticalCheckBox = new javax.swing.JCheckBox();
@@ -62,7 +62,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         cRLSignCheckBox = new javax.swing.JCheckBox();
         encipherOnlyCheckBox = new javax.swing.JCheckBox();
         decipherOnlyCheckBox = new javax.swing.JCheckBox();
-        jSeparator3 = new javax.swing.JSeparator();
+        extensionsSeparator3 = new javax.swing.JSeparator();
         issuerAltNamePanel = new javax.swing.JPanel();
         issuerAltNameLabel = new javax.swing.JLabel();
         issuerAltNameCriticalCheckBox = new javax.swing.JCheckBox();
@@ -263,11 +263,11 @@ public class ExtensionsPopup extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, extensionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(extensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator3)
+                    .addComponent(extensionsSeparator3)
                     .addComponent(keyUsagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator2)
+                    .addComponent(extensionsSeparator2)
                     .addComponent(basicConstraintsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
+                    .addComponent(extensionsSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, extensionsPanelLayout.createSequentialGroup()
                         .addGroup(extensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(extensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -295,15 +295,15 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                     .addComponent(keyUsageCheckBox)
                     .addComponent(issuerAltNameCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(extensionsSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(basicConstraintsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(extensionsSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(keyUsagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(extensionsSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(issuerAltNamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
@@ -333,16 +333,20 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     private void basicConstraintsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicConstraintsCheckBoxActionPerformed
         if (basicConstraintsCheckBox.isSelected()) {
             basicConstraintsPanel.setVisible(true);
+            extensionsSeparator2.setVisible(true);
         } else {
             basicConstraintsPanel.setVisible(false);
+            extensionsSeparator2.setVisible(false);
         }
     }//GEN-LAST:event_basicConstraintsCheckBoxActionPerformed
 
     private void keyUsageCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keyUsageCheckBoxActionPerformed
         if (keyUsageCheckBox.isSelected()) {
             keyUsagePanel.setVisible(true);
+            extensionsSeparator3.setVisible(true);
         } else {
             keyUsagePanel.setVisible(false);
+            extensionsSeparator3.setVisible(false);
         }
     }//GEN-LAST:event_keyUsageCheckBoxActionPerformed
 
@@ -378,6 +382,8 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         depthOfCertChainLabel.setVisible(false);
         depthOfCertificateChainTextField.setVisible(false);
         depthOfCertificateChainTextField.setText("0");
+        extensionsSeparator2.setVisible(false);
+        extensionsSeparator3.setVisible(false);
     }
 
     private void loadExtensions() {
@@ -437,6 +443,12 @@ public class ExtensionsPopup extends javax.swing.JFrame {
             }
             // TODO(mitap94): Ucitaj issuerAltName
 
+        }
+        if (extensions.extensions[0]) {
+            extensionsSeparator2.setVisible(true);
+        }
+        if (extensions.extensions[1]) {
+            extensionsSeparator3.setVisible(true);
         }
     }
 
@@ -523,13 +535,13 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     private javax.swing.JCheckBox digitalSignatureCheckBox;
     private javax.swing.JCheckBox encipherOnlyCheckBox;
     private javax.swing.JPanel extensionsPanel;
+    private javax.swing.JSeparator extensionsSeparator1;
+    private javax.swing.JSeparator extensionsSeparator2;
+    private javax.swing.JSeparator extensionsSeparator3;
     private javax.swing.JCheckBox issuerAltNameCheckBox;
     private javax.swing.JCheckBox issuerAltNameCriticalCheckBox;
     private javax.swing.JLabel issuerAltNameLabel;
     private javax.swing.JPanel issuerAltNamePanel;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JCheckBox keyAgreementCheckBox;
     private javax.swing.JCheckBox keyCertSignCheckBox;
     private javax.swing.JCheckBox keyEnciphermentCheckBox;
