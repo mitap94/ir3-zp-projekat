@@ -965,8 +965,8 @@
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="dateNotBeforeTextField1" linkSize="20" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                                                      <Component id="dateNotAfterTextField1" linkSize="20" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                                      <Component id="dateNotBeforeTextFieldSign" linkSize="20" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                                      <Component id="dateNotAfterTextFieldSign" linkSize="20" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -1018,8 +1018,9 @@
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="issuerStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
                                       <Component id="subjectStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="viewCSRButton" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="64" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="signatureAlgorithmTextField" linkSize="24" min="-2" pref="180" max="-2" attributes="0"/>
@@ -1039,18 +1040,10 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="viewCSRButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="certificateVersionLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="certificateVersionLabel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="certificateVersionLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="certificateVersionLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1060,7 +1053,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="serialNumberLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="serialNumberTextField1" linkSize="24" min="-2" max="-2" attributes="0"/>
+                                  <Component id="serialNumberTextFieldSign" linkSize="24" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="issuerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="subjectLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1078,23 +1071,23 @@
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="serialNumberTextField1" linkSize="21" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="serialNumberTextFieldSign" linkSize="21" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="serialNumberLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="dateNotBeforeLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="dateNotBeforeTextField1" linkSize="21" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="dateNotBeforeTextFieldSign" linkSize="21" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="dateNotAfterTextField1" linkSize="21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotAfterTextFieldSign" linkSize="21" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="dateNotAfterLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                   <Component id="keyGenerationSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="issuerLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="12" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="issuerCountryTextField" linkSize="18" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="countryLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -1153,6 +1146,7 @@
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="subjectLocalityTextField" linkSize="18" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="localityLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="viewCSRButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1182,9 +1176,7 @@
                                                       <Component id="signatureAlgorithmTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                                                       <Component id="viewSignatureButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace pref="75" max="32767" attributes="0"/>
-                                                  <Component id="viewCSRButton" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                                  <EmptySpace min="21" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1201,7 +1193,7 @@
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="246" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="certificateVersionLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="certificateVersionLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1369,7 +1361,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="dateNotBeforeTextField1">
+                <Component class="javax.swing.JFormattedTextField" name="dateNotBeforeTextFieldSign">
                   <Properties>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                       <Format format="dd/MM/yyyy hh:mm:ss" subtype="-1" type="1"/>
@@ -1377,7 +1369,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="dateNotAfterTextField1">
+                <Component class="javax.swing.JFormattedTextField" name="dateNotAfterTextFieldSign">
                   <Properties>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                       <Format format="dd/MM/yyyy hh:mm:ss" subtype="-1" type="1"/>
@@ -1561,7 +1553,11 @@
                 <Component class="javax.swing.JButton" name="viewCSRButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="View CSR"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewCSRButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="passwordFieldViewCertificate">
                 </Component>
@@ -1580,12 +1576,12 @@
                 <Component class="javax.swing.JLabel" name="serialNumberLabel1">
                   <Properties>
                     <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="serialNumberTextField1"/>
+                      <ComponentRef name="serialNumberTextFieldSign"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Serial number:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="serialNumberTextField1">
+                <Component class="javax.swing.JTextField" name="serialNumberTextFieldSign">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
@@ -1603,7 +1599,7 @@
             <Component class="javax.swing.JButton" name="viewCertificateButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="View"/>
-                <Property name="toolTipText" type="java.lang.String" value="View the certificate"/>
+                <Property name="toolTipText" type="java.lang.String" value="View the certificate and generate a CSR"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewCertificateButtonActionPerformed"/>

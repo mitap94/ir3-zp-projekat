@@ -154,8 +154,8 @@ public class MainWindow extends javax.swing.JFrame {
         stateLabel1 = new javax.swing.JLabel();
         issuerStateTextField = new javax.swing.JTextField();
         issuerEmailTextField = new javax.swing.JTextField();
-        dateNotBeforeTextField1 = new javax.swing.JFormattedTextField();
-        dateNotAfterTextField1 = new javax.swing.JFormattedTextField();
+        dateNotBeforeTextFieldSign = new javax.swing.JFormattedTextField();
+        dateNotAfterTextFieldSign = new javax.swing.JFormattedTextField();
         dateNotAfterLabel1 = new javax.swing.JLabel();
         dateNotBeforeLabel1 = new javax.swing.JLabel();
         subjectLabel = new javax.swing.JLabel();
@@ -189,7 +189,7 @@ public class MainWindow extends javax.swing.JFrame {
         passwordFieldUseCertificate = new javax.swing.JPasswordField();
         passwordUseCertificateLabel = new javax.swing.JLabel();
         serialNumberLabel1 = new javax.swing.JLabel();
-        serialNumberTextField1 = new javax.swing.JTextField();
+        serialNumberTextFieldSign = new javax.swing.JTextField();
         certificateViewLabel = new javax.swing.JLabel();
         viewCertificateButton = new javax.swing.JButton();
         useCertificateButton = new javax.swing.JButton();
@@ -687,11 +687,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         issuerEmailTextField.setEnabled(false);
 
-        dateNotBeforeTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy hh:mm:ss"))));
-        dateNotBeforeTextField1.setEnabled(false);
+        dateNotBeforeTextFieldSign.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy hh:mm:ss"))));
+        dateNotBeforeTextFieldSign.setEnabled(false);
 
-        dateNotAfterTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy hh:mm:ss"))));
-        dateNotAfterTextField1.setEnabled(false);
+        dateNotAfterTextFieldSign.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy hh:mm:ss"))));
+        dateNotAfterTextFieldSign.setEnabled(false);
 
         dateNotAfterLabel1.setLabelFor(dateNotAfterTextField);
         dateNotAfterLabel1.setText("Not after:");
@@ -765,15 +765,21 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         viewCSRButton.setText("View CSR");
+        viewCSRButton.setEnabled(false);
+        viewCSRButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCSRButtonActionPerformed(evt);
+            }
+        });
 
         passwordViewCertificateLabel.setText("View password:");
 
         passwordUseCertificateLabel.setText("Use password:");
 
-        serialNumberLabel1.setLabelFor(serialNumberTextField1);
+        serialNumberLabel1.setLabelFor(serialNumberTextFieldSign);
         serialNumberLabel1.setText("Serial number:");
 
-        serialNumberTextField1.setEnabled(false);
+        serialNumberTextFieldSign.setEnabled(false);
 
         javax.swing.GroupLayout certificateViewPanelLayout = new javax.swing.GroupLayout(certificateViewPanel);
         certificateViewPanel.setLayout(certificateViewPanelLayout);
@@ -832,8 +838,8 @@ public class MainWindow extends javax.swing.JFrame {
                                             .addComponent(dateNotAfterLabel1))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(dateNotBeforeTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(dateNotAfterTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(dateNotBeforeTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(dateNotAfterTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(certificateViewPanelLayout.createSequentialGroup()
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -872,8 +878,9 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(issuerStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(subjectStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                            .addComponent(subjectStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewCSRButton))
+                        .addContainerGap(64, Short.MAX_VALUE))
                     .addGroup(certificateViewPanelLayout.createSequentialGroup()
                         .addComponent(signatureAlgorithmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -889,30 +896,25 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
-                                .addComponent(viewCSRButton)
-                                .addGap(309, 309, 309))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
-                                .addComponent(certificateVersionLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(certificateVersionLabel3)
-                                .addContainerGap())))))
+                        .addComponent(certificateVersionLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(certificateVersionLabel3)
+                        .addContainerGap())))
             .addGroup(certificateViewPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(certificateViewPanelLayout.createSequentialGroup()
                         .addComponent(serialNumberLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(serialNumberTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(serialNumberTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(issuerLabel)
                     .addComponent(subjectLabel))
                 .addContainerGap())
         );
 
-        certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateNotAfterTextField1, dateNotBeforeTextField1});
+        certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateNotAfterTextFieldSign, dateNotBeforeTextFieldSign});
 
-        certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {keyLengthTextField, passwordFieldUseCertificate, passwordFieldViewCertificate, publicKeyAlgorithmTextField, serialNumberTextField1, signatureAlgorithmTextField});
+        certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {keyLengthTextField, passwordFieldUseCertificate, passwordFieldViewCertificate, publicKeyAlgorithmTextField, serialNumberTextFieldSign, signatureAlgorithmTextField});
 
         certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {issuerCommonNameTextField, issuerCountryTextField, issuerEmailTextField, issuerLocalityTextField, issuerOrganizationNameTextField, issuerOrganizationalUnitNameTextField, issuerStateTextField, subjectCommonNameTextField, subjectCountryTextField, subjectEmailTextField, subjectLocalityTextField, subjectOrganizationNameTextField, subjectOrganizationalUnitNameTextField, subjectStateTextField});
 
@@ -926,21 +928,21 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(dateFormatLabel1))
                 .addGap(11, 11, 11)
                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(serialNumberTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serialNumberTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(serialNumberLabel1)
                     .addComponent(dateNotBeforeLabel1)
-                    .addComponent(dateNotBeforeTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateNotBeforeTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(certificateViewPanelLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dateNotAfterTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateNotAfterTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateNotAfterLabel1))
                         .addGap(11, 11, 11)
                         .addComponent(keyGenerationSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(issuerLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(issuerCountryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(countryLabel1)
@@ -989,7 +991,8 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGap(15, 15, 15)
                                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(subjectLocalityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(localityLabel2))))
+                                    .addComponent(localityLabel2)
+                                    .addComponent(viewCSRButton))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(keyGenerationSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1013,9 +1016,7 @@ public class MainWindow extends javax.swing.JFrame {
                                             .addComponent(signatureAlgorithmLabel)
                                             .addComponent(signatureAlgorithmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(viewSignatureButton))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                                        .addComponent(viewCSRButton)
-                                        .addGap(21, 21, 21))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(certificateViewPanelLayout.createSequentialGroup()
                                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(passwordFieldViewCertificate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1026,7 +1027,7 @@ public class MainWindow extends javax.swing.JFrame {
                                             .addComponent(passwordUseCertificateLabel))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
                                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(certificateVersionLabel2)
                                     .addComponent(certificateVersionLabel3)))))
@@ -1038,7 +1039,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {issuerCommonNameTextField, issuerCountryTextField, issuerEmailTextField, issuerLocalityTextField, issuerOrganizationNameTextField, issuerOrganizationalUnitNameTextField, issuerStateTextField, keyLengthTextField, passwordFieldUseCertificate, passwordFieldViewCertificate, publicKeyAlgorithmTextField, signatureAlgorithmTextField, subjectCommonNameTextField, subjectCountryTextField, subjectEmailTextField, subjectLocalityTextField, subjectOrganizationNameTextField, subjectOrganizationalUnitNameTextField, subjectStateTextField});
 
-        certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateNotAfterTextField1, dateNotBeforeTextField1, serialNumberTextField1});
+        certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateNotAfterTextFieldSign, dateNotBeforeTextFieldSign, serialNumberTextFieldSign});
 
         certificateViewPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {viewExtensionsButton, viewModulusButton, viewSignatureButton});
 
@@ -1046,7 +1047,7 @@ public class MainWindow extends javax.swing.JFrame {
         certificateViewLabel.setText("Certificate information");
 
         viewCertificateButton.setText("View");
-        viewCertificateButton.setToolTipText("View the certificate");
+        viewCertificateButton.setToolTipText("View the certificate and generate a CSR");
         viewCertificateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewCertificateButtonActionPerformed(evt);
@@ -1523,13 +1524,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void viewCertificateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCertificateButtonActionPerformed
-        // Vecina funkcionalnosti treba u view CSR
+        // get alias of the key pair
         String alias = generatedKeysList1.getSelectedValue();
         if (alias == null) {
             // TODO(mitap94): izbaci error
             return;
         }
-
+        
+        // get certificate
         try {
             certificateView = (X509Certificate) manager.getCertificateChain(alias)[0];
         } catch (KeyStoreException ex) {
@@ -1537,8 +1539,8 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
+        // get private key
         String password = new String(passwordFieldViewCertificate.getPassword());
-
         PrivateKey privateKey = null;
         try {
             privateKey = manager.getPrivateKey(alias, password);
@@ -1553,13 +1555,41 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
+        // generate CSR
         try {
             csrRequest = X509SelfSignedToCsr.convert(certificateView, privateKey);
         } catch (OperatorCreationException ex) {
             // TODO(mitap94): Uhvati exception
             return;
         }
+        
+        // set fields
+        serialNumberTextFieldSign.setText(certificateView.getSerialNumber().toString());
+        dateNotBeforeTextFieldSign.setText(certificateView.getNotBefore().toString());
+        dateNotAfterTextFieldSign.setText(certificateView.getNotAfter().toString());
+        subjectCommonNameTextField.setText("PISTA");
+        subjectOrganizationalUnitNameTextField.setText("");
+        subjectOrganizationNameTextField.setText("");
+        subjectEmailTextField.setText("");
+        subjectCountryTextField.setText("");
+        subjectStateTextField.setText("");
+        subjectLocalityTextField.setText("");
+                
+        viewCSRButton.setEnabled(true);
+    }//GEN-LAST:event_viewCertificateButtonActionPerformed
 
+    private void extensionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsButtonActionPerformed
+        if (!extensionsPopup.isShowing()) {
+            extensionsPopup = new ExtensionsPopup(this, extensions);
+            extensionsPopup.setVisible(true);
+        }
+    }//GEN-LAST:event_extensionsButtonActionPerformed
+
+    private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_signButtonActionPerformed
+
+    private void viewCSRButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCSRButtonActionPerformed
         StringWriter stringWriter = new StringWriter();
         JcaPEMWriter jcaWriter = new JcaPEMWriter(stringWriter);
         try {
@@ -1574,18 +1604,7 @@ public class MainWindow extends javax.swing.JFrame {
         textArea.setEditable(false);
         GuiUtil.attachPopupMenu(textArea);
         JOptionPane.showMessageDialog(this, textArea, "CSR", JOptionPane.PLAIN_MESSAGE);
-    }//GEN-LAST:event_viewCertificateButtonActionPerformed
-
-    private void extensionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsButtonActionPerformed
-        if (!extensionsPopup.isShowing()) {
-            extensionsPopup = new ExtensionsPopup(this, extensions);
-            extensionsPopup.setVisible(true);
-        }
-    }//GEN-LAST:event_extensionsButtonActionPerformed
-
-    private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_signButtonActionPerformed
+    }//GEN-LAST:event_viewCSRButtonActionPerformed
 
     private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -1736,11 +1755,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel dateNotAfterLabel;
     private javax.swing.JLabel dateNotAfterLabel1;
     private javax.swing.JFormattedTextField dateNotAfterTextField;
-    private javax.swing.JFormattedTextField dateNotAfterTextField1;
+    private javax.swing.JFormattedTextField dateNotAfterTextFieldSign;
     private javax.swing.JLabel dateNotBeforeLabel;
     private javax.swing.JLabel dateNotBeforeLabel1;
     private javax.swing.JFormattedTextField dateNotBeforeTextField;
-    private javax.swing.JFormattedTextField dateNotBeforeTextField1;
+    private javax.swing.JFormattedTextField dateNotBeforeTextFieldSign;
     private javax.swing.JPanel datePanel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel emailLabel1;
@@ -1812,7 +1831,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel serialNumberLabel;
     private javax.swing.JLabel serialNumberLabel1;
     private javax.swing.JTextField serialNumberTextField;
-    private javax.swing.JTextField serialNumberTextField1;
+    private javax.swing.JTextField serialNumberTextFieldSign;
     private javax.swing.JButton signButton;
     private javax.swing.JLabel signatureAlgorithmLabel;
     private javax.swing.JTextField signatureAlgorithmTextField;
