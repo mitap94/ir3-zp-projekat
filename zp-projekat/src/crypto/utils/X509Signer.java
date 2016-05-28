@@ -1,10 +1,12 @@
 package crypto.utils;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Date;
 import java.util.Enumeration;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
@@ -39,8 +41,9 @@ public class X509Signer {
     public static final String BC_PROVIDER = "BC";
     
     public static X509Certificate sign(PKCS10CertificationRequest req, X509Certificate signInfo,
-            PrivateKey privateKey) throws CertificateEncodingException, CertIOException,
-            IOException, OperatorCreationException, CertificateException {  
+            PrivateKey privateKey, BigInteger serial, Date validStart, Date validEnd) throws
+            CertificateEncodingException, CertIOException, IOException, OperatorCreationException,
+            CertificateException {  
         // Gets subject and issuer data.
         X509CertificateHolder certHolder = new JcaX509CertificateHolder(signInfo);
         X500Name issuer = certHolder.getIssuer();
@@ -49,9 +52,9 @@ public class X509Signer {
         // Prepares signed certificate building.
         X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(
                 issuer /* Issuer */,
-                signInfo.getSerialNumber() /* Serial number */,
-                signInfo.getNotBefore() /* Validity start */,
-                signInfo.getNotAfter() /* Validity end */,
+                serial /* Serial number */,
+                validStart /* Validity start */,
+                validEnd /* Validity end */,
                 subjectName /* Subject */,
                 req.getSubjectPublicKeyInfo() /* Public key info */
         );
@@ -59,41 +62,51 @@ public class X509Signer {
         // Process extensions, CA signed bit must be 1 and critical.
         Attribute[] extensionsAttribArray =
                 req.getAttributes(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest);
-        Attribute extensionsAttrib = extensionsAttribArray[0];
-        Extensions extensions = Extensions.getInstance(
-                extensionsAttrib.getAttrValues().getObjectAt(0));
-        Enumeration oids = extensions.oids();
         boolean processKeyUsageExtensions = false;
-        while (oids.hasMoreElements()) {
-            ASN1ObjectIdentifier oid = (ASN1ObjectIdentifier) oids.nextElement();
-            Extension ext = extensions.getExtension(oid);
-            if (ext.getExtnId().equals(Extension.keyUsage)) {  // Key usage extension found!
-                processKeyUsageExtensions = true;
-                KeyUsage keyUsageExt = KeyUsage.fromExtensions(extensions);
-                
-                int keyUsageMask = 0;
-                if (keyUsageExt.hasUsages(KeyUsage.digitalSignature))
-                    keyUsageMask |= KeyUsage.digitalSignature;
-                if (keyUsageExt.hasUsages(KeyUsage.nonRepudiation))
-                    keyUsageMask |= KeyUsage.nonRepudiation;
-                if (keyUsageExt.hasUsages(KeyUsage.keyEncipherment))
-                    keyUsageMask |= KeyUsage.keyEncipherment;
-                if (keyUsageExt.hasUsages(KeyUsage.dataEncipherment))
-                    keyUsageMask |= KeyUsage.dataEncipherment;
-                if (keyUsageExt.hasUsages(KeyUsage.keyAgreement))
-                    keyUsageMask |= KeyUsage.keyAgreement;
-                keyUsageMask |= KeyUsage.keyCertSign;
-                if (keyUsageExt.hasUsages(KeyUsage.cRLSign))
-                    keyUsageMask |= KeyUsage.cRLSign;
-                if (keyUsageExt.hasUsages(KeyUsage.encipherOnly))
-                    keyUsageMask |= KeyUsage.encipherOnly;
-                if (keyUsageExt.hasUsages(KeyUsage.decipherOnly))
-                    keyUsageMask |= KeyUsage.decipherOnly;
-                KeyUsage keyUsageExtGenerated = new KeyUsage(keyUsageMask);
-                certBuilder.addExtension(
-                    new Extension(Extension.keyUsage, true, keyUsageExtGenerated.getEncoded()));
-            } else {
-                certBuilder.addExtension(oid, ext.isCritical(), ext.getParsedValue());
+        if ((extensionsAttribArray != null) && (extensionsAttribArray.length > 0)) {
+            Attribute extensionsAttrib = extensionsAttribArray[0];
+            Extensions extensions = Extensions.getInstance(
+                    extensionsAttrib.getAttrValues().getObjectAt(0));
+            Enumeration oids = extensions.oids();
+            while (oids.hasMoreElements()) {
+                ASN1ObjectIdentifier oid = (ASN1ObjectIdentifier) oids.nextElement();
+                Extension ext = extensions.getExtension(oid);
+                if (ext.getExtnId().equals(Extension.keyUsage)) {  // Key usage extension found!
+                    processKeyUsageExtensions = true;
+                    KeyUsage keyUsageExt = KeyUsage.fromExtensions(extensions);
+
+                    int keyUsageMask = 0;
+                    if (keyUsageExt.hasUsages(KeyUsage.digitalSignature)) {
+                        keyUsageMask |= KeyUsage.digitalSignature;
+                    }
+                    if (keyUsageExt.hasUsages(KeyUsage.nonRepudiation)) {
+                        keyUsageMask |= KeyUsage.nonRepudiation;
+                    }
+                    if (keyUsageExt.hasUsages(KeyUsage.keyEncipherment)) {
+                        keyUsageMask |= KeyUsage.keyEncipherment;
+                    }
+                    if (keyUsageExt.hasUsages(KeyUsage.dataEncipherment)) {
+                        keyUsageMask |= KeyUsage.dataEncipherment;
+                    }
+                    if (keyUsageExt.hasUsages(KeyUsage.keyAgreement)) {
+                        keyUsageMask |= KeyUsage.keyAgreement;
+                    }
+                    keyUsageMask |= KeyUsage.keyCertSign;
+                    if (keyUsageExt.hasUsages(KeyUsage.cRLSign)) {
+                        keyUsageMask |= KeyUsage.cRLSign;
+                    }
+                    if (keyUsageExt.hasUsages(KeyUsage.encipherOnly)) {
+                        keyUsageMask |= KeyUsage.encipherOnly;
+                    }
+                    if (keyUsageExt.hasUsages(KeyUsage.decipherOnly)) {
+                        keyUsageMask |= KeyUsage.decipherOnly;
+                    }
+                    KeyUsage keyUsageExtGenerated = new KeyUsage(keyUsageMask);
+                    certBuilder.addExtension(
+                            new Extension(Extension.keyUsage, true, keyUsageExtGenerated.getEncoded()));
+                } else {
+                    certBuilder.addExtension(oid, ext.isCritical(), ext.getParsedValue());
+                }
             }
         }
         if (!processKeyUsageExtensions) {
