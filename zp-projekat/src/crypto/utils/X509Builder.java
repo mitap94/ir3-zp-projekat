@@ -1,12 +1,11 @@
 package crypto.utils;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+
 import org.bouncycastle.asn1.x509.Extension;
 
 /**

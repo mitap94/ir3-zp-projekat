@@ -8,12 +8,12 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-// TODO(popovicu): sort imports)
-import crypto.exceptions.FileToolNotInitializedException;
-import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.security.PrivateKey;
 import java.util.Enumeration;
+
+import crypto.exceptions.FileToolNotInitializedException;
 
 /**
  *
