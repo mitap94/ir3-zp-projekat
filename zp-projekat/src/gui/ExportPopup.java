@@ -423,7 +423,7 @@ public class ExportPopup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sameEntryPasswordCheckBoxActionPerformed
 
-    public void myInitComponents() {
+    private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
         leftCornerAnchor = new Point((int) (screenSize.width / 2 - frameSize.width / 2),

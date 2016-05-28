@@ -189,7 +189,6 @@ public class MainWindow extends javax.swing.JFrame {
         certificateViewLabel = new javax.swing.JLabel();
         viewCertificateButton = new javax.swing.JButton();
         useCertificateButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         statusBarTextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -1105,19 +1104,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         tabsPanel.addTab("Sign Certificates", certificateSigningTab);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1195, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
-        );
-
-        tabsPanel.addTab("Sign Certificates", jPanel1);
-
         statusBarTextField.setEditable(false);
         statusBarTextField.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         statusBarTextField.setForeground(new java.awt.Color(255, 0, 0));
@@ -1169,12 +1155,12 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void extensionsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsCheckBoxActionPerformed
         if (extensionsCheckBox.isSelected()) {
-            // extensionsPanel.setVisible(true);
-            // extensionsTab.setVisible(true);
-            //tabsPanel.
+            extensionsPopup = new ExtensionsPopup(this, extensions);
+            extensionsPopup.setVisible(true);
         } else {
-            // extensionsPanel.setVisible(false);
-            // extensionsTab.setVisible(false);
+            if ((extensionsPopup != null) && extensionsPopup.isShowing()) {
+                extensionsPopup.dispose();
+            }
         }
     }//GEN-LAST:event_extensionsCheckBoxActionPerformed
 
@@ -1221,6 +1207,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void saveKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveKeyButtonActionPerformed
         // TODO(mitap94): Dodaj requestFocus() kada bude greska
         // Dodaj JOptionPane na vise mesta
+        // NISU SVA POLJA OBAVEZNA
         if (keyContainer.getKeys() == null) {
             JOptionPane.showMessageDialog(this, Errors.NO_KEYS_GENERATED);
             statusBarTextField.setForeground(Errors.COLOR);
@@ -1382,7 +1369,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         updateList(keyContainer.getKeyName());
 
-        JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_KEY_SAVE + keyContainer.getKeyName());
+        JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_KEY_SAVE 
+                + keyContainer.getKeyName());
 
         // clear fields and objects
         String alias = keyContainer.getKeyName();
@@ -1391,20 +1379,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_saveKeyButtonActionPerformed
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
-        /*JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "PCKS#12", "p12");
-        fileChooser.setFileFilter(filter);
-
-        File workingDirectory = new File(System.getProperty("user.dir"));
-        fileChooser.setCurrentDirectory(workingDirectory);
-
-        int returnVal = fileChooser.showSaveDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            statusBarTextField.setForeground(Messages.COLOR);
-            statusBarTextField.setText(Messages.SUCCESSFUL_EXPORT + fileChooser
-                .getSelectedFile().getName());
-        }*/
         String alias = generatedKeysList.getSelectedValue();
         if (alias == null) {
             JOptionPane.showMessageDialog(this, Errors.NOTHING_SELECTED);
@@ -1421,21 +1395,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-        /*JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "PCKS#12", "p12");
-        fileChooser.setFileFilter(filter);
-
-        File workingDirectory = new File(System.getProperty("user.dir"));
-        fileChooser.setCurrentDirectory(workingDirectory);
-
-        int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            statusBarTextField.setForeground(Messages.COLOR);
-            statusBarTextField.setText(Messages.SUCCESSFUL_IMPORT + fileChooser
-                .getSelectedFile().getName());
-        }
-        */
         setStatus("", Messages.COLOR);
 
         ImportPopup importPopup = new ImportPopup(this);
@@ -1496,7 +1455,8 @@ public class MainWindow extends javax.swing.JFrame {
         setLocation(leftCornerAnchor);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // extensionsPanel.setVisible(false);
+        extensionsPopup = null;
+        extensions = new Extensions();
 
         keyContainer = new KeyContainer();
 
@@ -1582,10 +1542,9 @@ public class MainWindow extends javax.swing.JFrame {
         
         // reset checkbox
         extensionsCheckBox.setSelected(false);
-        // extensionsPanel.setVisible(false);
         
-        // TODO(mitap94): clear extensions
-        
+        // clear extensions
+        extensions.clearAll();
     }
 
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
@@ -1594,6 +1553,9 @@ public class MainWindow extends javax.swing.JFrame {
     Enumeration<String> certificates;
     DefaultListModel<String> listModel;
 
+    ExtensionsPopup extensionsPopup;
+    Extensions extensions;
+    
     private Dimension screenSize;
     private Dimension frameSize;
     private Point leftCornerAnchor;
@@ -1660,7 +1622,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel keyGenerationLabel;
     private javax.swing.JPanel keyGenerationPanel;
     private javax.swing.JSeparator keyGenerationSeparator;
