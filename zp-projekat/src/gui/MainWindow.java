@@ -34,6 +34,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -1444,7 +1445,9 @@ public class MainWindow extends javax.swing.JFrame {
         }
         String message = stringWriter.toString();
         
-        JOptionPane.showMessageDialog(this, message);
+        JTextArea textArea = new JTextArea(message);
+        GuiUtil.attachPopupMenu(textArea);
+        JOptionPane.showMessageDialog(this, textArea, "CSR", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_viewCertificateButtonActionPerformed
 
     private void myInitComponents() {

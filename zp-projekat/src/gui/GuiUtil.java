@@ -11,6 +11,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
@@ -89,6 +90,36 @@ public class GuiUtil {
         private JTextField textField;
         private KeyContainer keyContainer;
         int type;
+    }
+    
+    public static void attachPopupMenu(JTextArea textArea) {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        if (textArea.isEditable()) {
+            Action cut = new DefaultEditorKit.CutAction();
+
+            cut.putValue(Action.NAME, "Cut");
+            cut.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control X"));
+            popupMenu.add(cut);
+            // popupMenu.add(new JSeparator());
+        }
+
+        Action copy = new DefaultEditorKit.CopyAction();
+
+        copy.putValue(Action.NAME, "Copy");
+        copy.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control C"));
+        popupMenu.add(copy);
+        // popupMenu.add(new JSeparator());
+
+        if (textArea.isEditable()) {
+            Action paste = new DefaultEditorKit.PasteAction();
+
+            paste.putValue(Action.NAME, "Paste");
+            paste.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control V"));
+            popupMenu.add(paste);
+        }
+
+        textArea.setComponentPopupMenu(popupMenu);
     }
 
 
