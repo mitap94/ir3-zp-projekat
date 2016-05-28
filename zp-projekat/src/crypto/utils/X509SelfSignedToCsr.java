@@ -60,8 +60,10 @@ public class X509SelfSignedToCsr {
         // Builds the request.
         PKCS10CertificationRequestBuilder builder = new JcaPKCS10CertificationRequestBuilder(
                 cert.getSubjectX500Principal(), cert.getPublicKey());
-        Extensions extensions = extGen.generate();
-        builder.addAttribute(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest, extensions);
+        if (!extGen.isEmpty()) {
+            Extensions extensions = extGen.generate();
+            builder.addAttribute(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest, extensions);
+        }
         JcaContentSignerBuilder csBuilder = new JcaContentSignerBuilder(ALGO);
         ContentSigner signer = csBuilder.build(key);
         PKCS10CertificationRequest csr =  builder.build(signer);
