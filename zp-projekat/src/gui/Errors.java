@@ -36,6 +36,7 @@ public class Errors {
             + "eksportovanje!";
     public static final String CANNOT_OVER_WRITE = "Nije dozvoljeno eksporotovanje u " +
             "postojeci fajl!";
+    public static final String SAVE_EXTENSIONS = "Sacuvajte ekstenzije pre nastavljanja!";
     
     public static final String NO_FILE_PATH_SPECIFIED = "Morate uneti putanju do fajla!";
     public static final String INVALID_FILE_PATH = "Netacna putanja do fajla!";

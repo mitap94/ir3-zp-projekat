@@ -36,6 +36,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.bouncycastle.asn1.x509.BasicConstraints;
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.KeyUsage;
+import org.bouncycastle.jce.X509KeyUsage;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
@@ -1191,6 +1195,15 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO(mitap94): Dodaj requestFocus() kada bude greska
         // Dodaj JOptionPane na vise mesta
         // NISU SVA POLJA OBAVEZNA
+        
+        // close extensions popup window if open
+        if (extensionsPopup.isShowing()) {
+            JOptionPane.showMessageDialog(extensionsPopup, Errors.SAVE_EXTENSIONS);
+            statusBarTextField.setForeground(Errors.COLOR);
+            statusBarTextField.setText(Errors.SAVE_EXTENSIONS);
+            return;
+        }
+        
         if (keyContainer.getKeys() == null) {
             JOptionPane.showMessageDialog(this, Errors.NO_KEYS_GENERATED);
             statusBarTextField.setForeground(Errors.COLOR);
@@ -1326,38 +1339,126 @@ public class MainWindow extends javax.swing.JFrame {
         builder.setValidTimeframeEnd(dateNotAfter);
         builder.setCommonName(commonName);
 
+        // initialize to empty string
+        // TODO(mitap94): Da li setovati empty stringove?
+        builder.setOrganizationalUnit("");
+        builder.setOrganization("");
+        builder.setLocality("");
+        builder.setState("");
+        builder.setCountryName("");
+        builder.setEmail("");
+
+        // set organizational unit name
         if (!organizationalUnitName.trim().isEmpty()) {
             builder.setOrganizationalUnit(organizationalUnitName);
         }
 
+        // set organization name
         if (!organizationName.trim().isEmpty()) {
             builder.setOrganization(organizationName);
         }
 
+        // set locality
         if (!locality.trim().isEmpty()) {
             builder.setLocality(locality);
         }
 
+        // set state
         if (!state.trim().isEmpty()) {
             builder.setState(state);
         }
 
+        // set country name
         if (!country.trim().isEmpty()) {
             builder.setCountryName(country);
         }
 
-        if (!country.trim().isEmpty()) {
+        // set email
+        if (!email.trim().isEmpty()) {
             builder.setEmail(email);
         }
 
+        // set serial number
         builder.setSerialNumber(serialNumberInt);
 
-        /* TODO(mitap94): Ekstenzije
-        X509KeyUsage keyuse = new X509KeyUsage(
-            X509KeyUsage.digitalSignature
-            | X509KeyUsage.nonRepudiation
-        );
-        Extension keyUsageExt = new Extension(Extension.keyUsage, true, keyuse.getEncoded());*/
+        // set extensions
+        // Basic Constraints
+        if (extensions.extensions[0]) {
+            BasicConstraints basicConstraints = null;
+            if (extensions.basicConstrCA) {
+                try {
+                    int depthOfChain = Integer.parseInt(extensions.basicConstrDepthOfCertChain);
+                    basicConstraints = new BasicConstraints(depthOfChain);
+                } catch (NumberFormatException e) {
+                    // TODO(mitap94): Uhvati exception;
+                    return;
+                }
+            } else {
+                basicConstraints = new BasicConstraints(false);
+            }
+
+            Extension basicConstraintsExt = null;
+            try {
+                basicConstraintsExt = new Extension(Extension.basicConstraints, extensions.critical[0],
+                        basicConstraints.getEncoded());
+            } catch (IOException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            }
+            builder.addExtension(basicConstraintsExt);
+        }
+
+        // Key Usage
+        if (extensions.extensions[1]) {
+            int mask = 0;
+            if (extensions.keyUsage[0]) {
+                mask |= KeyUsage.digitalSignature;
+            }
+            if (extensions.keyUsage[1]) {
+                mask |= KeyUsage.nonRepudiation;
+            }
+            if (extensions.keyUsage[2]) {
+                mask |= KeyUsage.keyEncipherment;
+            }
+            if (extensions.keyUsage[3]) {
+                mask |= KeyUsage.dataEncipherment;
+            }
+            if (extensions.keyUsage[4]) {
+                mask |= KeyUsage.keyAgreement;
+            }
+            if (extensions.keyUsage[5]) {
+                mask |= KeyUsage.keyCertSign;
+            }
+            if (extensions.keyUsage[6]) {
+                mask |= KeyUsage.cRLSign;
+            }
+            if (extensions.keyUsage[7]) {
+                mask |= KeyUsage.encipherOnly;
+            }
+            if (extensions.keyUsage[8]) {
+                mask |= KeyUsage.decipherOnly;
+            }
+            // TODO(mitap94): Da li je potrebne provera ili se svakako setuje?
+            if (mask != 0) {
+                X509KeyUsage keyUsage = new X509KeyUsage(mask);
+                Extension keyUsageExt = null;
+                try {
+                    keyUsageExt = new Extension(Extension.keyUsage, extensions.critical[1],
+                            keyUsage.getEncoded());
+                } catch (IOException ex) {
+                    // TODO(mitap94): uhvati izuzetak
+                    return;
+                }
+                builder.addExtension(keyUsageExt);
+            }
+        }
+
+        // Issuer Alternative Names
+        if (extensions.extensions[2]) {
+
+        }
+
+        // build certificate
         X509Certificate certificate = null;
         try {
             certificate = builder.build(keyContainer.getKeys().getPrivate(),
@@ -1368,6 +1469,7 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
+        // store certificate
         try {
             manager.storeKeyCertificate(keyContainer.getKeys().getPrivate(), certificate,
                     keyContainer.getKeyName(), password);
@@ -1375,9 +1477,11 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
             exit(Errors.KEY_STORE_EXCEPTION);
         }
-
+        
+        // update certificate list
         updateList(keyContainer.getKeyName());
 
+        // show success message
         JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_KEY_SAVE
                 + keyContainer.getKeyName());
 
@@ -1420,6 +1524,7 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             certificate = (X509Certificate) manager.getCertificateChain(alias)[0];
         } catch (KeyStoreException ex) {
+            // TODO(mitap94): Uhvati exception
             return;
         }
 
@@ -1429,10 +1534,13 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             privateKey = manager.getPrivateKey(alias, password);
         } catch (KeyStoreException ex) {
+            // TODO(mitap94): Uhvati exception
             return;
         } catch (NoSuchAlgorithmException ex) {
+            // TODO(mitap94): Uhvati exception
             return;
         } catch (UnrecoverableKeyException ex) {
+            // TODO(mitap94): Uhvati exception
             return;
         }
 
@@ -1440,6 +1548,7 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             csrRequest = X509SelfSignedToCsr.convert(certificate, privateKey);
         } catch (OperatorCreationException ex) {
+            // TODO(mitap94): Uhvati exception
             return;
         }
 
@@ -1561,6 +1670,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         // clear extensions
         extensions.clearAll();
+
+        if (extensionsPopup.isShowing()) {
+            extensionsPopup.dispose();
+        }
     }
 
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";

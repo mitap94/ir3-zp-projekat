@@ -283,6 +283,7 @@ public class ImportPopup extends javax.swing.JFrame {
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
         // 
         // TODO(mitap94): pokri sve use cese-ove kako u popup window i main window
+        // Uhvati sve exceptione
         String filePath = fileNameTextField.getText();
         String filePassword = new String(passwordField.getPassword());
         
