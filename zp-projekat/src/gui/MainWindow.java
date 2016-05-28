@@ -18,6 +18,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
@@ -37,9 +38,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.BCStyle;
+import org.bouncycastle.asn1.x500.style.IETFUtils;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.KeyUsage;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.bouncycastle.jce.X509KeyUsage;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -1205,7 +1210,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO(mitap94): Dodaj requestFocus() kada bude greska
         // Dodaj JOptionPane na vise mesta
         // NISU SVA POLJA OBAVEZNA
-        
+
         // can't continue if extensions not saved
         if (extensionsPopup.isShowing()) {
             JOptionPane.showMessageDialog(extensionsPopup, Errors.SAVE_EXTENSIONS);
@@ -1213,7 +1218,7 @@ public class MainWindow extends javax.swing.JFrame {
             statusBarTextField.setText(Errors.SAVE_EXTENSIONS);
             return;
         }
-        
+
         if (keyContainer.getKeys() == null) {
             JOptionPane.showMessageDialog(this, Errors.NO_KEYS_GENERATED);
             statusBarTextField.setForeground(Errors.COLOR);
@@ -1488,7 +1493,7 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
             exit(Errors.KEY_STORE_EXCEPTION);
         }
-        
+
         // update certificate list
         updateList(keyContainer.getKeyName());
 
@@ -1534,7 +1539,7 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(mitap94): izbaci error
             return;
         }
-        
+
         // get certificate
         try {
             certificateView = (X509Certificate) manager.getCertificateChain(alias)[0];
@@ -1546,7 +1551,7 @@ public class MainWindow extends javax.swing.JFrame {
         // get private key
         String password = new String(passwordFieldViewCertificate.getPassword());
         passwordFieldViewCertificate.setText("");
-        
+
         PrivateKey privateKey = null;
         try {
             privateKey = manager.getPrivateKey(alias, password);
@@ -1568,25 +1573,41 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(mitap94): Uhvati exception
             return;
         }
-        
+
         // set fields
         serialNumberTextFieldSign.setText(certificateView.getSerialNumber().toString());
         dateNotBeforeTextFieldSign.setText(certificateView.getNotBefore().toString());
         dateNotAfterTextFieldSign.setText(certificateView.getNotAfter().toString());
-        subjectCommonNameTextField.setText("Subject");
-        subjectOrganizationalUnitNameTextField.setText("");
-        subjectOrganizationNameTextField.setText("");
-        subjectEmailTextField.setText("");
-        subjectCountryTextField.setText("");
-        subjectStateTextField.setText("");
-        subjectLocalityTextField.setText("");
+
+        X500Name x500name;
+        try {
+            x500name = new JcaX509CertificateHolder(certificateView).getSubject();
+        } catch (CertificateEncodingException ex) {
+            // TODO(): Uhvati exception
+            return;
+        }
         
+        subjectCommonNameTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
+        subjectOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
+        subjectOrganizationNameTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.O)[0].getFirst().getValue()));
+        subjectEmailTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.E)[0].getFirst().getValue()));
+        subjectCountryTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.C)[0].getFirst().getValue()));
+        subjectStateTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
+        subjectLocalityTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+
         publicKeyAlgorithmTextField.setText(certificateView.getPublicKey().getAlgorithm());
-        
+
         RSAPublicKey publicKey = (RSAPublicKey) certificateView.getPublicKey();
         String length = "" + publicKey.getModulus().bitLength();
         keyLengthTextField.setText(length);
-                
+
         viewCSRButton.setEnabled(true);
     }//GEN-LAST:event_viewCertificateButtonActionPerformed
 
@@ -1599,7 +1620,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
         // TODO(mitap94): resetuj certificateView, certificateUse i csrRequest i sva ostala polja
-        
+
         certificateView = null;
         certificateUse = null;
         csrRequest = null;
@@ -1630,7 +1651,7 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(mitap94): izbaci error
             return;
         }
-        
+
         // get certificate
         try {
             certificateUse = (X509Certificate) manager.getCertificateChain(alias)[0];
@@ -1642,6 +1663,7 @@ public class MainWindow extends javax.swing.JFrame {
         // get private key
         String password = new String(passwordFieldUseCertificate.getPassword());
         passwordFieldUseCertificate.setText("");
+        
         PrivateKey privateKey = null;
         try {
             privateKey = manager.getPrivateKey(alias, password);
@@ -1655,18 +1677,33 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(mitap94): Uhvati exception
             return;
         }
-        
+
         // set fields
-        issuerCommonNameTextField.setText("Issuer");
-        issuerOrganizationalUnitNameTextField.setText("");
-        issuerOrganizationNameTextField.setText("");
-        issuerEmailTextField.setText("");
-        issuerCountryTextField.setText("Zimbabve");
-        issuerStateTextField.setText("");
-        issuerLocalityTextField.setText("");
+        X500Name x500name;
+        try {
+            x500name = new JcaX509CertificateHolder(certificateView).getSubject();
+        } catch (CertificateEncodingException ex) {
+            // TODO(): Uhvati exception
+            return;
+        }
         
+        issuerCommonNameTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
+        issuerOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
+        issuerOrganizationNameTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.O)[0].getFirst().getValue()));
+        issuerEmailTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.E)[0].getFirst().getValue()));
+        issuerCountryTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.C)[0].getFirst().getValue()));
+        issuerStateTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
+        issuerLocalityTextField.setText(IETFUtils.valueToString(x500name
+                .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+
         signatureAlgorithmTextField.setText(certificateUse.getSigAlgName());
-        
+
     }//GEN-LAST:event_useCertificateButtonActionPerformed
 
     private void myInitComponents() {
@@ -1679,12 +1716,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         extensions = new Extensions();
         extensionsPopup = new ExtensionsPopup(this, extensions);
-        
+
         certificateView = null;
         certificateUse = null;
         csrRequest = null;
-        
-        
+
         keyContainer = new KeyContainer();
 
         GuiUtil.attachPopupMenuSpecial(publicKeyTextField, keyContainer, 0);
@@ -1781,7 +1817,7 @@ public class MainWindow extends javax.swing.JFrame {
     X509Certificate certificateUse;
     X509Certificate certificateView;
     PKCS10CertificationRequest csrRequest;
-    
+
     Enumeration<String> certificates;
     DefaultListModel<String> listModel;
 
