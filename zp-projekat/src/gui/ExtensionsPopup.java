@@ -377,6 +377,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         issuerAltNamePanel.setVisible(false);
         depthOfCertChainLabel.setVisible(false);
         depthOfCertificateChainTextField.setVisible(false);
+        depthOfCertificateChainTextField.setText("0");
     }
 
     private void loadExtensions() {

@@ -758,6 +758,11 @@ public class MainWindow extends javax.swing.JFrame {
         viewExtensionsButton.setText("View extensions");
 
         signButton.setText("Sign Certificate");
+        signButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signButtonActionPerformed(evt);
+            }
+        });
 
         viewCSRButton.setText("View CSR");
 
@@ -1243,11 +1248,12 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         String commonName = commonNameTextField.getText();
+        /*
         if (commonName.trim().isEmpty()) {
             statusBarTextField.setForeground(Errors.COLOR);
             statusBarTextField.setText(Errors.NO_COMMON_NAME_SPECIFIED);
             return;
-        }
+        }*/
 
         String organizationName = organizationNameTextField.getText();
         /*
@@ -1340,7 +1346,7 @@ public class MainWindow extends javax.swing.JFrame {
         builder.setCommonName(commonName);
 
         // initialize to empty string
-        // TODO(mitap94): Da li setovati empty stringove?
+        builder.setCommonName("");
         builder.setOrganizationalUnit("");
         builder.setOrganization("");
         builder.setLocality("");
@@ -1519,10 +1525,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void viewCertificateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCertificateButtonActionPerformed
         // Vecina funkcionalnosti treba u view CSR
         String alias = generatedKeysList1.getSelectedValue();
+        if (alias == null) {
+            // TODO(mitap94): izbaci error
+            return;
+        }
 
-        X509Certificate certificate = null;
         try {
-            certificate = (X509Certificate) manager.getCertificateChain(alias)[0];
+            certificateView = (X509Certificate) manager.getCertificateChain(alias)[0];
         } catch (KeyStoreException ex) {
             // TODO(mitap94): Uhvati exception
             return;
@@ -1544,9 +1553,8 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        PKCS10CertificationRequest csrRequest = null;
         try {
-            csrRequest = X509SelfSignedToCsr.convert(certificate, privateKey);
+            csrRequest = X509SelfSignedToCsr.convert(certificateView, privateKey);
         } catch (OperatorCreationException ex) {
             // TODO(mitap94): Uhvati exception
             return;
@@ -1575,6 +1583,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_extensionsButtonActionPerformed
 
+    private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_signButtonActionPerformed
+
     private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
@@ -1585,7 +1597,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         extensions = new Extensions();
         extensionsPopup = new ExtensionsPopup(this, extensions);
-
+        
+        certificateView = null;
+        csrRequest = null;
+        
+        
         keyContainer = new KeyContainer();
 
         GuiUtil.attachPopupMenuSpecial(publicKeyTextField, keyContainer, 0);
@@ -1679,6 +1695,9 @@ public class MainWindow extends javax.swing.JFrame {
     private final String EMAIL_REGEXP = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     private final String DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
 
+    X509Certificate certificateView;
+    PKCS10CertificationRequest csrRequest;
+    
     Enumeration<String> certificates;
     DefaultListModel<String> listModel;
 
