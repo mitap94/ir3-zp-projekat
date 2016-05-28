@@ -6,6 +6,7 @@ import crypto.KeyContainer;
 import crypto.utils.BouncyCastleX509Builder;
 import crypto.utils.X509Builder;
 import crypto.utils.X509SelfSignedToCsr;
+import crypto.utils.X509Signer;
 
 import java.awt.*;
 import java.io.File;
@@ -36,6 +37,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -192,6 +194,8 @@ public class MainWindow extends javax.swing.JFrame {
         viewCSRButton = new javax.swing.JButton();
         serialNumberLabel1 = new javax.swing.JLabel();
         serialNumberTextFieldSign = new javax.swing.JTextField();
+        previewCertificateButton = new javax.swing.JButton();
+        previewEncodedCertificateButton = new javax.swing.JButton();
         certificateViewLabel = new javax.swing.JLabel();
         viewCertificateButton = new javax.swing.JButton();
         useCertificateButton = new javax.swing.JButton();
@@ -759,16 +763,33 @@ public class MainWindow extends javax.swing.JFrame {
 
         viewModulusButton.setText("View modulus");
         viewModulusButton.setEnabled(false);
+        viewModulusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewModulusButtonActionPerformed(evt);
+            }
+        });
 
         keyLengthTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         keyLengthTextField.setEnabled(false);
 
         viewSignatureButton.setText("View signature");
         viewSignatureButton.setEnabled(false);
+        viewSignatureButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewSignatureButtonActionPerformed(evt);
+            }
+        });
 
         viewExtensionsButton.setText("View extensions");
+        viewExtensionsButton.setEnabled(false);
+        viewExtensionsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewExtensionsButtonActionPerformed(evt);
+            }
+        });
 
         signButton.setText("Sign Certificate");
+        signButton.setEnabled(false);
         signButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signButtonActionPerformed(evt);
@@ -787,6 +808,22 @@ public class MainWindow extends javax.swing.JFrame {
         serialNumberLabel1.setText("Serial number:");
 
         serialNumberTextFieldSign.setEnabled(false);
+
+        previewCertificateButton.setText("Preview certificate");
+        previewCertificateButton.setEnabled(false);
+        previewCertificateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previewCertificateButtonActionPerformed(evt);
+            }
+        });
+
+        previewEncodedCertificateButton.setText("Preview encoded certificate");
+        previewEncodedCertificateButton.setEnabled(false);
+        previewEncodedCertificateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previewEncodedCertificateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout certificateViewPanelLayout = new javax.swing.GroupLayout(certificateViewPanel);
         certificateViewPanel.setLayout(certificateViewPanelLayout);
@@ -853,11 +890,6 @@ public class MainWindow extends javax.swing.JFrame {
                                             .addComponent(dateNotAfterTextFieldSign, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(certificateViewPanelLayout.createSequentialGroup()
-                        .addComponent(signatureAlgorithmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(viewSignatureButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(certificateViewPanelLayout.createSequentialGroup()
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(certificateViewPanelLayout.createSequentialGroup()
                                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -898,13 +930,22 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(issuerStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(subjectStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(viewCSRButton))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 56, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(previewCertificateButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(previewEncodedCertificateButton)
+                                .addGap(382, 382, 382)
                                 .addComponent(certificateVersionLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(certificateVersionLabel3)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(certificateViewPanelLayout.createSequentialGroup()
+                        .addComponent(signatureAlgorithmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewSignatureButton)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(certificateViewPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1018,7 +1059,10 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(signatureAlgorithmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(viewSignatureButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                        .addComponent(signButton))
+                        .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(signButton)
+                            .addComponent(previewCertificateButton)
+                            .addComponent(previewEncodedCertificateButton)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(certificateViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1368,7 +1412,7 @@ public class MainWindow extends javax.swing.JFrame {
         if (!commonName.trim().isEmpty()) {
             builder.setCommonName(commonName);
         }
-        
+
         // set organizational unit name
         if (!organizationalUnitName.trim().isEmpty()) {
             builder.setOrganizationalUnit(organizationalUnitName);
@@ -1591,7 +1635,7 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(): Uhvati exception
             return;
         }
-        
+
         subjectCommonNameTextField.setText(IETFUtils.valueToString(x500name
                 .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
         subjectOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
@@ -1614,6 +1658,29 @@ public class MainWindow extends javax.swing.JFrame {
         keyLengthTextField.setText(length);
 
         viewCSRButton.setEnabled(true);
+
+        if (certificateUse != null) {
+            try {
+                signedCertificate = X509Signer.sign(csrRequest, certificateUse,
+                        certificateUsePrivateKey, certificateView.getSerialNumber(),
+                        certificateView.getNotBefore(), certificateView.getNotAfter());
+            } catch (IOException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            } catch (OperatorCreationException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            } catch (CertificateException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            }
+            signButton.setEnabled(true);
+            previewCertificateButton.setEnabled(true);
+            previewEncodedCertificateButton.setEnabled(true);
+            viewSignatureButton.setEnabled(true);
+            viewModulusButton.setEnabled(true);
+            viewExtensionsButton.setEnabled(true);
+        }
     }//GEN-LAST:event_viewCertificateButtonActionPerformed
 
     private void extensionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsButtonActionPerformed
@@ -1624,12 +1691,27 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_extensionsButtonActionPerformed
 
     private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
-        // TODO(mitap94): resetuj certificateView, certificateUse i csrRequest i sva ostala polja
+        // TODO(mitap94): Save signed certificate
+        // ***razvrstaj signed i unsigned po listama
 
+        // clear certificates
         certificateView = null;
         certificateUse = null;
         csrRequest = null;
+        signedCertificate = null;
+        certificateUsePrivateKey = null;
+
+        // clear fields
+        
+        
+        // disable buttons
+        previewCertificateButton.setEnabled(false);
+        previewEncodedCertificateButton.setEnabled(false);
         viewCSRButton.setEnabled(false);
+        signButton.setEnabled(false);
+        viewSignatureButton.setEnabled(false);
+        viewModulusButton.setEnabled(false);
+        viewExtensionsButton.setEnabled(false);
     }//GEN-LAST:event_signButtonActionPerformed
 
     private void viewCSRButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCSRButtonActionPerformed
@@ -1668,10 +1750,9 @@ public class MainWindow extends javax.swing.JFrame {
         // get private key
         String password = new String(passwordFieldUseCertificate.getPassword());
         passwordFieldUseCertificate.setText("");
-        
-        PrivateKey privateKey = null;
+
         try {
-            privateKey = manager.getPrivateKey(alias, password);
+            certificateUsePrivateKey = manager.getPrivateKey(alias, password);
         } catch (KeyStoreException ex) {
             // TODO(mitap94): Uhvati exception
             return;
@@ -1691,7 +1772,7 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(): Uhvati exception
             return;
         }
-        
+
         issuerCommonNameTextField.setText(IETFUtils.valueToString(x500name
                 .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
         issuerOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
@@ -1709,7 +1790,102 @@ public class MainWindow extends javax.swing.JFrame {
 
         signatureAlgorithmTextField.setText(certificateUse.getSigAlgName());
 
+        if (certificateView != null) {
+            try {
+                signedCertificate = X509Signer.sign(csrRequest, certificateUse,
+                        certificateUsePrivateKey, certificateView.getSerialNumber(),
+                        certificateView.getNotBefore(), certificateView.getNotAfter());
+            } catch (IOException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            } catch (OperatorCreationException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            } catch (CertificateException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            }
+
+            signButton.setEnabled(true);
+            previewCertificateButton.setEnabled(true);
+            previewEncodedCertificateButton.setEnabled(true);
+            viewSignatureButton.setEnabled(true);
+            viewModulusButton.setEnabled(true);
+            viewExtensionsButton.setEnabled(true);
+        }
     }//GEN-LAST:event_useCertificateButtonActionPerformed
+
+    private void previewCertificateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewCertificateButtonActionPerformed
+        JTextArea textArea = new JTextArea(signedCertificate.toString());
+        textArea.setEditable(false);
+        textArea.setColumns(45);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        GuiUtil.attachPopupMenu(textArea);
+        JOptionPane.showMessageDialog(this, scrollPane, "Certificate", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_previewCertificateButtonActionPerformed
+
+    private void previewEncodedCertificateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewEncodedCertificateButtonActionPerformed
+        StringWriter stringWriter = new StringWriter();
+        JcaPEMWriter jcaWriter = new JcaPEMWriter(stringWriter);
+        try {
+            jcaWriter.writeObject(csrRequest);
+            jcaWriter.close();
+        } catch (IOException ex) {
+            // TODO(mitap94): Uhvati exception
+            return;
+        }
+        String message = stringWriter.toString();
+
+        JTextArea textArea = new JTextArea(message);
+        textArea.setEditable(false);
+        GuiUtil.attachPopupMenu(textArea);
+        JOptionPane.showMessageDialog(this, textArea, "Encoded Certificate", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_previewEncodedCertificateButtonActionPerformed
+
+    private void viewSignatureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSignatureButtonActionPerformed
+        byte[] signature = signedCertificate.getSignature();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte val: signature) {
+            stringBuilder.append(String.format("%02x", val));
+        }
+        JTextArea textArea = new JTextArea(stringBuilder.toString());
+        textArea.setEditable(false);
+        textArea.setColumns(45);
+        textArea.setRows(15);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        GuiUtil.attachPopupMenu(textArea);
+        JOptionPane.showMessageDialog(this, scrollPane, "Signature", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_viewSignatureButtonActionPerformed
+
+    private void viewModulusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewModulusButtonActionPerformed
+        RSAPublicKey publicKey = (RSAPublicKey)signedCertificate.getPublicKey();
+        JTextArea textArea = new JTextArea(publicKey.getModulus().toString());
+        textArea.setEditable(false);
+        textArea.setColumns(45);
+        textArea.setRows(15);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        GuiUtil.attachPopupMenu(textArea);
+        JOptionPane.showMessageDialog(this, scrollPane, "Modulus", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_viewModulusButtonActionPerformed
+
+    private void viewExtensionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewExtensionsButtonActionPerformed
+        // signedCertificate.get
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setColumns(45);
+        textArea.setRows(15);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        GuiUtil.attachPopupMenu(textArea);
+        JOptionPane.showMessageDialog(this, scrollPane, "Extensions", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_viewExtensionsButtonActionPerformed
 
     private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -1725,6 +1901,8 @@ public class MainWindow extends javax.swing.JFrame {
         certificateView = null;
         certificateUse = null;
         csrRequest = null;
+        signedCertificate = null;
+        certificateUsePrivateKey = null;
 
         keyContainer = new KeyContainer();
 
@@ -1820,8 +1998,11 @@ public class MainWindow extends javax.swing.JFrame {
     private final String DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
 
     X509Certificate certificateUse;
+    PrivateKey certificateUsePrivateKey;
+
     X509Certificate certificateView;
     PKCS10CertificationRequest csrRequest;
+    X509Certificate signedCertificate;
 
     Enumeration<String> certificates;
     DefaultListModel<String> listModel;
@@ -1927,6 +2108,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel passwordUseCertificateLabel;
     private javax.swing.JLabel passwordViewCertificateLabel;
+    private javax.swing.JButton previewCertificateButton;
+    private javax.swing.JButton previewEncodedCertificateButton;
     private javax.swing.JLabel privateKeyLabel;
     private javax.swing.JTextField privateKeyTextField;
     private javax.swing.JLabel publicKeyAlgorithmLabel;

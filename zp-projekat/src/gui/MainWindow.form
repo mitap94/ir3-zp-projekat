@@ -992,12 +992,6 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="signatureAlgorithmTextField" min="-2" pref="180" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="viewSignatureButton" linkSize="26" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
@@ -1046,16 +1040,26 @@
                                               <Component id="subjectStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
                                               <Component id="viewCSRButton" alignment="2" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="previewCertificateButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="previewEncodedCertificateButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="382" max="-2" attributes="0"/>
                                           <Component id="certificateVersionLabel2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="certificateVersionLabel3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="signatureAlgorithmTextField" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="viewSignatureButton" linkSize="26" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1185,7 +1189,11 @@
                                       <Component id="viewSignatureButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="95" max="32767" attributes="0"/>
-                                  <Component id="signButton" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="signButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="previewCertificateButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="previewEncodedCertificateButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
@@ -1513,6 +1521,9 @@
                     <Property name="text" type="java.lang.String" value="View modulus"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewModulusButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="keyLengthTextField">
                   <Properties>
@@ -1525,17 +1536,25 @@
                     <Property name="text" type="java.lang.String" value="View signature"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewSignatureButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="viewExtensionsButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="View extensions"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewExtensionsButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="keyGenerationSeparator6">
                 </Component>
                 <Component class="javax.swing.JButton" name="signButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Sign Certificate"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signButtonActionPerformed"/>
@@ -1562,6 +1581,24 @@
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="previewCertificateButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Preview certificate"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="previewCertificateButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="previewEncodedCertificateButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Preview encoded certificate"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="previewEncodedCertificateButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
