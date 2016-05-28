@@ -1830,7 +1830,7 @@ public class MainWindow extends javax.swing.JFrame {
         StringWriter stringWriter = new StringWriter();
         JcaPEMWriter jcaWriter = new JcaPEMWriter(stringWriter);
         try {
-            jcaWriter.writeObject(csrRequest);
+            jcaWriter.writeObject(signedCertificate);
             jcaWriter.close();
         } catch (IOException ex) {
             // TODO(mitap94): Uhvati exception
