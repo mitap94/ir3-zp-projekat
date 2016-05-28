@@ -1196,7 +1196,7 @@ public class MainWindow extends javax.swing.JFrame {
         // Dodaj JOptionPane na vise mesta
         // NISU SVA POLJA OBAVEZNA
         
-        // close extensions popup window if open
+        // can't continue if extensions not saved
         if (extensionsPopup.isShowing()) {
             JOptionPane.showMessageDialog(extensionsPopup, Errors.SAVE_EXTENSIONS);
             statusBarTextField.setForeground(Errors.COLOR);
