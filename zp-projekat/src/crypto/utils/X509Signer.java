@@ -1,10 +1,12 @@
 package crypto.utils;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Date;
 import java.util.Enumeration;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
@@ -39,8 +41,9 @@ public class X509Signer {
     public static final String BC_PROVIDER = "BC";
     
     public static X509Certificate sign(PKCS10CertificationRequest req, X509Certificate signInfo,
-            PrivateKey privateKey) throws CertificateEncodingException, CertIOException,
-            IOException, OperatorCreationException, CertificateException {  
+            PrivateKey privateKey, BigInteger serial, Date validStart, Date validEnd) throws
+            CertificateEncodingException, CertIOException, IOException, OperatorCreationException,
+            CertificateException {  
         // Gets subject and issuer data.
         X509CertificateHolder certHolder = new JcaX509CertificateHolder(signInfo);
         X500Name issuer = certHolder.getIssuer();
@@ -49,9 +52,9 @@ public class X509Signer {
         // Prepares signed certificate building.
         X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(
                 issuer /* Issuer */,
-                signInfo.getSerialNumber() /* Serial number */,
-                signInfo.getNotBefore() /* Validity start */,
-                signInfo.getNotAfter() /* Validity end */,
+                serial /* Serial number */,
+                validStart /* Validity start */,
+                validEnd /* Validity end */,
                 subjectName /* Subject */,
                 req.getSubjectPublicKeyInfo() /* Public key info */
         );
