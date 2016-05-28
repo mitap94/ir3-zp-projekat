@@ -75,15 +75,11 @@ public class PopupWindow extends javax.swing.JFrame {
 
         chooseFileLabel.setText("Choose an existing keystore (or create a new one):");
 
-        fileNameTextField.setText("D:\\ir3-zp-projekat\\zp-projekat\\store.p12");
-
         fileNameLabel.setLabelFor(fileNameTextField);
         fileNameLabel.setText("File path:");
 
         passwordLabel.setLabelFor(passwordField);
         passwordLabel.setText("Password:");
-
-        passwordField.setText("PISTA");
 
         chooseFileButton.setText("Choose File...");
         chooseFileButton.addActionListener(new java.awt.event.ActionListener() {

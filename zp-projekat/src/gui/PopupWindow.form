@@ -143,9 +143,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="fileNameTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="D:\u005cir3-zp-projekat\u005czp-projekat\u005cstore.p12" containsInvalidXMLChars="true"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="fileNameLabel">
           <Properties>
@@ -164,9 +161,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="passwordField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="PISTA"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="chooseFileButton">
           <Properties>

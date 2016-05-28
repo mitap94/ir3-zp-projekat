@@ -895,7 +895,7 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(issuerStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(subjectStateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(viewCSRButton))
-                                .addGap(0, 56, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, certificateViewPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(certificateVersionLabel2)
@@ -1110,8 +1110,6 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(useCertificateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(certificateViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        certificateSigningTabLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {passwordFieldUseCertificate, passwordFieldViewCertificate});
 
         certificateSigningTabLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {useCertificateButton, viewCertificateButton});
 
@@ -1353,7 +1351,6 @@ public class MainWindow extends javax.swing.JFrame {
         X509Builder builder = new BouncyCastleX509Builder();
         builder.setValidTimeframeStart(dateNotBefore);
         builder.setValidTimeframeEnd(dateNotAfter);
-        builder.setCommonName(commonName);
 
         // initialize to empty string
         builder.setCommonName("");
@@ -1364,6 +1361,11 @@ public class MainWindow extends javax.swing.JFrame {
         builder.setCountryName("");
         builder.setEmail("");
 
+        // set common name
+        if (!commonName.trim().isEmpty()) {
+            builder.setCommonName(commonName);
+        }
+        
         // set organizational unit name
         if (!organizationalUnitName.trim().isEmpty()) {
             builder.setOrganizationalUnit(organizationalUnitName);
@@ -1681,7 +1683,7 @@ public class MainWindow extends javax.swing.JFrame {
         // set fields
         X500Name x500name;
         try {
-            x500name = new JcaX509CertificateHolder(certificateView).getSubject();
+            x500name = new JcaX509CertificateHolder(certificateUse).getSubject();
         } catch (CertificateEncodingException ex) {
             // TODO(): Uhvati exception
             return;
