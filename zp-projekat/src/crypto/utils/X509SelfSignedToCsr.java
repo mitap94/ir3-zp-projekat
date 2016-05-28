@@ -25,6 +25,8 @@ public class X509SelfSignedToCsr {
     
     public static final String ALGO = "SHA1withRSA";
     
+    private static final int BYTE_OFFSET = 2;
+    
     public static PKCS10CertificationRequest convert(X509Certificate cert, PrivateKey key) throws
             OperatorCreationException {
         // Takes care of extensions first.
@@ -35,8 +37,8 @@ public class X509SelfSignedToCsr {
         if ((criticalExtensions != null) && !criticalExtensions.isEmpty()) {
             for (String critExt : criticalExtensions) {
                 byte[] extensionData = cert.getExtensionValue(critExt);
-                // TODO(popovicu): investigate
-                extensionData = Arrays.copyOfRange(extensionData, 2, extensionData.length);
+                extensionData = Arrays.copyOfRange(extensionData, BYTE_OFFSET,
+                        extensionData.length);
                 extGen.addExtension(new Extension(
                         new ASN1ObjectIdentifier(critExt), true, extensionData));
             }
@@ -47,7 +49,8 @@ public class X509SelfSignedToCsr {
         if ((nonCriticalExtensions != null) && !nonCriticalExtensions.isEmpty()) {
             for (String nonCritExt : nonCriticalExtensions) {
                 byte[] extensionData = cert.getExtensionValue(nonCritExt);
-                extensionData = Arrays.copyOfRange(extensionData, 2, extensionData.length);
+                extensionData = Arrays.copyOfRange(extensionData, BYTE_OFFSET,
+                        extensionData.length);
                 extGen.addExtension(new Extension(
                         new ASN1ObjectIdentifier(nonCritExt), false, extensionData));
             }
