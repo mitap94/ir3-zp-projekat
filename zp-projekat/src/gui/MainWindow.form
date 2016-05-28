@@ -65,8 +65,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabsPanel" max="32767" attributes="0"/>
           <Component id="statusBarTextField" alignment="0" max="32767" attributes="0"/>
+          <Component id="tabsPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -318,7 +318,6 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="extensionsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="stateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="emailLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="organizationNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -326,13 +325,13 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="extensionsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="stateTextField" linkSize="15" alignment="0" max="32767" attributes="0"/>
                                       <Component id="emailTextField" linkSize="15" alignment="0" max="32767" attributes="0"/>
                                       <Component id="organizationNameTextField" linkSize="15" alignment="0" pref="199" max="32767" attributes="0"/>
                                       <Component id="serialNumberTextField" linkSize="15" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="extensionsButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="408" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -419,8 +418,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="localityTextField" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="localityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="extensionsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="extensionsCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="extensionsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
@@ -737,19 +735,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="emailTextField">
                 </Component>
-                <Component class="javax.swing.JLabel" name="extensionsLabel">
-                  <Properties>
-                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="extensionsCheckBox"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Extensions:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="extensionsCheckBox">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extensionsCheckBoxActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JPasswordField" name="passwordField">
                 </Component>
                 <Component class="javax.swing.JLabel" name="passwordLabel">
@@ -763,6 +748,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearFormButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="extensionsButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Extensions"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extensionsButtonActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -853,7 +846,7 @@
                           <Component id="generatedKeysLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="certificateViewLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="generatedKeysScrollPanel1" alignment="0" min="-2" pref="552" max="-2" attributes="0"/>
                           <Component id="certificateViewPanel" alignment="0" max="32767" attributes="0"/>
@@ -910,6 +903,26 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator4" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="2" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator3" max="32767" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator5" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator6" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -922,18 +935,30 @@
                               <Component id="signatureAlgorithmLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="signButton" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="keyLengthTextField" linkSize="24" alignment="2" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="publicKeyAlgorithmTextField" linkSize="24" alignment="2" min="-2" pref="180" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="keyLengthTextField" linkSize="24" alignment="2" min="-2" pref="180" max="-2" attributes="0"/>
-                                              <Component id="publicKeyAlgorithmTextField" linkSize="24" alignment="2" min="-2" pref="180" max="-2" attributes="0"/>
-                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="viewModulusButton" linkSize="26" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="viewExtensionsButton" linkSize="26" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="dateLabel1" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="dateFormatLabel1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="1" attributes="0">
                                                       <Component id="dateNotBeforeLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
                                                       <Component id="dateNotAfterLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -943,138 +968,103 @@
                                                       <Component id="dateNotBeforeTextField1" linkSize="20" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                                                       <Component id="dateNotAfterTextField1" linkSize="20" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace max="32767" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="viewModulusButton" linkSize="26" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                                  <Component id="viewExtensionsButton" linkSize="26" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="issuerCommonNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="issuerOrganizationalUnitNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectCommonNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectOrganizationalUnitNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="organizationNameLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="emailLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="organizationNameLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="emailLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="issuerOrganizationNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="issuerEmailTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectOrganizationNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectEmailTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="countryLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="localityLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="countryLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="localityLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="issuerCountryTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectCountryTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectLocalityTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="issuerLocalityTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="stateLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="stateLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="issuerStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
-                                              <Component id="subjectStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="signatureAlgorithmTextField" linkSize="24" min="-2" pref="180" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="viewSignatureButton" linkSize="26" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="passwordUseCertificateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="passwordViewCertificateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="issuerCommonNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerOrganizationalUnitNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectCommonNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectOrganizationalUnitNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="organizationNameLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationNameLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="issuerOrganizationNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerEmailTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectOrganizationNameTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectEmailTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="countryLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="localityLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="countryLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="localityLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="issuerCountryTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectCountryTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectLocalityTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerLocalityTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="stateLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="stateLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="issuerStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectStateTextField" linkSize="25" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="signatureAlgorithmTextField" linkSize="24" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="viewSignatureButton" linkSize="26" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="passwordUseCertificateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="passwordViewCertificateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="passwordFieldUseCertificate" linkSize="24" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="passwordFieldViewCertificate" linkSize="24" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="viewCSRButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="certificateVersionLabel2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="2" attributes="0">
-                                              <Component id="passwordFieldUseCertificate" linkSize="24" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="passwordFieldViewCertificate" linkSize="24" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="certificateVersionLabel3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="viewCSRButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="keyGenerationSeparator6" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="keyGenerationSeparator5" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="2" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="keyGenerationSeparator3" max="32767" attributes="0"/>
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="serialNumberLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="serialNumberTextField1" linkSize="24" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="issuerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="subjectLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="357" pref="357" max="-2" attributes="0"/>
-                                  <Component id="dateLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="dateFormatLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="882" max="-2" attributes="0"/>
-                                  <Component id="certificateVersionLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="certificateVersionLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="serialNumberLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="serialNumberTextField1" linkSize="24" min="-2" pref="192" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="keyGenerationSeparator4" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1082,32 +1072,26 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="dateLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateFormatLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="serialNumberTextField1" linkSize="21" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="serialNumberLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateNotBeforeLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateNotBeforeTextField1" linkSize="21" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="dateLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="dateFormatLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotAfterTextField1" linkSize="21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotAfterLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="dateNotBeforeTextField1" linkSize="21" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                                              <Component id="dateNotBeforeLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="dateNotAfterTextField1" linkSize="21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="dateNotAfterLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="keyGenerationSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                          <Component id="serialNumberTextField1" linkSize="18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="serialNumberLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Component id="keyGenerationSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="issuerLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -1174,51 +1158,58 @@
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="keyGenerationSeparator5" min="-2" pref="2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="publicKeyAlgorithmLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="publicKeyAlgorithmTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="viewModulusButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="viewExtensionsButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="keyLengthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="keyLengthTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="keyGenerationSeparator6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="signatureAlgorithmLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="signatureAlgorithmTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                                              <Component id="viewSignatureButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="publicKeyAlgorithmLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="publicKeyAlgorithmTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                              <Component id="viewModulusButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="viewExtensionsButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="77" max="32767" attributes="0"/>
-                                          <Component id="viewCSRButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="keyLengthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="keyLengthTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Component id="keyGenerationSeparator6" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="signatureAlgorithmLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="signatureAlgorithmTextField" linkSize="18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                                      <Component id="viewSignatureButton" linkSize="27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace pref="75" max="32767" attributes="0"/>
+                                                  <Component id="viewCSRButton" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="passwordFieldViewCertificate" linkSize="18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="passwordViewCertificateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="passwordFieldUseCertificate" linkSize="18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="passwordUseCertificateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="certificateVersionLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="certificateVersionLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="passwordFieldViewCertificate" linkSize="18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="passwordViewCertificateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="passwordFieldUseCertificate" linkSize="18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="passwordUseCertificateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="signButton" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -1257,19 +1248,6 @@
                       <Font name="Tahoma" size="12" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="v3"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="serialNumberLabel1">
-                  <Properties>
-                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="serialNumberTextField"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Serial number:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="serialNumberTextField1">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="keyGenerationSeparator3">
@@ -1594,6 +1572,19 @@
                 <Component class="javax.swing.JLabel" name="passwordUseCertificateLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Use password:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="serialNumberLabel1">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="serialNumberTextField1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Serial number:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="serialNumberTextField1">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>

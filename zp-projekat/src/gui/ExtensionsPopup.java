@@ -69,6 +69,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Extensions");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         extensionsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
