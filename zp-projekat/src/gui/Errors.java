@@ -41,7 +41,7 @@ public class Errors {
     public static final String NO_FILE_PATH_SPECIFIED = "Morate uneti putanju do fajla!";
     public static final String INVALID_FILE_PATH = "Netacna putanja do fajla!";
     public static final String NO_PASSWORD_SPECIFIED = "Morate uneti sifru!";
-    public static final String INVALID_PASSWORD = "Uneli ste pogresnu sifru!";
+    public static final String INVALID_PASSWORD = "Neuspesno otvaranje!";
     public static final String CERTIFICATE_CORRUPTION = "Korupcija sertifikata unutar keystore-a!";
     public static final String CANNOT_SAVE = "Nemoguce sacuvati podatke na disk!";
     public static final String KEY_STORE_NOT_LOADED = "Keystore nije ucitan!";

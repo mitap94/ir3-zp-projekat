@@ -291,11 +291,14 @@ public class MainWindow extends javax.swing.JFrame {
         keyNameLabel.setText("Key name:");
 
         keyNameTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        keyNameTextField.setName(""); // NOI18N
+        keyNameTextField.setNextFocusableComponent(keySizeTextField);
 
         privateKeyLabel.setLabelFor(privateKeyTextField);
         privateKeyLabel.setText("Private key:");
 
         keySizeTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        keySizeTextField.setNextFocusableComponent(generateKeysButton);
 
         keySizeLabel.setLabelFor(keySizeTextField);
         keySizeLabel.setText("Key size:");
