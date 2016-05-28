@@ -120,13 +120,13 @@ public class BouncyCastleX509Builder implements X509Builder {
     public X509Certificate build(PrivateKey privateKey, PublicKey publicKey) throws Exception {
         // Builds the x.500 name.
         X500NameBuilder nameBuilder = new X500NameBuilder(X500Name.getDefaultStyle());
-        nameBuilder.addRDN(BCStyle.CN, commonName);
-        nameBuilder.addRDN(BCStyle.OU, orgUnit);
-        nameBuilder.addRDN(BCStyle.O, organization);
-        nameBuilder.addRDN(BCStyle.L, locality);
-        nameBuilder.addRDN(BCStyle.ST, state);
-        nameBuilder.addRDN(BCStyle.C, country);
-        nameBuilder.addRDN(BCStyle.E, email);
+        if (commonName != null) nameBuilder.addRDN(BCStyle.CN, commonName);
+        if (orgUnit != null) nameBuilder.addRDN(BCStyle.OU, orgUnit);
+        if (organization != null) nameBuilder.addRDN(BCStyle.O, organization);
+        if (locality != null) nameBuilder.addRDN(BCStyle.L, locality);
+        if (state != null) nameBuilder.addRDN(BCStyle.ST, state);
+        if (country != null) nameBuilder.addRDN(BCStyle.C, country);
+        if (email != null) nameBuilder.addRDN(BCStyle.E, email);
         X500Name name = nameBuilder.build();
         
         // Builds the actual certificate.
