@@ -2107,13 +2107,19 @@ public class MainWindow extends javax.swing.JFrame {
                 certificate = (X509Certificate) manager
                         .getCertificateChain(alias)[0];
             } catch (KeyStoreException ex) {
-                // TODO(mitap94): Uhvati exceptions
+                // TODO(mitap94): Uhvati exception
                 return;
             }
-
-            //if () { TODO(mitap94): Ispitaj da li je CA
-            exportSignedCertButton.setEnabled(true);
-            //}
+            
+            exportSignedCertButton.setEnabled(false);
+            try {
+                if (manager.isCaSigned(alias)) {
+                    exportSignedCertButton.setEnabled(true);
+                }
+            } catch (KeyStoreException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            }
 
             certificateTextArea.setText(certificate.toString());
         }
@@ -2189,16 +2195,16 @@ public class MainWindow extends javax.swing.JFrame {
         listModel = new DefaultListModel();
         listModel1 = new DefaultListModel();
         for (; certificates.hasMoreElements();) {
-            // try {
-            String certificate = certificates.nextElement();
-            //if (!manager.isCaSigned(certificate)) {
-            listModel.addElement(certificate);
-            // }
-            listModel1.addElement(certificate);
-            // } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
-            // return;
-            // }
+            try {
+                String certificate = certificates.nextElement();
+                if (!manager.isCaSigned(certificate)) {
+                    listModel.addElement(certificate);
+                }
+                listModel1.addElement(certificate);
+            } catch (KeyStoreException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
+            }
         }
 
         generatedKeysList.setModel(listModel);
@@ -2222,15 +2228,14 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void updateList(String alias) {
-        //try {
-        // TODO(mitap94): Skloni komentar
-        //if (!manager.isCaSigned(alias)) {
-        listModel.addElement(alias);
-        //}
-        //} catch (KeyStoreException ex) {
-        // TODO(mitap94): Uhvati exception
-        //  return;
-        // }
+        try {
+            if (!manager.isCaSigned(alias)) {
+                listModel.addElement(alias);
+            }
+        } catch (KeyStoreException ex) {
+            // TODO(mitap94): Uhvati exception
+            return;
+        }
         listModel1.addElement(alias);
         generatedKeysList.setSelectedValue(alias, true);
     }

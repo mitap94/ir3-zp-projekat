@@ -282,7 +282,7 @@ public class ImportPopup extends javax.swing.JFrame {
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
         // 
-        // TODO(mitap94): pokri sve use cese-ove kako u popup window i main window
+        // TODO(mitap94): pokri sve use case-ove kako u popup window i main window
         // Uhvati sve exceptione
         String filePath = fileNameTextField.getText();
         String filePassword = new String(passwordField.getPassword());
@@ -320,6 +320,7 @@ public class ImportPopup extends javax.swing.JFrame {
             parentFrame.setEnabled(true);
             this.dispose();
         } catch (KeyStoreException ex) {
+            // TODO(mitap94): Uhvati exception
             return;
         } catch (IOException ex) {
             return;
