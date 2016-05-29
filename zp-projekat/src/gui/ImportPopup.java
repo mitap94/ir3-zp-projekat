@@ -310,10 +310,11 @@ public class ImportPopup extends javax.swing.JFrame {
         }
         
         try {
+            boolean exists = (parentFrame.manager.getCertificateChain(entryName) != null);
             String alias = parentFrame.manager.importCertificate(filePath, filePassword,
                     aesEncrypted, aesPassword, sameEntryName, entryName, oldEntryPassword, 
                     newEntryPassword);
-            parentFrame.updateList(alias);
+            parentFrame.updateList(alias, exists);
             
             parentFrame.setStatus(Messages.SUCCESSFUL_IMPORT + filePath, Messages.COLOR);
             

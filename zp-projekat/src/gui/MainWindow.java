@@ -1639,7 +1639,9 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // store certificate
+        boolean exists = false;
         try {
+            exists = (manager.getCertificateChain(keyContainer.getKeyName()) != null);
             manager.storeKeyCertificate(keyContainer.getKeys().getPrivate(), certificate,
                     keyContainer.getKeyName(), password);
         } catch (KeyStoreException ex) {
@@ -1648,7 +1650,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // update certificate list
-        updateList(keyContainer.getKeyName());
+        updateList(keyContainer.getKeyName(), exists);
 
         // show success message
         JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_KEY_SAVE
@@ -1811,8 +1813,10 @@ public class MainWindow extends javax.swing.JFrame {
             // TODO(mitap94): Javi gresku
             return;
         }
-
+        
+        boolean exists = false;
         try {
+            exists = (manager.getCertificateChain(alias) != null);
             manager.storeKeyCertificate(certificateUsePrivateKey, signedCertificate, alias,
                     password);
         } catch (KeyStoreException ex) {
@@ -1821,7 +1825,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // update lists
-        updateList(alias);
+        updateListOnSign(alias, exists);
 
         // clear certificates
         certificateView = null;
@@ -2112,7 +2116,7 @@ public class MainWindow extends javax.swing.JFrame {
                 // TODO(mitap94): Uhvati exception
                 return;
             }
-            
+
             exportSignedCertButton.setEnabled(false);
             try {
                 if (manager.isCaSigned(alias)) {
@@ -2229,17 +2233,28 @@ public class MainWindow extends javax.swing.JFrame {
         });*/
     }
 
-    public void updateList(String alias) {
-        try {
-            if (!manager.isCaSigned(alias)) {
-                listModel.addElement(alias);
+    public void updateList(String alias, boolean exists) {
+        if (!exists) {
+            try {
+                if (!manager.isCaSigned(alias)) {
+                    listModel.addElement(alias);
+                }
+            } catch (KeyStoreException ex) {
+                // TODO(mitap94): Uhvati exception
+                return;
             }
-        } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            listModel1.addElement(alias);
         }
-        listModel1.addElement(alias);
         generatedKeysList.setSelectedValue(alias, true);
+    }
+    
+    public void updateListOnSign(String alias, boolean exists) {
+        if (!exists) {   
+            listModel1.addElement(alias);
+        }
+        else if (listModel.contains(alias)) {
+            listModel.removeElement(alias);
+        }
     }
 
     // Clear the main form
