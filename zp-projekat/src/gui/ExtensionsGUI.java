@@ -15,6 +15,7 @@ public class ExtensionsGUI {
     }
     
     public void clearAll() {
+        // TODO(mitap94): Clear issuerAltNames
         extensions = new boolean[3];
         critical = new boolean[3];
         keyUsage = new boolean[9];
@@ -30,5 +31,6 @@ public class ExtensionsGUI {
     
     public boolean keyUsage[];
     
-    // TODO(mitap94): add issuerAltName
+    // TODO(mitap94): add issuerAltNames
+    
 }

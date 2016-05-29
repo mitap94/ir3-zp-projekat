@@ -66,6 +66,12 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         issuerAltNamePanel = new javax.swing.JPanel();
         issuerAltNameLabel = new javax.swing.JLabel();
         issuerAltNameCriticalCheckBox = new javax.swing.JCheckBox();
+        issuerAltNameScrollPanel = new javax.swing.JScrollPane();
+        issuerAltNameTextArea = new javax.swing.JTextArea();
+        issuerAltNameComboBox = new javax.swing.JComboBox<>();
+        clearIssuerAltNameButton = new javax.swing.JButton();
+        addIssuerAltNameButton = new javax.swing.JButton();
+        issuerAltNameTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Extensions");
@@ -235,17 +241,55 @@ public class ExtensionsPopup extends javax.swing.JFrame {
 
         issuerAltNameCriticalCheckBox.setText("Critical Extension");
 
+        issuerAltNameTextArea.setEditable(false);
+        issuerAltNameTextArea.setColumns(20);
+        issuerAltNameTextArea.setRows(5);
+        issuerAltNameScrollPanel.setViewportView(issuerAltNameTextArea);
+
+        issuerAltNameComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        clearIssuerAltNameButton.setText("Clear");
+        clearIssuerAltNameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearIssuerAltNameButtonActionPerformed(evt);
+            }
+        });
+
+        addIssuerAltNameButton.setText("Add");
+        addIssuerAltNameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addIssuerAltNameButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout issuerAltNamePanelLayout = new javax.swing.GroupLayout(issuerAltNamePanel);
         issuerAltNamePanel.setLayout(issuerAltNamePanelLayout);
         issuerAltNamePanelLayout.setHorizontalGroup(
             issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(issuerAltNamePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(issuerAltNameLabel)
-                .addGap(18, 18, 18)
-                .addComponent(issuerAltNameCriticalCheckBox)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, issuerAltNamePanelLayout.createSequentialGroup()
+                .addGroup(issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(issuerAltNamePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(issuerAltNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(issuerAltNameLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(issuerAltNameCriticalCheckBox)
+                            .addGroup(issuerAltNamePanelLayout.createSequentialGroup()
+                                .addComponent(issuerAltNameTextField)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(addIssuerAltNameButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clearIssuerAltNameButton))))
+                    .addGroup(issuerAltNamePanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(issuerAltNameScrollPanel)))
+                .addGap(20, 20, 20))
         );
+
+        issuerAltNamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addIssuerAltNameButton, clearIssuerAltNameButton});
+
         issuerAltNamePanelLayout.setVerticalGroup(
             issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(issuerAltNamePanelLayout.createSequentialGroup()
@@ -253,8 +297,18 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                 .addGroup(issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(issuerAltNameLabel)
                     .addComponent(issuerAltNameCriticalCheckBox))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(issuerAltNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(issuerAltNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearIssuerAltNameButton)
+                    .addComponent(addIssuerAltNameButton)
+                    .addComponent(issuerAltNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(issuerAltNameScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        issuerAltNamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addIssuerAltNameButton, clearIssuerAltNameButton, issuerAltNameComboBox, issuerAltNameTextField});
 
         javax.swing.GroupLayout extensionsPanelLayout = new javax.swing.GroupLayout(extensionsPanel);
         extensionsPanel.setLayout(extensionsPanelLayout);
@@ -270,9 +324,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                     .addComponent(extensionsSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, extensionsPanelLayout.createSequentialGroup()
                         .addGroup(extensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(extensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(okButton)
-                                .addComponent(chooseExtensionsLabel))
+                            .addComponent(chooseExtensionsLabel)
                             .addGroup(extensionsPanelLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(basicConstraintsCheckBox)
@@ -283,6 +335,10 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(issuerAltNamePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, extensionsPanelLayout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(okButton)
+                .addGap(206, 206, 206))
         );
         extensionsPanelLayout.setVerticalGroup(
             extensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,8 +361,8 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(extensionsSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(issuerAltNamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(issuerAltNamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(okButton)
                 .addContainerGap())
         );
@@ -369,6 +425,21 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_basicConstraintsCACheckBoxActionPerformed
 
+    private void clearIssuerAltNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearIssuerAltNameButtonActionPerformed
+        issuerAltNameTextArea.setText("");
+        // TODO(mitap94): Clear variables
+        
+    }//GEN-LAST:event_clearIssuerAltNameButtonActionPerformed
+
+    private void addIssuerAltNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIssuerAltNameButtonActionPerformed
+        // TODO(mitap94): set variables (on ok save them)
+        String extension = issuerAltNameTextField.getText();
+        if (!extension.isEmpty()) {
+            String extName = (String)issuerAltNameComboBox.getSelectedItem();
+            issuerAltNameTextArea.append(extName + ": " + extension + "\n");
+        }
+    }//GEN-LAST:event_addIssuerAltNameButtonActionPerformed
+
     private void myInitComponents() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = this.getSize();
@@ -387,6 +458,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     }
 
     private void loadExtensions() {
+        // TODO(mitap94): Ucitaj issuerAltNames
         if (extensions.extensions[0]) {
             basicConstraintsCheckBox.setSelected(true);
             basicConstraintsPanel.setVisible(true);
@@ -453,6 +525,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     }
 
     private void saveExtensions() {
+        // TODO(mitap94): Save issuerAltNames
         extensions.clearAll();
         
         if (basicConstraintsCheckBox.isSelected()) {
@@ -521,6 +594,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     private final ExtensionsGUI extensions;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addIssuerAltNameButton;
     private javax.swing.JCheckBox basicConstraintsCACheckBox;
     private javax.swing.JCheckBox basicConstraintsCheckBox;
     private javax.swing.JCheckBox basicConstraintsCriticalCheckBox;
@@ -528,6 +602,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     private javax.swing.JPanel basicConstraintsPanel;
     private javax.swing.JCheckBox cRLSignCheckBox;
     private javax.swing.JLabel chooseExtensionsLabel;
+    private javax.swing.JButton clearIssuerAltNameButton;
     private javax.swing.JCheckBox dataEnciphermentCheckBox;
     private javax.swing.JCheckBox decipherOnlyCheckBox;
     private javax.swing.JLabel depthOfCertChainLabel;
@@ -539,9 +614,13 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     private javax.swing.JSeparator extensionsSeparator2;
     private javax.swing.JSeparator extensionsSeparator3;
     private javax.swing.JCheckBox issuerAltNameCheckBox;
+    private javax.swing.JComboBox<String> issuerAltNameComboBox;
     private javax.swing.JCheckBox issuerAltNameCriticalCheckBox;
     private javax.swing.JLabel issuerAltNameLabel;
     private javax.swing.JPanel issuerAltNamePanel;
+    private javax.swing.JScrollPane issuerAltNameScrollPanel;
+    private javax.swing.JTextArea issuerAltNameTextArea;
+    private javax.swing.JTextField issuerAltNameTextField;
     private javax.swing.JCheckBox keyAgreementCheckBox;
     private javax.swing.JCheckBox keyCertSignCheckBox;
     private javax.swing.JCheckBox keyEnciphermentCheckBox;
