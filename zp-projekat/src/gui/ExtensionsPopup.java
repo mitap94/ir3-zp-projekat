@@ -18,7 +18,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     /**
      * Creates new form ExportPopup
      */
-    public ExtensionsPopup(MainWindow parent, Extensions extensions) {
+    public ExtensionsPopup(MainWindow parent, ExtensionsGUI extensions) {
         this.parentFrame = parent;
         this.extensions = extensions;
 
@@ -518,7 +518,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     private Point leftCornerAnchor;
 
     private final MainWindow parentFrame;
-    private final Extensions extensions;
+    private final ExtensionsGUI extensions;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox basicConstraintsCACheckBox;

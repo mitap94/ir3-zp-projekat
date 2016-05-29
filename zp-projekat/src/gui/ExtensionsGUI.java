@@ -4,9 +4,9 @@ package gui;
  *
  * @author Mita
  */
-public class Extensions {
+public class ExtensionsGUI {
     
-    public Extensions() {
+    public ExtensionsGUI() {
         extensions = new boolean[3];
         critical = new boolean[3];
         keyUsage = new boolean[9];
