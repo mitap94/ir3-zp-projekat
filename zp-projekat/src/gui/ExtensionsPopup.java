@@ -8,6 +8,14 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.GeneralName;
+import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.asn1.x509.GeneralNamesBuilder;
 
 /**
  *
@@ -246,7 +254,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         issuerAltNameTextArea.setRows(5);
         issuerAltNameScrollPanel.setViewportView(issuerAltNameTextArea);
 
-        issuerAltNameComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        issuerAltNameComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Other Name", "RFC822 Name", "DNS Name", "x400 Address", "Directory Name", "EDI Party Name", "URI", "IP Address", "Registered ID" }));
 
         clearIssuerAltNameButton.setText("Clear");
         clearIssuerAltNameButton.addActionListener(new java.awt.event.ActionListener() {
@@ -427,15 +435,50 @@ public class ExtensionsPopup extends javax.swing.JFrame {
 
     private void clearIssuerAltNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearIssuerAltNameButtonActionPerformed
         issuerAltNameTextArea.setText("");
-        // TODO(mitap94): Clear variables
-        
+        generalNamesBuilder = new GeneralNamesBuilder();
     }//GEN-LAST:event_clearIssuerAltNameButtonActionPerformed
 
     private void addIssuerAltNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIssuerAltNameButtonActionPerformed
-        // TODO(mitap94): set variables (on ok save them)
         String extension = issuerAltNameTextField.getText();
+        issuerAltNameTextField.setText("");
         if (!extension.isEmpty()) {
-            String extName = (String)issuerAltNameComboBox.getSelectedItem();
+            String extName = (String) issuerAltNameComboBox.getSelectedItem();
+            try {
+                switch (extName) {
+                    case "Other Name":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.otherName, extension));
+                        break;
+                    case "RFC822 Name":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.rfc822Name, extension));
+                        break;
+                    case "DNS Name":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.dNSName, extension));
+                        break;
+                    case "x400 Address":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.x400Address, extension));
+                        break;
+                    case "Directory Name":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.directoryName,
+                                new X500Name(extension)));
+                        break;
+                    case "EDI Party Name":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.ediPartyName, extension));
+                        break;
+                    case "URI":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.uniformResourceIdentifier, extension));
+                        break;
+                    case "IP Address":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.iPAddress, extension));
+                        break;
+                    case "Registered ID":
+                        generalNamesBuilder.addName(new GeneralName(GeneralName.registeredID, extension));
+                        break;
+                }
+            } catch (Exception e) {
+                // TODO(mitap94): Obradi exception, alert neki
+                return;
+            }
+            
             issuerAltNameTextArea.append(extName + ": " + extension + "\n");
         }
     }//GEN-LAST:event_addIssuerAltNameButtonActionPerformed
@@ -446,6 +489,8 @@ public class ExtensionsPopup extends javax.swing.JFrame {
         leftCornerAnchor = new Point((int) (screenSize.width / 2 - frameSize.width / 2),
                 (int) (screenSize.height / 2 - frameSize.height / 2));
         setLocation(leftCornerAnchor);
+
+        generalNamesBuilder = new GeneralNamesBuilder();
 
         basicConstraintsPanel.setVisible(false);
         keyUsagePanel.setVisible(false);
@@ -513,7 +558,8 @@ public class ExtensionsPopup extends javax.swing.JFrame {
             if (extensions.critical[2]) {
                 issuerAltNameCriticalCheckBox.setSelected(true);
             }
-            // TODO(mitap94): Ucitaj issuerAltName
+
+            issuerAltNameTextArea.setText(extensions.issuerAltNamesString);
 
         }
         if (extensions.extensions[0]) {
@@ -525,9 +571,8 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     }
 
     private void saveExtensions() {
-        // TODO(mitap94): Save issuerAltNames
         extensions.clearAll();
-        
+
         if (basicConstraintsCheckBox.isSelected()) {
             extensions.extensions[0] = true;
             if (basicConstraintsCriticalCheckBox.isSelected()) {
@@ -535,18 +580,22 @@ public class ExtensionsPopup extends javax.swing.JFrame {
             }
             if (basicConstraintsCACheckBox.isSelected()) {
                 extensions.basicConstrCA = true;
+                try {
+                    Integer.parseInt(depthOfCertificateChainTextField.getText());
+                } catch (NumberFormatException e) {
+                    // TODO(mitap94): Uhvati exception
+
+                }
                 extensions.basicConstrDepthOfCertChain = depthOfCertificateChainTextField.getText();
-                // TODO(mitap94): probaj da parsiras u int i uhvati exception
-                
             }
         }
-        
+
         if (keyUsageCheckBox.isSelected()) {
             extensions.extensions[1] = true;
             if (keyUsageCriticalCheckBox.isSelected()) {
                 extensions.critical[1] = true;
             }
-            
+
             if (digitalSignatureCheckBox.isSelected()) {
                 extensions.keyUsage[0] = true;
             }
@@ -575,23 +624,35 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                 extensions.keyUsage[8] = true;
             }
         }
-        
+
         if (issuerAltNameCheckBox.isSelected()) {
             extensions.extensions[2] = true;
             if (issuerAltNameCriticalCheckBox.isSelected()) {
                 extensions.critical[2] = true;
             }
-            // TODO(mitap94): dodaj issuer polja
-            
+
+            if (!"".equals(issuerAltNameTextArea.getText())) {
+                GeneralNames generalNames = generalNamesBuilder.build();
+                try {
+                    extensions.issuerAltNames = new Extension(Extension.issuerAlternativeName,
+                            issuerAltNameCriticalCheckBox.isSelected(), generalNames.getEncoded());
+                } catch (IOException ex) {
+                    // TODO(mitap94): Uhvati exception
+                    return;
+                }
+            }
+            extensions.issuerAltNamesString = issuerAltNameTextArea.getText();
         }
     }
-    
+
     private Dimension screenSize;
     private Dimension frameSize;
     private Point leftCornerAnchor;
 
     private final MainWindow parentFrame;
     private final ExtensionsGUI extensions;
+
+    private GeneralNamesBuilder generalNamesBuilder;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addIssuerAltNameButton;

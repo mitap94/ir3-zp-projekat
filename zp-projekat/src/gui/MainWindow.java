@@ -1622,7 +1622,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         // Issuer Alternative Names
         if (extensionsGUI.extensions[2]) {
-
+            if (extensionsGUI.issuerAltNames != null) {
+                builder.addExtension(extensionsGUI.issuerAltNames);
+            }
         }
 
         // build certificate

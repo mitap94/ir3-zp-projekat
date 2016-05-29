@@ -1,5 +1,7 @@
 package gui;
 
+import org.bouncycastle.asn1.x509.Extension;
+
 /**
  *
  * @author Mita
@@ -12,6 +14,8 @@ public class ExtensionsGUI {
         keyUsage = new boolean[9];
         basicConstrCA = false;
         basicConstrDepthOfCertChain = "";
+        issuerAltNamesString = "";
+        issuerAltNames = null;
     }
     
     public void clearAll() {
@@ -21,6 +25,8 @@ public class ExtensionsGUI {
         keyUsage = new boolean[9];
         basicConstrCA = false;
         basicConstrDepthOfCertChain = "";
+        issuerAltNamesString = "";
+        issuerAltNames = null;
     }
     
     public boolean extensions[];
@@ -31,6 +37,6 @@ public class ExtensionsGUI {
     
     public boolean keyUsage[];
     
-    // TODO(mitap94): add issuerAltNames
-    
+    public String issuerAltNamesString;
+    public Extension issuerAltNames;
 }
