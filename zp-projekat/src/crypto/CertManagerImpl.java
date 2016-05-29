@@ -97,6 +97,9 @@ public class CertManagerImpl implements CertManager {
     @Override
     public boolean isCaSigned(String certAlias) throws KeyStoreException {
         X509Certificate cert = (X509Certificate) keyStore.getCertificateChain(certAlias)[0];
+        if (cert == null) {
+            return false;
+        }
         boolean[] keyUsage = cert.getKeyUsage();
         if (keyUsage == null) {
             return false;
