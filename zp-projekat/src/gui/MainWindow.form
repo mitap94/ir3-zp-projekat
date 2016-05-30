@@ -794,7 +794,7 @@
                               <Component id="certificateViewPanel" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Component id="passwordFieldViewCertificate" linkSize="30" alignment="1" min="-2" pref="146" max="-2" attributes="0"/>
@@ -910,7 +910,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="certificateVersionLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="certificateVersionLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="certificateVersionLabelSign" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -1158,11 +1158,11 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="594" pref="594" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="594" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="certificateVersionLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="certificateVersionLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="certificateVersionLabelSign" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1192,7 +1192,7 @@
                     <Property name="text" type="java.lang.String" value="Certificate version:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="certificateVersionLabel3">
+                <Component class="javax.swing.JLabel" name="certificateVersionLabelSign">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="1"/>
@@ -1574,6 +1574,9 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="2"/>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="passwordFieldSignedCertificate"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="passwordLabelSignedCertificate">
@@ -1654,31 +1657,35 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="491" pref="1061" max="32767" attributes="0"/>
-                      <Component id="exportSignedCertButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="certificateTextAreaScrollPanel" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="viewCertificateCertificateLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="viewCertificateCertificateLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="viewCertificatePanel" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="generatedKeysScrollPanel2" min="-2" pref="156" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="certificatesLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="generatedKeysScrollPanel2" min="-2" pref="156" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="certificatesLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="exportSignedCertButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1692,12 +1699,17 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="certificateTextAreaScrollPanel" max="32767" attributes="0"/>
-                          <Component id="generatedKeysScrollPanel2" pref="573" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="generatedKeysScrollPanel2" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="exportSignedCertButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="viewCertificatePanel" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="exportSignedCertButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1744,32 +1756,648 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportSignedCertButtonActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="certificateTextAreaScrollPanel">
-              <Properties>
-                <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-              </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="certificateTextArea">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="lineWrap" type="boolean" value="true"/>
-                    <Property name="rows" type="int" value="5"/>
-                    <Property name="wrapStyleWord" type="boolean" value="true"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
             <Component class="javax.swing.JLabel" name="viewCertificateCertificateLabel">
               <Properties>
                 <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="certificateTextArea"/>
+                  <ComponentRef name="default"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Certificate"/>
               </Properties>
             </Component>
+            <Container class="javax.swing.JPanel" name="viewCertificatePanel">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator10" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator9" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="2" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator7" max="32767" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="keyGenerationSeparator8" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="certificateVersionLabel4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="certificateVersionLabelView" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="commonNameLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationalUnitNameLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="commonNameLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationalUnitNameLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="publicKeyAlgorithmLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="keyLengthLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="signatureAlgorithmLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="isSignedLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="issuerCommonNameTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerOrganizationalUnitNameTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectCommonNameTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectOrganizationalUnitNameTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="keyLengthTextFieldView" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="signatureAlgorithmTextFieldView" min="-2" pref="180" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="viewSignatureButtonView" linkSize="44" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="publicKeyAlgorithmTextFieldView" linkSize="40" min="-2" pref="180" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="viewModulusButtonView" linkSize="44" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="viewExtensionsButtonView" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="isSignedLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="325" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="emailLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationNameLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationNameLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="issuerOrganizationNameTextFieldView" linkSize="42" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerEmailTextFieldView" linkSize="42" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectOrganizationNameTextFieldView" linkSize="42" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectEmailTextFieldView" linkSize="42" alignment="2" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="countryLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="localityLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="countryLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="localityLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="issuerCountryTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerLocalityTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectCountryTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="subjectLocalityTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="stateLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="stateLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="subjectStateTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="issuerStateTextFieldView" linkSize="42" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="serialNumberLabel2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="serialNumberTextFieldView" linkSize="40" min="-2" pref="153" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="issuerLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="345" pref="345" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="dateNotBeforeLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotAfterLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="dateNotBeforeTextFieldView" linkSize="41" alignment="0" pref="210" max="32767" attributes="0"/>
+                                      <Component id="dateNotAfterTextFieldView" linkSize="41" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="366" pref="366" max="-2" attributes="0"/>
+                                  <Component id="dateLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="dateFormatLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="dateLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateFormatLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="serialNumberTextFieldView" linkSize="39" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="serialNumberLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotBeforeLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotBeforeTextFieldView" linkSize="39" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="dateNotAfterTextFieldView" linkSize="39" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateNotAfterLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Component id="keyGenerationSeparator7" min="-2" pref="2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Component id="issuerLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="issuerStateTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="stateLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="issuerCountryTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="countryLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="issuerOrganizationNameTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="organizationNameLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="issuerCommonNameTextFieldView" linkSize="43" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="commonNameLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="organizationalUnitNameLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="issuerOrganizationalUnitNameTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="issuerEmailTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="localityLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="issuerLocalityTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="keyGenerationSeparator8" min="-2" pref="2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="subjectLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="commonNameLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectCommonNameTextFieldView" linkSize="43" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="organizationNameLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectOrganizationNameTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="countryLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectCountryTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="stateLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectStateTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="organizationalUnitNameLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectOrganizationalUnitNameTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="emailLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectEmailTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="localityLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subjectLocalityTextFieldView" linkSize="43" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="keyGenerationSeparator9" min="-2" pref="2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="publicKeyAlgorithmLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="publicKeyAlgorithmTextFieldView" linkSize="39" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="viewModulusButtonView" linkSize="45" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="viewExtensionsButtonView" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="keyLengthLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="keyLengthTextFieldView" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="keyGenerationSeparator10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="signatureAlgorithmLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="signatureAlgorithmTextFieldView" alignment="2" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="viewSignatureButtonView" linkSize="45" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="isSignedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="isSignedLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="594" pref="594" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="certificateVersionLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="certificateVersionLabelView" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JTextField" name="signatureAlgorithmTextFieldView">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="signatureAlgorithmLabel1">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="keySizeTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Signature algorithm:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="certificateVersionLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="certificateVersionLabelView"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Certificate version:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="certificateVersionLabelView">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="v3"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="keyGenerationSeparator7">
+                </Component>
+                <Component class="javax.swing.JLabel" name="dateLabel2">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="datePanel"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Validity date and time"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="dateFormatLabel2">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="10" style="2"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="33" green="33" red="33" type="rgb"/>
+                    </Property>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="datePanel"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="(dd/mm/yyyy hh:mm:ss)"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="keyGenerationSeparator8">
+                </Component>
+                <Component class="javax.swing.JLabel" name="commonNameLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="commonNameTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Common name:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerCommonNameTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="organizationNameLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="issuerOrganizationNameTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Organization:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerOrganizationNameTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="organizationalUnitNameLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="organizationalUnitNameTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Organizational unit:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerOrganizationalUnitNameTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerLocalityTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="localityLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="localityTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Locality:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="emailLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="issuerEmailTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="E-mail:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="countryLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="countryTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Country:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="keyGenerationSeparator9">
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerCountryTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="stateLabel3">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="stateTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="State:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerStateTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="issuerEmailTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="dateNotBeforeTextFieldView">
+                  <Properties>
+                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                      <Format format="dd/MM/yyyy hh:mm:ss" subtype="-1" type="1"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="dateNotAfterTextFieldView">
+                  <Properties>
+                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                      <Format format="dd/MM/yyyy hh:mm:ss" subtype="-1" type="1"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="dateNotAfterLabel2">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="dateNotAfterTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Not after:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="dateNotBeforeLabel2">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="dateNotBeforeTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Not before:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="subjectLabel1">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Subject"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="issuerLabel1">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Issuer"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="commonNameLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="commonNameTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Common name:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectCommonNameTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectOrganizationalUnitNameTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="organizationalUnitNameLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="organizationalUnitNameTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Organizational unit:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="organizationNameLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="subjectOrganizationNameTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Organization:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="emailLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="subjectEmailTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="E-mail:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectOrganizationNameTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectEmailTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="countryLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="countryTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Country:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="localityLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="localityTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Locality:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectLocalityTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectCountryTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="subjectStateTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="stateLabel4">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="stateTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="State:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="publicKeyAlgorithmLabel1">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="keySizeTextField"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Public key algorithm:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="publicKeyAlgorithmTextFieldView">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="keyLengthLabel1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Key length:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="viewModulusButtonView">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="View modulus"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewModulusButtonViewActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="keyLengthTextFieldView">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="viewSignatureButtonView">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="View signature"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewSignatureButtonViewActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="viewExtensionsButtonView">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="View extensions"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewExtensionsButtonViewActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="keyGenerationSeparator10">
+                </Component>
+                <Component class="javax.swing.JLabel" name="serialNumberLabel2">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="serialNumberTextFieldSign"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Serial number:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="serialNumberTextFieldView">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="isSignedLabel">
+                  <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="isSignedLabel1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Is CA signed:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="isSignedLabel1">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="YES"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>

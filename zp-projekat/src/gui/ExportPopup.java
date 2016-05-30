@@ -83,7 +83,7 @@ public class ExportPopup extends javax.swing.JFrame {
         aliasLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Import");
+        setTitle("Export");
         setResizable(false);
 
         statusBarTextField.setEditable(false);

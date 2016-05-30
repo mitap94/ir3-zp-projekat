@@ -1,13 +1,14 @@
 package gui;
 
 import crypto.KeyContainer;
+
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.security.cert.X509Certificate;
 import java.util.Base64;
 import javax.swing.AbstractAction;
-
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
@@ -21,7 +22,13 @@ import javax.swing.text.DefaultEditorKit;
  * @author Mita
  */
 public class GuiUtil {
-
+    
+    public static String getExtensionsToStr(X509Certificate certificate) {
+        // TODO
+        return null;
+    }
+    
+    
     public static void attachPopupMenu(JTextField textField) {
         JPopupMenu popupMenu = new JPopupMenu();
 
@@ -48,19 +55,6 @@ public class GuiUtil {
             paste.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control V"));
             popupMenu.add(paste);
         }
-
-        textField.setComponentPopupMenu(popupMenu);
-    }
-
-    public static void attachPopupMenuSpecial(JTextField textField,
-            KeyContainer keyContainer, int type) {
-        JPopupMenu popupMenu = new JPopupMenu();
-
-        Action copy = new MyAction(textField, keyContainer, type);
-
-        copy.putValue(Action.NAME, "Copy");
-        copy.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control C"));
-        popupMenu.add(copy);
 
         textField.setComponentPopupMenu(popupMenu);
     }
@@ -121,8 +115,19 @@ public class GuiUtil {
 
         textArea.setComponentPopupMenu(popupMenu);
     }
+    
+    public static void attachPopupMenuSpecial(JTextField textField,
+            KeyContainer keyContainer, int type) {
+        JPopupMenu popupMenu = new JPopupMenu();
 
+        Action copy = new MyAction(textField, keyContainer, type);
 
+        copy.putValue(Action.NAME, "Copy");
+        copy.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control C"));
+        popupMenu.add(copy);
+
+        textField.setComponentPopupMenu(popupMenu);
+    }
 
     public static final String SELECT = "Select";
 }
