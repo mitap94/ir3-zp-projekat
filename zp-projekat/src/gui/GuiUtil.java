@@ -36,7 +36,7 @@ public class GuiUtil {
 
         try {
             // Basic constrains
-            extToStringBuilder.append("Basic constrains\n");
+            extToStringBuilder.append("Basic constraints:\n");
             if ((criticalExtensions != null) && (criticalExtensions.contains("2.5.29.19")))
                 extToStringBuilder.append("* Critical\n");
             int basicConstraints = certificate.getBasicConstraints();
@@ -48,7 +48,7 @@ public class GuiUtil {
 
             // Key usage
             extToStringBuilder.append("--------------------------\n");
-            extToStringBuilder.append("Key usage\n");
+            extToStringBuilder.append("Key usage:\n");
             if ((criticalExtensions != null) && (criticalExtensions.contains("2.5.29.15")))
                 extToStringBuilder.append("* Critical\n");
 
