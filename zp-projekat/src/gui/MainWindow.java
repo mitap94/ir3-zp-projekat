@@ -2249,8 +2249,7 @@ public class MainWindow extends javax.swing.JFrame {
         boolean exists = false;
         try {
             exists = (manager.getCertificateChain(alias) != null);
-            // TODO(mitap94): PROVERI KOJI KLJUC
-            manager.storeKeyCertificate(certificateUsePrivateKey, signedCertificate, alias,
+            manager.storeKeyCertificate(certificateViewPrivateKey, signedCertificate, alias,
                     password);
         } catch (KeyStoreException ex) {
             // TODO(mitap94): Uhvati exception
