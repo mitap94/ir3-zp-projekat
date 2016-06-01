@@ -39,8 +39,7 @@ public class Errors {
     public static final String NO_ENTRY_NAME = "You must specify an entry name!";
     public static final String NO_OLD_PASSWORD = "You must specify the old entry password!";
     public static final String NO_NEW_PASSWORD = "You must specify the new entry password!";
-    public static final String UNRECOVERABLE_KEY = "File not encrypted by this application or"
-            + " corrupted!";
+    public static final String UNRECOVERABLE_KEY = "Cannot extract key!";
     public static final String FILE_TOOL_PROBLEM = "Cannot open encrypted file!";
     
     public static final String NO_FILE_PATH_SPECIFIED = "You must specify a file path!";

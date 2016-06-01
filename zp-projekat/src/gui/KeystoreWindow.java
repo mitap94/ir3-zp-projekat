@@ -17,6 +17,8 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -243,6 +245,9 @@ public class KeystoreWindow extends javax.swing.JFrame {
                 (int)(screenSize.height/2 - frameSize.height/2));
         setLocation(leftCornerAnchor);
         initFileNameListener();
+        
+        JRootPane rootPane = SwingUtilities.getRootPane(openKeystoreButton);
+        rootPane.setDefaultButton(openKeystoreButton);
      }
      
      public void initFileNameListener() {
