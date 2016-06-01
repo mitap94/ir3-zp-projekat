@@ -1786,10 +1786,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_generateKeysButtonActionPerformed
 
     private void saveKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveKeyButtonActionPerformed
-        // TODO(mitap94): Dodaj requestFocus() kada bude greska
-        // Dodaj JOptionPane na vise mesta
-        // NISU SVA POLJA OBAVEZNA
-
         // can't continue if extensions not saved
         if (extensionsPopup.isShowing()) {
             JOptionPane.showMessageDialog(extensionsPopup, Errors.SAVE_EXTENSIONS);
@@ -2037,7 +2033,7 @@ public class MainWindow extends javax.swing.JFrame {
             if (extensionsGUI.keyUsage[8]) {
                 mask |= KeyUsage.decipherOnly;
             }
-            // TODO(mitap94): Da li je potrebne provera ili se svakako setuje?
+            
             if (mask != 0) {
                 X509KeyUsage keyUsage = new X509KeyUsage(mask);
                 Extension keyUsageExt = null;
@@ -2097,7 +2093,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         String alias = generatedKeysList.getSelectedValue();
         if (alias == null) {
-            JOptionPane.showMessageDialog(this, Errors.NOTHING_SELECTED, "Warning", 
+            JOptionPane.showMessageDialog(this, Errors.NOTHING_SELECTED, "Warning",
                     JOptionPane.WARNING_MESSAGE);
             setStatus(Errors.NOTHING_SELECTED, Errors.COLOR);
             return;
@@ -2124,7 +2120,9 @@ public class MainWindow extends javax.swing.JFrame {
         // get alias of the key pair
         String alias = generatedKeysList1.getSelectedValue();
         if (alias == null) {
-            // TODO(mitap94): izbaci error
+            JOptionPane.showMessageDialog(this, Errors.NO_ENTRY_SELECTED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_ENTRY_SELECTED, Errors.COLOR);
             return;
         }
 
@@ -2132,24 +2130,38 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             certificateView = (X509Certificate) manager.getCertificateChain(alias)[0];
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
             return;
         }
 
         // get private key
         String password = new String(passwordFieldViewCertificate.getPassword());
         passwordFieldViewCertificate.setText("");
+        if (password.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_PASSWORD_SPECIFIED, Errors.COLOR);
+            certificateView = null;
+            return;
+        }
 
         try {
             certificateViewPrivateKey = manager.getPrivateKey(alias, password);
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
         } catch (NoSuchAlgorithmException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.NO_SUCH_ALGORITHM);
         } catch (UnrecoverableKeyException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.UNRECOVERABLE_KEY, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.UNRECOVERABLE_KEY, Errors.COLOR);
+            certificateView = null;
             return;
         }
 
@@ -2157,7 +2169,11 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             csrRequest = X509SelfSignedToCsr.convert(certificateView, certificateViewPrivateKey);
         } catch (OperatorCreationException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.CSR_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.CSR_ERROR, Errors.COLOR);
+            certificateView = null;
+            certificateViewPrivateKey = null;
             return;
         }
 
@@ -2170,10 +2186,15 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             x500name = new JcaX509CertificateHolder(certificateView).getSubject();
         } catch (CertificateEncodingException ex) {
-            // TODO(): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.ENCODING_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.ENCODING_ERROR, Errors.COLOR);
+            certificateView = null;
+            certificateViewPrivateKey = null;
             return;
         }
 
+        // TODO(mitap94): Check each value!
         subjectCommonNameTextField.setText(IETFUtils.valueToString(x500name
                 .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
         subjectOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
@@ -2205,15 +2226,22 @@ public class MainWindow extends javax.swing.JFrame {
                         certificateUsePrivateKey, certificateView.getSerialNumber(),
                         certificateView.getNotBefore(), certificateView.getNotAfter());
             } catch (IOException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.SIGNING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             } catch (OperatorCreationException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.SIGNING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             } catch (CertificateException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.SIGNING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             }
+            
             signButton.setEnabled(true);
             previewCertificateButton.setEnabled(true);
             previewEncodedCertificateButton.setEnabled(true);
@@ -2224,6 +2252,10 @@ public class MainWindow extends javax.swing.JFrame {
             aliasTextFieldSignedCertificate.setEnabled(true);
             passwordFieldSignedCertificate.setEnabled(true);
         }
+
+        JOptionPane.showMessageDialog(this, Messages.SIGNEE_SUCCESS, "Message",
+                JOptionPane.INFORMATION_MESSAGE);
+        setStatus(Messages.SIGNEE_SUCCESS, Messages.COLOR);
     }//GEN-LAST:event_viewCertificateButtonActionPerformed
 
     private void extensionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extensionsButtonActionPerformed
@@ -2234,16 +2266,19 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_extensionsButtonActionPerformed
 
     private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
-        // TODO(mitap94): Razvrstaj signed i unsigned po listama
         String alias = aliasTextFieldSignedCertificate.getText();
         if (alias.trim().isEmpty()) {
-            // TODO(mitap94): Javi gresku
+            JOptionPane.showMessageDialog(this, Errors.NO_ALIAS_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_ALIAS_SPECIFIED, Errors.COLOR);
             return;
         }
 
         String password = new String(passwordFieldSignedCertificate.getPassword());
         if (password.trim().isEmpty()) {
-            // TODO(mitap94): Javi gresku
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_PASSWORD_SPECIFIED, Errors.COLOR);
             return;
         }
 
@@ -2253,7 +2288,9 @@ public class MainWindow extends javax.swing.JFrame {
             manager.storeKeyCertificate(certificateViewPrivateKey, signedCertificate, alias,
                     password);
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
             return;
         }
 
@@ -2291,7 +2328,10 @@ public class MainWindow extends javax.swing.JFrame {
             jcaWriter.writeObject(csrRequest);
             jcaWriter.close();
         } catch (IOException ex) {
-
+            JOptionPane.showMessageDialog(this, Errors.CSR_WRITE_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.CSR_WRITE_ERROR, Errors.COLOR);
+            return;
         }
         String message = stringWriter.toString();
 
@@ -2305,7 +2345,9 @@ public class MainWindow extends javax.swing.JFrame {
         // get alias of the key pair
         String alias = generatedKeysList1.getSelectedValue();
         if (alias == null) {
-            // TODO(mitap94): izbaci error
+            JOptionPane.showMessageDialog(this, Errors.NO_ALIAS_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_ALIAS_SPECIFIED, Errors.COLOR);
             return;
         }
 
@@ -2313,24 +2355,38 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             certificateUse = (X509Certificate) manager.getCertificateChain(alias)[0];
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
             return;
         }
 
         // get private key
         String password = new String(passwordFieldUseCertificate.getPassword());
         passwordFieldUseCertificate.setText("");
+        if (password.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_PASSWORD_SPECIFIED, Errors.COLOR);
+            certificateUse = null;
+            return;
+        }
 
         try {
             certificateUsePrivateKey = manager.getPrivateKey(alias, password);
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
         } catch (NoSuchAlgorithmException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.NO_SUCH_ALGORITHM);
         } catch (UnrecoverableKeyException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.UNRECOVERABLE_KEY, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.UNRECOVERABLE_KEY, Errors.COLOR);
+            certificateUse = null;
             return;
         }
 
@@ -2339,10 +2395,15 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             x500name = new JcaX509CertificateHolder(certificateUse).getSubject();
         } catch (CertificateEncodingException ex) {
-            // TODO(): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.ENCODING_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.ENCODING_ERROR, Errors.COLOR);
+            certificateUse = null;
+            certificateUsePrivateKey = null;
             return;
         }
 
+        // TODO(mitap94): Check each value!
         issuerCommonNameTextField.setText(IETFUtils.valueToString(x500name
                 .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
         issuerOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
@@ -2366,13 +2427,19 @@ public class MainWindow extends javax.swing.JFrame {
                         certificateUsePrivateKey, certificateView.getSerialNumber(),
                         certificateView.getNotBefore(), certificateView.getNotAfter());
             } catch (IOException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.SIGNING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             } catch (OperatorCreationException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.SIGNING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             } catch (CertificateException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.SIGNING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             }
 
@@ -2386,6 +2453,10 @@ public class MainWindow extends javax.swing.JFrame {
             aliasTextFieldSignedCertificate.setEnabled(true);
             passwordFieldSignedCertificate.setEnabled(true);
         }
+        
+        JOptionPane.showMessageDialog(this, Messages.SIGNER_SUCCESS, "Message",
+                JOptionPane.INFORMATION_MESSAGE);
+        setStatus(Messages.SIGNER_SUCCESS, Messages.COLOR);
     }//GEN-LAST:event_useCertificateButtonActionPerformed
 
     private void previewCertificateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewCertificateButtonActionPerformed
@@ -2406,7 +2477,9 @@ public class MainWindow extends javax.swing.JFrame {
             jcaWriter.writeObject(signedCertificate);
             jcaWriter.close();
         } catch (IOException ex) {
-            // TODO(mitap94): Uhvati exception
+            JOptionPane.showMessageDialog(this, Errors.CERTIFICATE_PREVIEW_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.CERTIFICATE_PREVIEW_ERROR, Errors.COLOR);
             return;
         }
         String message = stringWriter.toString();
@@ -2503,7 +2576,9 @@ public class MainWindow extends javax.swing.JFrame {
             try {
                 ExportTool.exportRequest(csrRequest, fileChooser.getSelectedFile().getAbsolutePath());
             } catch (IOException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.CSR_EXPORT_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.CSR_EXPORT_ERROR, Errors.COLOR);
                 return;
             }
         }
@@ -2512,13 +2587,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void generatedKeysList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatedKeysList2MouseClicked
         JList<String> list = (JList) evt.getSource();
         if ((evt.getClickCount() == 1) || (evt.getClickCount() == 2)) {
-            
+
             String alias = list.getSelectedValue();
             if (alias == null) {
                 // TODO(mitap94): Uhvati gresku
                 return;
             }
-            
+
             try {
                 currentlyViewingCertificate = (X509Certificate) manager
                         .getCertificateChain(alias)[0];
@@ -2534,8 +2609,7 @@ public class MainWindow extends javax.swing.JFrame {
                     exportSignedCertButton.setEnabled(true);
                     isSignedLabel1.setForeground(Color.blue);
                     isSignedLabel1.setText("YES");
-                }
-                else {
+                } else {
                     isSignedLabel1.setForeground(Color.red);
                     isSignedLabel1.setText("NO");
                 }
@@ -2557,7 +2631,7 @@ public class MainWindow extends javax.swing.JFrame {
                 // TODO(mitap94): Uhvati exception
                 return;
             }
-            
+
             issuerCommonNameTextFieldView.setText(IETFUtils.valueToString(x500name
                     .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
             issuerOrganizationalUnitNameTextFieldView.setText(IETFUtils.valueToString(x500name
@@ -2572,7 +2646,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
             issuerLocalityTextFieldView.setText(IETFUtils.valueToString(x500name
                     .getRDNs(BCStyle.L)[0].getFirst().getValue()));
-            
+
             // set subject
             try {
                 x500name = new JcaX509CertificateHolder(currentlyViewingCertificate).getSubject();
@@ -2595,22 +2669,22 @@ public class MainWindow extends javax.swing.JFrame {
                     .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
             subjectLocalityTextFieldView.setText(IETFUtils.valueToString(x500name
                     .getRDNs(BCStyle.L)[0].getFirst().getValue()));
-            
+
             publicKeyAlgorithmTextFieldView.setText(currentlyViewingCertificate.getPublicKey().getAlgorithm());
 
             RSAPublicKey publicKey = (RSAPublicKey) currentlyViewingCertificate.getPublicKey();
             String length = "" + publicKey.getModulus().bitLength();
             keyLengthTextFieldView.setText(length);
-            
+
             signatureAlgorithmTextFieldView.setText(currentlyViewingCertificate.getSigAlgName());
-            
+
             certificateVersionLabelView.setText("v" + currentlyViewingCertificate.getVersion());
 
             // set buttons
             viewSignatureButtonView.setEnabled(true);
             viewModulusButtonView.setEnabled(true);
             viewExtensionsButtonView.setEnabled(true);
-         
+
         }
     }//GEN-LAST:event_generatedKeysList2MouseClicked
 
@@ -2674,7 +2748,7 @@ public class MainWindow extends javax.swing.JFrame {
         signedCertificate = null;
         certificateUsePrivateKey = null;
         certificateViewPrivateKey = null;
-        
+
         currentlyViewingCertificate = null;
 
         certificateVersionLabelSign.setText("");
@@ -2845,7 +2919,7 @@ public class MainWindow extends javax.swing.JFrame {
     X509Certificate certificateView;
     PKCS10CertificationRequest csrRequest;
     X509Certificate signedCertificate;
-    
+
     X509Certificate currentlyViewingCertificate;
 
     Enumeration<String> certificates;

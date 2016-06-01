@@ -10,10 +10,12 @@ public class Messages {
     public static final Color COLOR = Color.black;
     public static final Color COLOR1 = Color.green;
     
-    public static final String SUCCESSFUL_KEY_GENERATION = "Uspesno generisan par kljuceva!";  
-    public static final String SUCCESSFUL_EXPORT = "Uspesan izvoz kljuceva u fajl: ";
-    public static final String SUCCESSFUL_IMPORT = "Uspesan uvoz kljuceva iz fajla: ";
-    public static final String NEW_KEYSTORE_CREATION = "Novi keystore ce biti kreiran!";
-    public static final String SUCCESSFUL_KEY_SAVE = "Uspesno sacuvani kljucevi pod imenom: ";
-    public static final String FORM_CLEARED = "Forma obrisana.";
+    public static final String SUCCESSFUL_KEY_GENERATION = "Successful key generation!";  
+    public static final String SUCCESSFUL_EXPORT = "Successful export to file: ";
+    public static final String SUCCESSFUL_IMPORT = "Successful import from file: ";
+    public static final String NEW_KEYSTORE_CREATION = "New keystore will be created!";
+    public static final String SUCCESSFUL_KEY_SAVE = "Keys successfuly saved under name: ";
+    public static final String FORM_CLEARED = "Form cleared.";
+    public static final String SIGNEE_SUCCESS = "Signee successfuly set!";
+    public static final String SIGNER_SUCCESS = "Signer successfuly set!";
 }

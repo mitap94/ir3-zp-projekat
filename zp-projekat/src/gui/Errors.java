@@ -41,6 +41,9 @@ public class Errors {
     public static final String NO_NEW_PASSWORD = "You must specify the new entry password!";
     public static final String UNRECOVERABLE_KEY = "Cannot extract key!";
     public static final String FILE_TOOL_PROBLEM = "Cannot open encrypted file!";
+    public static final String NO_ENTRY_SELECTED = "You must select an entry from the list!";
+    public static final String CSR_ERROR = "Unable to create CSR, try again!";
+    public static final String ENCODING_ERROR = "Unable to extract certificate info!";
     
     public static final String NO_FILE_PATH_SPECIFIED = "You must specify a file path!";
     public static final String INVALID_FILE_PATH = "Invalid file path!";
@@ -51,6 +54,12 @@ public class Errors {
     public static final String KEY_STORE_NOT_LOADED = "Keystore not loaded!";
     public static final String CANT_LOAD_CERTIFICATES = "Cannot load certificates!";
     public static final String BUILD_ERROR = "Error building certificate! Try again.";
+    public static final String SIGNING_ERROR = "Unable to sign the certificate!";
+    public static final String NO_ALIAS_SPECIFIED = "You must specify the alias of the new "
+            + "certificate!";
+    public static final String CSR_WRITE_ERROR = "Unable to preview CSR!";
+    public static final String CSR_EXPORT_ERROR = "Unable to export CSR!";
+    public static final String CERTIFICATE_PREVIEW_ERROR = "Unable to preview certificate!";
     
     public static final String CRITICAL_ERROR = "Critical error! The application will" +
             "close!";
