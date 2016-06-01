@@ -297,9 +297,6 @@ public class ExportWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
-        // 
-        // TODO(mitap94): pokri sve use cese-ove kako u popup window i main window
-        // Uhvati sve exceptione
         String filePath = fileNameTextField.getText();
         String filePassword = new String(passwordField.getPassword());
         
@@ -482,7 +479,7 @@ public class ExportWindow extends javax.swing.JFrame {
             }
             else {
                 statusBarTextField.setText("");
-                exportButton.setEnabled(true);
+                exportButton.setEnabled(false);
             }
         }});
      }

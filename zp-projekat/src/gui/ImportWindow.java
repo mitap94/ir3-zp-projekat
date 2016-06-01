@@ -14,7 +14,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import static java.lang.System.exit;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
@@ -23,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -92,6 +95,7 @@ public class ImportWindow extends javax.swing.JFrame {
         chooseFilePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         importButton.setText("Import");
+        importButton.setEnabled(false);
         importButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 importButtonActionPerformed(evt);
@@ -281,57 +285,119 @@ public class ImportWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-        // 
-        // TODO(mitap94): pokri sve use case-ove kako u popup window i main window
-        // Uhvati sve exceptione
+        // TODO(mitap94): return the sameEntryNameCheckbox and fix the checking
         String filePath = fileNameTextField.getText();
+        if (filePath.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_FILE_PATH_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_FILE_PATH_SPECIFIED, Errors.COLOR);
+            return;
+        }
+
         String filePassword = new String(passwordField.getPassword());
-        
+        if (filePassword.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_PASSWORD_SPECIFIED, Errors.COLOR);
+            return;
+        }
+
         String aesPassword = null;
         boolean aesEncrypted = aesEncryptedCheckBox.isSelected();
         if (aesEncrypted) {
             aesPassword = new String(aesPasswordField.getPassword());
+            if (aesPassword.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, Errors.NO_AES_PASSWORD, "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+                setStatus(Errors.NO_AES_PASSWORD, Errors.COLOR);
+                return;
+            }
         }
-        
+
         String entryName = null;
         boolean sameEntryName = sameEntryNameCheckBox.isSelected();
         if (!sameEntryName) {
             entryName = entryNameTextField.getText();
+            if (entryName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, Errors.NO_ENTRY_NAME, "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+                setStatus(Errors.NO_ENTRY_NAME, Errors.COLOR);
+                return;
+            }
         }
-        
+
         String oldEntryPassword = new String(oldEntryPasswordField.getPassword());
+        if (oldEntryPassword.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, Errors.NO_OLD_PASSWORD, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_OLD_PASSWORD, Errors.COLOR);
+            return;
+        }
+
         String newEntryPassword = null;
         boolean sameEntryPassword = sameEntryPasswordCheckBox.isSelected();
         if (sameEntryPassword) {
             newEntryPassword = oldEntryPassword;
-        }
-        else {
+        } else {
             newEntryPassword = new String(newEntryPasswordField.getPassword());
+            if (newEntryPassword.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, Errors.NO_NEW_PASSWORD, "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+                setStatus(Errors.NO_NEW_PASSWORD, Errors.COLOR);
+                return;
+            }
         }
-        
+
         try {
-            boolean exists = (parentFrame.manager.getCertificateChain(entryName) != null);
+            boolean exists = false;
+            //if (!sameEntryName) {
+            exists = (parentFrame.manager.getCertificateChain(entryName) != null);
+            //}
             String alias = parentFrame.manager.importCertificate(filePath, filePassword,
-                    aesEncrypted, aesPassword, sameEntryName, entryName, oldEntryPassword, 
+                    aesEncrypted, aesPassword, sameEntryName, entryName, oldEntryPassword,
                     newEntryPassword);
+
+            JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_IMPORT + filePath, "Message",
+                    JOptionPane.INFORMATION_MESSAGE);
+
             parentFrame.updateList(alias, exists);
-            
             parentFrame.setStatus(Messages.SUCCESSFUL_IMPORT + filePath, Messages.COLOR);
-            
             parentFrame.setEnabled(true);
             this.dispose();
+
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
         } catch (IOException ex) {
+            if (ex instanceof FileNotFoundException) {
+                JOptionPane.showMessageDialog(this, Errors.INVALID_FILE_PATH, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.INVALID_FILE_PATH, Errors.COLOR);
+                return;
+            }
+            JOptionPane.showMessageDialog(this, Errors.CANNOT_OPEN, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.CANNOT_OPEN, Errors.COLOR);
             return;
         } catch (NoSuchAlgorithmException ex) {
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.NO_SUCH_ALGORITHM);
         } catch (CertificateException ex) {
+            JOptionPane.showMessageDialog(this, Errors.NO_NEW_PASSWORD, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.NO_NEW_PASSWORD, Errors.COLOR);
             return;
         } catch (UnrecoverableKeyException ex) {
+            JOptionPane.showMessageDialog(this, Errors.UNRECOVERABLE_KEY, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.UNRECOVERABLE_KEY, Errors.COLOR);
             return;
         } catch (FileToolNotInitializedException ex) {
+            JOptionPane.showMessageDialog(this, Errors.FILE_TOOL_PROBLEM, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.FILE_TOOL_PROBLEM, Errors.COLOR);
             return;
         }
     }//GEN-LAST:event_importButtonActionPerformed
@@ -339,7 +405,7 @@ public class ImportWindow extends javax.swing.JFrame {
     private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "PCKS#12", "p12");
+                "PCKS#12", "p12");
         fileChooser.setFileFilter(filter);
 
         File workingDirectory = new File(System.getProperty("user.dir"));
@@ -352,20 +418,18 @@ public class ImportWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseFileButtonActionPerformed
 
     private void sameEntryNameCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sameEntryNameCheckBoxActionPerformed
-       if (sameEntryNameCheckBox.isSelected()) {
-           entryNameTextField.setText("");
-           entryNameTextField.setEnabled(false);
-       }
-       else {
-           entryNameTextField.setEnabled(true);
-       }
+        if (sameEntryNameCheckBox.isSelected()) {
+            entryNameTextField.setText("");
+            entryNameTextField.setEnabled(false);
+        } else {
+            entryNameTextField.setEnabled(true);
+        }
     }//GEN-LAST:event_sameEntryNameCheckBoxActionPerformed
 
     private void aesEncryptedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aesEncryptedCheckBoxActionPerformed
         if (aesEncryptedCheckBox.isSelected()) {
             aesPasswordField.setEnabled(true);
-        }
-        else {
+        } else {
             aesPasswordField.setText("");
             aesPasswordField.setEnabled(false);
         }
@@ -375,8 +439,7 @@ public class ImportWindow extends javax.swing.JFrame {
         if (sameEntryPasswordCheckBox.isSelected()) {
             newEntryPasswordField.setText("");
             newEntryPasswordField.setEnabled(false);
-        }
-        else {
+        } else {
             newEntryPasswordField.setEnabled(true);
         }
     }//GEN-LAST:event_sameEntryPasswordCheckBoxActionPerformed
@@ -388,60 +451,61 @@ public class ImportWindow extends javax.swing.JFrame {
                 (int) (screenSize.height / 2 - frameSize.height / 2));
         setLocation(leftCornerAnchor);
 
+        sameEntryNameCheckBox.setVisible(false);
+
         WindowListener exitListener;
         exitListener = new WindowAdapter() {
-            
+
             @Override
             public void windowClosing(WindowEvent e) {
                 parentFrame.setEnabled(true);
                 dispose();
             }
         };
-        
+
         this.addWindowListener(exitListener);
-        
+
         initFileNameListener();
     }
-    
+
     public void initFileNameListener() {
-         fileNameTextField.getDocument().addDocumentListener(new DocumentListener() {
-        
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            warn();
-        }
+        fileNameTextField.getDocument().addDocumentListener(new DocumentListener() {
 
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            warn();
-        }
-        
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            warn();
-        }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                warn();
+            }
 
-        public void warn() {
-            if (!fileNameTextField.getText().trim().isEmpty()) {
-                File file = new File(fileNameTextField.getText());
-                boolean fileExists = file.exists() && file.isFile();
-                if (!fileExists) {
-                    statusBarTextField.setForeground(Errors.COLOR);
-                    statusBarTextField.setText(Errors.INVALID_FILE_NAME);
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void warn() {
+                if (!fileNameTextField.getText().trim().isEmpty()) {
+                    File file = new File(fileNameTextField.getText());
+                    boolean fileExists = file.exists() && file.isFile();
+                    if (!fileExists) {
+                        statusBarTextField.setForeground(Errors.COLOR);
+                        statusBarTextField.setText(Errors.INVALID_FILE_NAME);
+                        importButton.setEnabled(false);
+                    } else {
+                        statusBarTextField.setText("");
+                        importButton.setEnabled(true);
+                    }
+                } else {
+                    statusBarTextField.setText("");
                     importButton.setEnabled(false);
                 }
-                else {
-                    statusBarTextField.setText("");
-                    importButton.setEnabled(true);
-                }
             }
-            else {
-                statusBarTextField.setText("");
-                importButton.setEnabled(true);
-            }
-        }});
-     }
-    
+        });
+    }
+
     private void setStatus(String message, Color color) {
         statusBarTextField.setForeground(color);
         statusBarTextField.setText(message);

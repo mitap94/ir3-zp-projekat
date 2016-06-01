@@ -2097,7 +2097,8 @@ public class MainWindow extends javax.swing.JFrame {
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         String alias = generatedKeysList.getSelectedValue();
         if (alias == null) {
-            JOptionPane.showMessageDialog(this, Errors.NOTHING_SELECTED);
+            JOptionPane.showMessageDialog(this, Errors.NOTHING_SELECTED, "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
             setStatus(Errors.NOTHING_SELECTED, Errors.COLOR);
             return;
         }

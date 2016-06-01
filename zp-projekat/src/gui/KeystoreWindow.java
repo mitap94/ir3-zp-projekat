@@ -221,9 +221,9 @@ public class KeystoreWindow extends javax.swing.JFrame {
                 setStatus(Errors.INVALID_FILE_PATH, Errors.COLOR);
                 return;
             }
-            JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD, "Error", 
+            JOptionPane.showMessageDialog(this, Errors.CANNOT_OPEN, "Error", 
                     JOptionPane.ERROR_MESSAGE);
-            setStatus(Errors.INVALID_PASSWORD, Errors.COLOR);
+            setStatus(Errors.CANNOT_OPEN, Errors.COLOR);
             return;
         } catch (CertificateException ex) {
             JOptionPane.showMessageDialog(this, Errors.CERTIFICATE_CORRUPTION);
