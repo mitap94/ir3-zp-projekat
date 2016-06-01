@@ -562,7 +562,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(organizationNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                             .addComponent(serialNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(extensionsButton))
-                        .addContainerGap(408, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         keyGenerationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {commonNameTextField, countryTextField, organizationalUnitNameTextField});
@@ -1557,7 +1557,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(viewCertificatePanelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(viewSignatureButtonView)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         viewCertificatePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {publicKeyAlgorithmTextFieldView, serialNumberTextFieldView});
@@ -2491,7 +2491,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void exportCSRButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCSRButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Certificate Signing Request", "csr");
+                "PKCS#10", "p10");
         fileChooser.setFileFilter(filter);
 
         File workingDirectory = new File(System.getProperty("user.dir"));
