@@ -2033,7 +2033,7 @@ public class MainWindow extends javax.swing.JFrame {
             if (extensionsGUI.keyUsage[8]) {
                 mask |= KeyUsage.decipherOnly;
             }
-            
+
             if (mask != 0) {
                 X509KeyUsage keyUsage = new X509KeyUsage(mask);
                 Extension keyUsageExt = null;
@@ -2194,21 +2194,34 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        // TODO(mitap94): Check each value!
-        subjectCommonNameTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
-        subjectOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
-        subjectOrganizationNameTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.O)[0].getFirst().getValue()));
-        subjectEmailTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.E)[0].getFirst().getValue()));
-        subjectCountryTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.C)[0].getFirst().getValue()));
-        subjectStateTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
-        subjectLocalityTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+        if (x500name.getRDNs(BCStyle.CN).length > 0) {
+            subjectCommonNameTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.OU).length > 0) {
+            subjectOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.O).length > 0) {
+            subjectOrganizationNameTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.O)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.E).length > 0) {
+            subjectEmailTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.E)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.C).length > 0) {
+            subjectCountryTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.C)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.ST).length > 0) {
+            subjectStateTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.L).length > 0) {
+            subjectLocalityTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+        }
 
         publicKeyAlgorithmTextField.setText(certificateView.getPublicKey().getAlgorithm());
 
@@ -2241,7 +2254,7 @@ public class MainWindow extends javax.swing.JFrame {
                 setStatus(Errors.SIGNING_ERROR, Errors.COLOR);
                 return;
             }
-            
+
             signButton.setEnabled(true);
             previewCertificateButton.setEnabled(true);
             previewEncodedCertificateButton.setEnabled(true);
@@ -2345,9 +2358,9 @@ public class MainWindow extends javax.swing.JFrame {
         // get alias of the key pair
         String alias = generatedKeysList1.getSelectedValue();
         if (alias == null) {
-            JOptionPane.showMessageDialog(this, Errors.NO_ALIAS_SPECIFIED, "Warning",
+            JOptionPane.showMessageDialog(this, Errors.NO_ENTRY_SELECTED, "Warning",
                     JOptionPane.WARNING_MESSAGE);
-            setStatus(Errors.NO_ALIAS_SPECIFIED, Errors.COLOR);
+            setStatus(Errors.NO_ENTRY_SELECTED, Errors.COLOR);
             return;
         }
 
@@ -2403,21 +2416,34 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
-        // TODO(mitap94): Check each value!
-        issuerCommonNameTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
-        issuerOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
-        issuerOrganizationNameTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.O)[0].getFirst().getValue()));
-        issuerEmailTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.E)[0].getFirst().getValue()));
-        issuerCountryTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.C)[0].getFirst().getValue()));
-        issuerStateTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
-        issuerLocalityTextField.setText(IETFUtils.valueToString(x500name
-                .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+        if (x500name.getRDNs(BCStyle.CN).length > 0) {
+            issuerCommonNameTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.OU).length > 0) {
+            issuerOrganizationalUnitNameTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.O).length > 0) {
+            issuerOrganizationNameTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.O)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.E).length > 0) {
+            issuerEmailTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.E)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.C).length > 0) {
+            issuerCountryTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.C)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.ST).length > 0) {
+            issuerStateTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
+        }
+        if (x500name.getRDNs(BCStyle.L).length > 0) {
+            issuerLocalityTextField.setText(IETFUtils.valueToString(x500name
+                    .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+        }
 
         signatureAlgorithmTextField.setText(certificateUse.getSigAlgName());
 
@@ -2453,7 +2479,7 @@ public class MainWindow extends javax.swing.JFrame {
             aliasTextFieldSignedCertificate.setEnabled(true);
             passwordFieldSignedCertificate.setEnabled(true);
         }
-        
+
         JOptionPane.showMessageDialog(this, Messages.SIGNER_SUCCESS, "Message",
                 JOptionPane.INFORMATION_MESSAGE);
         setStatus(Messages.SIGNER_SUCCESS, Messages.COLOR);
@@ -2534,13 +2560,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_viewExtensionsButtonActionPerformed
 
     private void exportSignedCertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportSignedCertButtonActionPerformed
-        X509Certificate certificate;
+        X509Certificate certificate = null;
         try {
             certificate = (X509Certificate) manager.getCertificateChain(generatedKeysList2
                     .getSelectedValue())[0];
         } catch (KeyStoreException ex) {
-            // TODO(mitap94): Uhvati exception
-            return;
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            exit(Errors.KEY_STORE_EXCEPTION);
         }
 
         JFileChooser fileChooser = new JFileChooser();
@@ -2556,7 +2583,9 @@ public class MainWindow extends javax.swing.JFrame {
             try {
                 ExportTool.exportCert(certificate, fileChooser.getSelectedFile().getAbsolutePath());
             } catch (IOException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.CERTIFICATE_EXPORT_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.CERTIFICATE_EXPORT_ERROR, Errors.COLOR);
                 return;
             }
         }
@@ -2590,7 +2619,9 @@ public class MainWindow extends javax.swing.JFrame {
 
             String alias = list.getSelectedValue();
             if (alias == null) {
-                // TODO(mitap94): Uhvati gresku
+                JOptionPane.showMessageDialog(this, Errors.NO_ENTRY_SELECTED, "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+                setStatus(Errors.NO_ENTRY_SELECTED, Errors.COLOR);
                 return;
             }
 
@@ -2598,25 +2629,13 @@ public class MainWindow extends javax.swing.JFrame {
                 currentlyViewingCertificate = (X509Certificate) manager
                         .getCertificateChain(alias)[0];
             } catch (KeyStoreException ex) {
-                // TODO(mitap94): Uhvati exception
-                return;
+                JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                exit(Errors.KEY_STORE_EXCEPTION);
             }
 
             // set export button
             exportSignedCertButton.setEnabled(false);
-            try {
-                if (manager.isCaSigned(alias)) {
-                    exportSignedCertButton.setEnabled(true);
-                    isSignedLabel1.setForeground(Color.blue);
-                    isSignedLabel1.setText("YES");
-                } else {
-                    isSignedLabel1.setForeground(Color.red);
-                    isSignedLabel1.setText("NO");
-                }
-            } catch (KeyStoreException ex) {
-                // TODO(mitap94): Uhvati exception
-                return;
-            }
 
             // set fields
             serialNumberTextFieldView.setText(currentlyViewingCertificate.getSerialNumber().toString());
@@ -2628,55 +2647,103 @@ public class MainWindow extends javax.swing.JFrame {
             try {
                 x500name = new JcaX509CertificateHolder(currentlyViewingCertificate).getIssuer();
             } catch (CertificateEncodingException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.ENCODING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.ENCODING_ERROR, Errors.COLOR);
                 return;
             }
 
-            issuerCommonNameTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
-            issuerOrganizationalUnitNameTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
-            issuerOrganizationNameTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.O)[0].getFirst().getValue()));
-            issuerEmailTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.E)[0].getFirst().getValue()));
-            issuerCountryTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.C)[0].getFirst().getValue()));
-            issuerStateTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
-            issuerLocalityTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+            if (x500name.getRDNs(BCStyle.CN).length > 0) {
+                issuerCommonNameTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.OU).length > 0) {
+                issuerOrganizationalUnitNameTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.O).length > 0) {
+                issuerOrganizationNameTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.O)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.E).length > 0) {
+                issuerEmailTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.E)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.C).length > 0) {
+                issuerCountryTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.C)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.ST).length > 0) {
+                issuerStateTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.L).length > 0) {
+                issuerLocalityTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+            }
 
             // set subject
             try {
                 x500name = new JcaX509CertificateHolder(currentlyViewingCertificate).getSubject();
             } catch (CertificateEncodingException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.ENCODING_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.ENCODING_ERROR, Errors.COLOR);
                 return;
             }
 
-            subjectCommonNameTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
-            subjectOrganizationalUnitNameTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
-            subjectOrganizationNameTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.O)[0].getFirst().getValue()));
-            subjectEmailTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.E)[0].getFirst().getValue()));
-            subjectCountryTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.C)[0].getFirst().getValue()));
-            subjectStateTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
-            subjectLocalityTextFieldView.setText(IETFUtils.valueToString(x500name
-                    .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+            if (x500name.getRDNs(BCStyle.CN).length > 0) {
+                subjectCommonNameTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.CN)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.OU).length > 0) {
+                subjectOrganizationalUnitNameTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.OU)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.O).length > 0) {
+                subjectOrganizationNameTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.O)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.E).length > 0) {
+                subjectEmailTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.E)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.C).length > 0) {
+                subjectCountryTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.C)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.ST).length > 0) {
+                subjectStateTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.ST)[0].getFirst().getValue()));
+            }
+            if (x500name.getRDNs(BCStyle.L).length > 0) {
+                subjectLocalityTextFieldView.setText(IETFUtils.valueToString(x500name
+                        .getRDNs(BCStyle.L)[0].getFirst().getValue()));
+            }
 
-            publicKeyAlgorithmTextFieldView.setText(currentlyViewingCertificate.getPublicKey().getAlgorithm());
+            publicKeyAlgorithmTextFieldView.setText(currentlyViewingCertificate.getPublicKey()
+                    .getAlgorithm());
 
             RSAPublicKey publicKey = (RSAPublicKey) currentlyViewingCertificate.getPublicKey();
             String length = "" + publicKey.getModulus().bitLength();
             keyLengthTextFieldView.setText(length);
 
             signatureAlgorithmTextFieldView.setText(currentlyViewingCertificate.getSigAlgName());
+
+            try {
+                if (manager.isCaSigned(alias)) {
+                    exportSignedCertButton.setEnabled(true);
+                    isSignedLabel1.setForeground(Color.blue);
+                    isSignedLabel1.setText("YES");
+                } else {
+                    isSignedLabel1.setForeground(Color.red);
+                    isSignedLabel1.setText("NO");
+                }
+            } catch (KeyStoreException ex) {
+                JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                exit(Errors.KEY_STORE_EXCEPTION);
+            }
 
             certificateVersionLabelView.setText("v" + currentlyViewingCertificate.getVersion());
 
@@ -2811,8 +2878,9 @@ public class MainWindow extends javax.swing.JFrame {
                 }
                 listModel1.addElement(certificate);
             } catch (KeyStoreException ex) {
-                // TODO(mitap94): Uhvati exception
-                return;
+                JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                exit(Errors.KEY_STORE_EXCEPTION);
             }
         }
 
@@ -2828,8 +2896,9 @@ public class MainWindow extends javax.swing.JFrame {
                     listModel.addElement(alias);
                 }
             } catch (KeyStoreException ex) {
-                // TODO(mitap94): Uhvati exception
-                return;
+                JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                exit(Errors.KEY_STORE_EXCEPTION);
             }
             listModel1.addElement(alias);
         }

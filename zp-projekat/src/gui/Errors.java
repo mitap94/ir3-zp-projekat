@@ -60,6 +60,7 @@ public class Errors {
     public static final String CSR_WRITE_ERROR = "Unable to preview CSR!";
     public static final String CSR_EXPORT_ERROR = "Unable to export CSR!";
     public static final String CERTIFICATE_PREVIEW_ERROR = "Unable to preview certificate!";
+    public static final String CERTIFICATE_EXPORT_ERROR = "Unable to export certificate!";
     
     public static final String CRITICAL_ERROR = "Critical error! The application will" +
             "close!";
