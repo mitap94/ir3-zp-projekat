@@ -35,11 +35,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Mita
  */
-public class ExportPopup extends javax.swing.JFrame {
+public class ExportWindow extends javax.swing.JFrame {
     /**
      * Creates new form ExportPopup
      */
-    public ExportPopup(MainWindow parent, String alias) {
+    public ExportWindow(MainWindow parent, String alias) {
         this.parentFrame = parent;
         this.alias = alias;
         
@@ -487,6 +487,11 @@ public class ExportPopup extends javax.swing.JFrame {
         }});
      }
 
+    private void setStatus(String message, Color color) {
+        statusBarTextField.setForeground(color);
+        statusBarTextField.setText(message);
+    }
+    
     private Dimension screenSize;
     private Dimension frameSize;
     private Point leftCornerAnchor;

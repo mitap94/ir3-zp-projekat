@@ -31,12 +31,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Mita
  */
-public class ImportPopup extends javax.swing.JFrame {
+public class ImportWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form ImportPopup
      */
-    public ImportPopup(MainWindow parent) {
+    public ImportWindow(MainWindow parent) {
         this.parentFrame = parent;
         initComponents();
         myInitComponents();
@@ -441,6 +441,11 @@ public class ImportPopup extends javax.swing.JFrame {
             }
         }});
      }
+    
+    private void setStatus(String message, Color color) {
+        statusBarTextField.setForeground(color);
+        statusBarTextField.setText(message);
+    }
 
     private Dimension screenSize;
     private Dimension frameSize;

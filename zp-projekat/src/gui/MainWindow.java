@@ -2104,7 +2104,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         setStatus("", Messages.COLOR);
 
-        ExportPopup exportPopup = new ExportPopup(this, alias);
+        ExportWindow exportPopup = new ExportWindow(this, alias);
         exportPopup.setVisible(true);
 
         this.setEnabled(false);
@@ -2113,7 +2113,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
         setStatus("", Messages.COLOR);
 
-        ImportPopup importPopup = new ImportPopup(this);
+        ImportWindow importPopup = new ImportWindow(this);
         importPopup.setVisible(true);
 
         this.setEnabled(false);

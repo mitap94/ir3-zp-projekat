@@ -2,6 +2,7 @@ package gui;
 
 import crypto.CertManager;
 import crypto.CertManagerImpl;
+import java.awt.Color;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -24,12 +25,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Mita
  */
-public class PopupWindow extends javax.swing.JFrame {
+public class KeystoreWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form PopupWindow
      */
-    public PopupWindow() {
+    public KeystoreWindow() {
         initComponents();
         myInitComponents();
     }
@@ -190,16 +191,16 @@ public class PopupWindow extends javax.swing.JFrame {
     private void openKeystoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openKeystoreButtonActionPerformed
         String filePath = fileNameTextField.getText().trim();
         if (filePath.isEmpty()) {
-            JOptionPane.showMessageDialog(this, Errors.NO_FILE_PATH_SPECIFIED);
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_FILE_PATH_SPECIFIED);
+            JOptionPane.showMessageDialog(this, Errors.NO_FILE_PATH_SPECIFIED, "Warning", 
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_FILE_PATH_SPECIFIED, Errors.COLOR);
             return;
         }
         String password = new String(passwordField.getPassword());
         if (password.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED);
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_PASSWORD_SPECIFIED);
+            JOptionPane.showMessageDialog(this, Errors.NO_PASSWORD_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_PASSWORD_SPECIFIED, Errors.COLOR);
             return;
         }
         CertManager manager = new CertManagerImpl(filePath, password);
@@ -210,30 +211,27 @@ public class PopupWindow extends javax.swing.JFrame {
             mainWindow.setVisible(true);
             
         } catch (KeyStoreException ex) {
-            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error",
+                    JOptionPane.ERROR_MESSAGE);
             exit(Errors.KEY_STORE_EXCEPTION);
         } catch (IOException ex) {
-            // TODO(mitap94): proveri koji exception se baca za pogresnu sifru
-            // SecurityException za pogresnu sifru
             if (ex instanceof FileNotFoundException) {
-                JOptionPane.showMessageDialog(this, Errors.INVALID_FILE_PATH);
-                statusBarTextField.setForeground(Errors.COLOR);
-                statusBarTextField.setText(Errors.INVALID_FILE_PATH);
+                JOptionPane.showMessageDialog(this, Errors.INVALID_FILE_PATH, "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.INVALID_FILE_PATH, Errors.COLOR);
                 return;
             }
-            JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD);
-            statusBarTextField.setCaretColor(Errors.COLOR);
-            statusBarTextField.setText(ex.getCause().getLocalizedMessage() + " + " + ex.getCause().getClass());
-            if (ex.getCause() instanceof UnrecoverableKeyException) {
-                statusBarTextField.setForeground(Errors.COLOR);
-                statusBarTextField.setText(Errors.INVALID_PASSWORD);
-            }
+            JOptionPane.showMessageDialog(this, Errors.INVALID_PASSWORD, "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            setStatus(Errors.INVALID_PASSWORD, Errors.COLOR);
+            return;
         } catch (CertificateException ex) {
             JOptionPane.showMessageDialog(this, Errors.CERTIFICATE_CORRUPTION);
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.CERTIFICATE_CORRUPTION);
+            setStatus(Errors.CERTIFICATE_CORRUPTION, Errors.COLOR);
+            return;
         } catch (NoSuchAlgorithmException ex) {
-            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error", 
+                    JOptionPane.ERROR_MESSAGE);
             exit(Errors.NO_SUCH_ALGORITHM);
         }
     }//GEN-LAST:event_openKeystoreButtonActionPerformed
@@ -270,18 +268,22 @@ public class PopupWindow extends javax.swing.JFrame {
                 File file = new File(fileNameTextField.getText());
                 boolean fileExists = file.exists() && file.isFile();
                 if (!fileExists) {
-                    statusBarTextField.setForeground(Messages.COLOR1);
-                    statusBarTextField.setText(Messages.NEW_KEYSTORE_CREATION);
+                    setStatus(Messages.NEW_KEYSTORE_CREATION, Messages.COLOR1);
                 }
                 else {
-                    statusBarTextField.setText("");
+                    setStatus("", Color.black);
                 }
             }
             else {
-                statusBarTextField.setText("");
+                setStatus("", Color.black);
             }
         }});
      }
+     
+     private void setStatus(String message, Color color) {
+        statusBarTextField.setForeground(color);
+        statusBarTextField.setText(message);
+    }
      
     private Dimension screenSize;
     private Dimension frameSize;

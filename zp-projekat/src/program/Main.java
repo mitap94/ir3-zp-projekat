@@ -1,7 +1,7 @@
 package program;
 
 import gui.Errors;
-import gui.PopupWindow;
+import gui.KeystoreWindow;
 import javax.swing.JOptionPane;
 
 import static java.lang.System.exit;
@@ -24,7 +24,7 @@ public class Main {
             exit(Errors.BOUNCY_CASTLE_NOT_AVAILABLE);
         }
         
-        PopupWindow popupWindow = new PopupWindow();
+        KeystoreWindow popupWindow = new KeystoreWindow();
         popupWindow.setVisible(true);
     }
 }
