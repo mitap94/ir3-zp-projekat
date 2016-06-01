@@ -68,11 +68,6 @@ public class KeystoreWindow extends javax.swing.JFrame {
         statusBarTextField.setMinimumSize(new java.awt.Dimension(800, 17));
         statusBarTextField.setName(""); // NOI18N
         statusBarTextField.setPreferredSize(new java.awt.Dimension(800, 17));
-        statusBarTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusBarTextFieldActionPerformed(evt);
-            }
-        });
 
         chooseFilePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -170,10 +165,6 @@ public class KeystoreWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void statusBarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBarTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusBarTextFieldActionPerformed
 
     private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();

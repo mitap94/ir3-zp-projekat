@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.GeneralName;
@@ -475,10 +476,11 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                         break;
                 }
             } catch (Exception e) {
-                // TODO(mitap94): Obradi exception, alert neki
+                JOptionPane.showMessageDialog(this, Errors.EXTENSION_INVALID_FORMAT, "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             issuerAltNameTextArea.append(extName + ": " + extension + "\n");
         }
     }//GEN-LAST:event_addIssuerAltNameButtonActionPerformed
@@ -503,7 +505,6 @@ public class ExtensionsPopup extends javax.swing.JFrame {
     }
 
     private void loadExtensions() {
-        // TODO(mitap94): Ucitaj issuerAltNames
         if (extensions.extensions[0]) {
             basicConstraintsCheckBox.setSelected(true);
             basicConstraintsPanel.setVisible(true);
@@ -583,8 +584,11 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                 try {
                     Integer.parseInt(depthOfCertificateChainTextField.getText());
                 } catch (NumberFormatException e) {
-                    // TODO(mitap94): Uhvati exception
-
+                    JOptionPane.showMessageDialog(this, Errors.INVALID_NUMBER_FORMAT
+                            + Errors.INVALID_DEPTH, "Error", JOptionPane.ERROR_MESSAGE);
+                    parentFrame.setStatus(Errors.INVALID_NUMBER_FORMAT + " " + Errors.INVALID_DEPTH,
+                            Errors.COLOR);
+                    return;
                 }
                 extensions.basicConstrDepthOfCertChain = depthOfCertificateChainTextField.getText();
             }
@@ -637,8 +641,9 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                     extensions.issuerAltNames = new Extension(Extension.issuerAlternativeName,
                             issuerAltNameCriticalCheckBox.isSelected(), generalNames.getEncoded());
                 } catch (IOException ex) {
-                    // TODO(mitap94): Uhvati exception
-                    return;
+                    JOptionPane.showMessageDialog(this, Errors.EXTENSIONS_ERROR, "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    parentFrame.setStatus(Errors.EXTENSIONS_ERROR, Errors.COLOR);
                 }
             }
             extensions.issuerAltNamesString = issuerAltNameTextArea.getText();

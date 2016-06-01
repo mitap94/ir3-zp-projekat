@@ -11,7 +11,7 @@ public class Errors {
     public static final Color COLOR = Color.red;
     
     public static final String INVALID_NUMBER_FORMAT = "Illegal number format!";
-    public static final String INVALID_KEY_SIZE_FORMAT = "Key size must be in decimal format!.";
+    public static final String INVALID_KEY_SIZE_FORMAT = "Key size must be in decimal format!";
     public static final String KEY_SIZE_TOO_SMALL = "Key size must be at least 512 bits!";
     public static final String NO_KEY_NAME_SPECIFIED = "Specify the key name!";
     public static final String NO_KEY_SIZE_SPECIFIED = "No key size specified!";
@@ -44,6 +44,9 @@ public class Errors {
     public static final String NO_ENTRY_SELECTED = "You must select an entry from the list!";
     public static final String CSR_ERROR = "Unable to create CSR, try again!";
     public static final String ENCODING_ERROR = "Unable to extract certificate info!";
+    public static final String INVALID_DEPTH = "Depth of chain must be in decimal format!";
+    public static final String EXTENSIONS_ERROR = "Unable to create extensions!";
+    public static final String EXTENSION_INVALID_FORMAT = "Invalid extension format!";
     
     public static final String NO_FILE_PATH_SPECIFIED = "You must specify a file path!";
     public static final String INVALID_FILE_PATH = "Invalid file path!";

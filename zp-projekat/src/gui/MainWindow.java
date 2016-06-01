@@ -1985,7 +1985,10 @@ public class MainWindow extends javax.swing.JFrame {
                     int depthOfChain = Integer.parseInt(extensionsGUI.basicConstrDepthOfCertChain);
                     basicConstraints = new BasicConstraints(depthOfChain);
                 } catch (NumberFormatException e) {
-                    // TODO(mitap94): Uhvati exception;
+                    JOptionPane.showMessageDialog(this, Errors.INVALID_NUMBER_FORMAT
+                            + Errors.INVALID_DEPTH, "Error", JOptionPane.ERROR_MESSAGE);
+                    setStatus(Errors.INVALID_NUMBER_FORMAT + " " + Errors.INVALID_DEPTH,
+                            Errors.COLOR);
                     return;
                 }
             } else {
@@ -1997,7 +2000,9 @@ public class MainWindow extends javax.swing.JFrame {
                 basicConstraintsExt = new Extension(Extension.basicConstraints, extensionsGUI.critical[0],
                         basicConstraints.getEncoded());
             } catch (IOException ex) {
-                // TODO(mitap94): Uhvati exception
+                JOptionPane.showMessageDialog(this, Errors.EXTENSIONS_ERROR, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setStatus(Errors.EXTENSIONS_ERROR, Errors.COLOR);
                 return;
             }
             builder.addExtension(basicConstraintsExt);
@@ -2041,7 +2046,9 @@ public class MainWindow extends javax.swing.JFrame {
                     keyUsageExt = new Extension(Extension.keyUsage, extensionsGUI.critical[1],
                             keyUsage.getEncoded());
                 } catch (IOException ex) {
-                    // TODO(mitap94): uhvati izuzetak
+                    JOptionPane.showMessageDialog(this, Errors.EXTENSIONS_ERROR, "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    setStatus(Errors.EXTENSIONS_ERROR, Errors.COLOR);
                     return;
                 }
                 builder.addExtension(keyUsageExt);
