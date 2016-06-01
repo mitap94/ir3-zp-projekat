@@ -1112,7 +1112,7 @@
                               <Component id="viewCSRButton" linkSize="49" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="exportCSRButton" linkSize="49" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="13" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Component id="keyGenerationSeparator5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -1136,7 +1136,7 @@
                               <Component id="previewEncodedCertificateButton" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="previewCertificateButton" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="69" max="32767" attributes="0"/>
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
