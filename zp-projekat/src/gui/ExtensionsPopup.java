@@ -585,7 +585,7 @@ public class ExtensionsPopup extends javax.swing.JFrame {
                     Integer.parseInt(depthOfCertificateChainTextField.getText());
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, Errors.INVALID_NUMBER_FORMAT
-                            + Errors.INVALID_DEPTH, "Error", JOptionPane.ERROR_MESSAGE);
+                            + " " + Errors.INVALID_DEPTH, "Error", JOptionPane.ERROR_MESSAGE);
                     parentFrame.setStatus(Errors.INVALID_NUMBER_FORMAT + " " + Errors.INVALID_DEPTH,
                             Errors.COLOR);
                     return;

@@ -1788,23 +1788,24 @@ public class MainWindow extends javax.swing.JFrame {
     private void saveKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveKeyButtonActionPerformed
         // can't continue if extensions not saved
         if (extensionsPopup.isShowing()) {
-            JOptionPane.showMessageDialog(extensionsPopup, Errors.SAVE_EXTENSIONS);
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.SAVE_EXTENSIONS);
+            JOptionPane.showMessageDialog(extensionsPopup, Errors.SAVE_EXTENSIONS, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.SAVE_EXTENSIONS, Errors.COLOR);
             return;
         }
 
         if (keyContainer.getKeys() == null) {
-            JOptionPane.showMessageDialog(this, Errors.NO_KEYS_GENERATED);
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_KEYS_GENERATED);
+            JOptionPane.showMessageDialog(this, Errors.NO_KEYS_GENERATED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_KEYS_GENERATED, Errors.COLOR);
             return;
         }
 
         String serialNumber = serialNumberTextField.getText();
         if (serialNumber.trim().isEmpty()) {
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_SERIAL_NUMBER_SPECIFIED);
+            JOptionPane.showMessageDialog(this, Errors.NO_SERIAL_NUMBER_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_SERIAL_NUMBER_SPECIFIED, Errors.COLOR);
             return;
         }
 
@@ -1812,23 +1813,26 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             serialNumberInt = new BigInteger(serialNumber);
         } catch (NumberFormatException e) {
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.INVALID_NUMBER_FORMAT + " "
-                    + Errors.INVALID_SERIAL_NUMBER_FORMAT);
+            JOptionPane.showMessageDialog(this, Errors.INVALID_NUMBER_FORMAT + " " 
+                    + Errors.INVALID_SERIAL_NUMBER_FORMAT, "Warning", JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.INVALID_NUMBER_FORMAT + " " + Errors.INVALID_SERIAL_NUMBER_FORMAT,
+                    Errors.COLOR);
             return;
         }
 
         String dateNotBeforeString = dateNotBeforeTextField.getText();
         if (dateNotBeforeString.trim().isEmpty()) {
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_DATE_SPECIFIED);
+            JOptionPane.showMessageDialog(this, Errors.NO_DATE_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_DATE_SPECIFIED, Errors.COLOR);
             return;
         }
 
         String dateNotAfterString = dateNotAfterTextField.getText();
         if (dateNotAfterString.trim().isEmpty()) {
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.NO_DATE_SPECIFIED);
+            JOptionPane.showMessageDialog(this, Errors.NO_DATE_SPECIFIED, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.NO_DATE_SPECIFIED, Errors.COLOR);
             return;
         }
 
@@ -1892,8 +1896,9 @@ public class MainWindow extends javax.swing.JFrame {
             Pattern validEmailRegex = Pattern.compile(EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
             Matcher matcher = validEmailRegex.matcher(email);
             if (!matcher.find()) {
-                statusBarTextField.setForeground(Errors.COLOR);
-                statusBarTextField.setText(Errors.INVALID_EMAIL_ADDRESS);
+                JOptionPane.showMessageDialog(this, Errors.INVALID_EMAIL_ADDRESS, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+                setStatus(Errors.INVALID_EMAIL_ADDRESS, Errors.COLOR);
                 return;
             }
         }
@@ -1906,15 +1911,17 @@ public class MainWindow extends javax.swing.JFrame {
             dateNotBefore = dateFormat.parse(dateNotBeforeString);
             dateNotAfter = dateFormat.parse(dateNotAfterString);
         } catch (ParseException e) {
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.INVALID_DATE_FORMAT);
+            JOptionPane.showMessageDialog(this, Errors.INVALID_DATE_FORMAT, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.INVALID_DATE_FORMAT, Errors.COLOR);
             return;
         }
 
         long dateDifference = dateNotAfter.getTime() - dateNotBefore.getTime();
         if (dateDifference < 0) {
-            statusBarTextField.setForeground(Errors.COLOR);
-            statusBarTextField.setText(Errors.INVALID_DATE_ORDER);
+            JOptionPane.showMessageDialog(this, Errors.INVALID_DATE_ORDER, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            setStatus(Errors.INVALID_DATE_ORDER, Errors.COLOR);
             return;
         }
 
@@ -2080,7 +2087,8 @@ public class MainWindow extends javax.swing.JFrame {
             manager.storeKeyCertificate(keyContainer.getKeys().getPrivate(), certificate,
                     keyContainer.getKeyName(), password);
         } catch (KeyStoreException ex) {
-            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR);
+            JOptionPane.showMessageDialog(this, Errors.CRITICAL_ERROR, "Error", 
+                    JOptionPane.ERROR_MESSAGE);
             exit(Errors.KEY_STORE_EXCEPTION);
         }
 
@@ -2089,7 +2097,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         // show success message
         JOptionPane.showMessageDialog(this, Messages.SUCCESSFUL_KEY_SAVE
-                + keyContainer.getKeyName());
+                + keyContainer.getKeyName(), "Message", JOptionPane.INFORMATION_MESSAGE);
 
         // clear fields and objects
         String alias = keyContainer.getKeyName();
